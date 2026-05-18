@@ -19,8 +19,8 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
       META_APP_SECRET: ${META_APP_SECRET}
       AUTOMATION_CRON_SECRET: ${AUTOMATION_CRON_SECRET:-}
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/ >/dev/null 2>&1 || exit 1"]
       interval: 30s
