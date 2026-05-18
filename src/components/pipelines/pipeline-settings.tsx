@@ -79,7 +79,7 @@ export function PipelineSettings({
   const [deleting, setDeleting] = useState(false);
 
   // Reset form state when the dialog opens or its prop inputs change
-  // — legitimate prop-driven sync.
+  // - legitimate prop-driven sync.
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!open) return;
@@ -105,7 +105,7 @@ export function PipelineSettings({
   async function handleSave() {
     setSaving(true);
 
-    // One upsert for all stages — batches N stage writes into a single
+    // One upsert for all stages - batches N stage writes into a single
     // round-trip. Previous implementation did N sequential UPDATEs which
     // latency-scaled linearly with stage count.
     const stageRows = localStages.map((s, i) => ({
@@ -201,7 +201,7 @@ export function PipelineSettings({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md bg-slate-900 border-slate-700 max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-white">Manage Pipeline</DialogTitle>
+          <DialogTitle className="text-white">Gerer le pipeline</DialogTitle>
         </DialogHeader>
 
         {showDeleteConfirm ? (
@@ -210,7 +210,7 @@ export function PipelineSettings({
               <AlertTriangle className="h-5 w-5 shrink-0 text-red-400" />
               <div>
                 <p className="text-sm font-medium text-red-400">
-                  Delete Pipeline
+                  Supprimer le pipeline
                 </p>
                 <p className="mt-1 text-xs text-slate-400">
                   This will archive all deals in this pipeline. This cannot be
@@ -224,14 +224,14 @@ export function PipelineSettings({
                 onClick={() => setShowDeleteConfirm(false)}
                 className="border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
               >
-                Cancel
+                Annuler
               </Button>
               <Button
                 onClick={handleDeletePipeline}
                 disabled={deleting}
                 className="bg-red-600 text-white hover:bg-red-700"
               >
-                {deleting ? "Deleting..." : "Delete Pipeline"}
+                {deleting ? "Suppression..." : "Supprimer le pipeline"}
               </Button>
             </div>
           </div>
@@ -239,7 +239,7 @@ export function PipelineSettings({
           <>
             <div className="grid gap-4 py-2">
               <div className="grid gap-2">
-                <Label className="text-slate-300">Pipeline Name</Label>
+                <Label className="text-slate-300">Nom du pipeline</Label>
                 <Input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -248,7 +248,7 @@ export function PipelineSettings({
               </div>
 
               <div className="grid gap-2">
-                <Label className="text-slate-300">Stages</Label>
+                <Label className="text-slate-300">Etapes</Label>
                 <DndContext
                   sensors={sensors}
                   collisionDetection={closestCenter}
@@ -302,7 +302,7 @@ export function PipelineSettings({
                   <Input
                     value={newStageName}
                     onChange={(e) => setNewStageName(e.target.value)}
-                    placeholder="New stage name"
+                    placeholder="Nom de la nouvelle etape"
                     className="border-slate-700 bg-slate-800 text-sm text-white"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") handleAddStage();
@@ -327,7 +327,7 @@ export function PipelineSettings({
                 className="w-full border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
               >
                 <Plus className="mr-1 h-3 w-3" />
-                Create a new pipeline
+                Creer un nouveau pipeline
               </Button>
             </div>
 
@@ -337,21 +337,21 @@ export function PipelineSettings({
                 onClick={() => setShowDeleteConfirm(true)}
                 className="mr-auto bg-red-600 hover:bg-red-700"
               >
-                Delete Pipeline
+                Supprimer le pipeline
               </Button>
               <Button
                 variant="outline"
                 onClick={() => onOpenChange(false)}
                 className="border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
               >
-                Cancel
+                Annuler
               </Button>
               <Button
                 onClick={handleSave}
                 disabled={saving || !name.trim()}
                 className="bg-violet-600 text-white hover:bg-violet-700"
               >
-                {saving ? "Saving..." : "Save Changes"}
+                {saving ? "Enregistrement..." : "Enregistrer les modifications"}
               </Button>
             </DialogFooter>
           </>

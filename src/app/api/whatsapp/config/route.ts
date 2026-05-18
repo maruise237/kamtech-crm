@@ -6,7 +6,7 @@ import { encrypt, decrypt } from '@/lib/whatsapp/encryption'
 /**
  * GET /api/whatsapp/config
  *
- * Used by the "Test API Connection" button and by the page to check
+ * Used by the "Tester la connexion API" button and by the page to check
  * whether the saved config is healthy. Returns 200 in all non-auth cases
  * so the UI can render an appropriate message rather than show a 500.
  *
@@ -48,7 +48,7 @@ export async function GET() {
         {
           connected: false,
           reason: 'no_config',
-          message: 'No WhatsApp configuration saved yet. Fill in the form and click Save Configuration.',
+          message: 'Aucune configuration WhatsApp enregistree. Remplissez le formulaire et cliquez sur Enregistrer la configuration.',
         },
         { status: 200 }
       )
@@ -67,7 +67,7 @@ export async function GET() {
           reason: 'token_corrupted',
           needs_reset: true,
           message:
-            'The stored access token cannot be decrypted with the current ENCRYPTION_KEY. This usually means the key changed, or it differs between environments (local vs Hostinger vs Vercel). Click "Reset Configuration" below, then re-save.',
+            'The stored access token cannot be decrypted with the current ENCRYPTION_KEY. This usually means the key changed, or it differs between environments (local vs Hostinger vs Vercel). Click "Reinitialiser la configuration" below, then re-save.',
         },
         { status: 200 }
       )
@@ -164,7 +164,7 @@ export async function POST(request: Request) {
       )
     }
 
-    // Upsert — overwrite any existing (possibly corrupted) config
+    // Upsert - overwrite any existing (possibly corrupted) config
     const { data: existing } = await supabase
       .from('whatsapp_config')
       .select('id')
@@ -208,7 +208,7 @@ export async function POST(request: Request) {
       if (insertError) {
         console.error('Error inserting whatsapp_config:', insertError)
         return NextResponse.json(
-          { error: 'Failed to save configuration' },
+          { error: 'Impossible d enregistrer la configuration' },
           { status: 500 }
         )
       }
@@ -225,7 +225,7 @@ export async function POST(request: Request) {
  * DELETE /api/whatsapp/config
  *
  * Removes the authenticated user's WhatsApp configuration row.
- * Used by the "Reset Configuration" button to recover from a corrupted
+ * Used by the "Reinitialiser la configuration" button to recover from a corrupted
  * encrypted token (mismatched ENCRYPTION_KEY across environments).
  */
 export async function DELETE() {

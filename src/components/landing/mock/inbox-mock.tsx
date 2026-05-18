@@ -1,14 +1,14 @@
 import { MessageSquare, Search } from 'lucide-react'
 
 /**
- * Miniature of the app's shared inbox. Pure CSS — no real data, no
+ * Miniature of the app's shared inbox. Pure CSS - no real data, no
  * supabase calls. Used in the hero and the inbox feature spotlight.
  * Kept stateless and presentational so the page renders fast.
  */
 export function InboxMock() {
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl">
-      {/* Fake window chrome — makes the mock read as "a product", not
+      {/* Fake window chrome - makes the mock read as "a product", not
           an abstract component. */}
       <div className="flex items-center gap-1.5 border-b border-slate-800 bg-slate-900 px-3 py-2">
         <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
@@ -24,7 +24,7 @@ export function InboxMock() {
         <div className="border-r border-slate-800 bg-slate-900/60">
           <div className="flex items-center gap-2 border-b border-slate-800 px-3 py-2">
             <Search className="h-3 w-3 text-slate-500" />
-            <span className="text-[10px] text-slate-500">Search</span>
+            <span className="text-[10px] text-slate-500">Rechercher</span>
           </div>
           {[
             { name: 'Aisha', preview: 'Thanks! Received it.', unread: false, active: true },
@@ -72,7 +72,7 @@ export function InboxMock() {
               Hi! Is the kit available in large?
             </div>
             <div className="ml-auto max-w-[75%] rounded-2xl rounded-br-sm bg-violet-500 px-3 py-2 text-xs text-white">
-              Yes — shipping today 📦
+              Yes - shipping today ðŸ“¦
             </div>
             <div className="mr-auto max-w-[75%] rounded-2xl rounded-bl-sm bg-slate-800 px-3 py-2 text-xs text-slate-200">
               Thanks! Received it.

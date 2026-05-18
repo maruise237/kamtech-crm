@@ -27,7 +27,7 @@ import { Label } from "@/components/ui/label";
 import { GitBranch, Plus, ChevronDown, Settings } from "lucide-react";
 import { toast } from "sonner";
 
-// Spec-defined seed — name and color per the product spec.
+// Spec-defined seed - name and color per the product spec.
 const SPEC_DEFAULT_STAGES = [
   { name: "New Lead", color: "#3b82f6", position: 0 }, // blue
   { name: "Qualified", color: "#eab308", position: 1 }, // yellow
@@ -201,7 +201,7 @@ export default function PipelinesPage() {
 
   const handleDealMoved = useCallback(
     async (dealId: string, newStageId: string) => {
-      // Optimistic update — board already animated; just persist.
+      // Optimistic update - board already animated; just persist.
       setDeals((prev) =>
         prev.map((d) => (d.id === dealId ? { ...d, stage_id: newStageId } : d)),
       );
@@ -304,7 +304,7 @@ export default function PipelinesPage() {
             >
               <GitBranch className="h-4 w-4 text-violet-500" />
               <span className="font-semibold">
-                {selectedPipeline?.name ?? "Select Pipeline"}
+                {selectedPipeline?.name ?? "Selectionner un pipeline"}
               </span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </DropdownMenuTrigger>
@@ -373,14 +373,14 @@ export default function PipelinesPage() {
             No pipelines yet
           </h3>
           <p className="mt-2 text-sm text-slate-400">
-            Create a pipeline to start tracking deals
+            Creez un pipeline pour commencer a suivre vos opportunites
           </p>
           <Button
             onClick={() => setNewPipelineOpen(true)}
             className="mt-4 bg-violet-600 text-white hover:bg-violet-700"
           >
             <Plus className="mr-1 h-4 w-4" />
-            Create Pipeline
+            Creer un pipeline
           </Button>
         </div>
       ) : (
@@ -400,10 +400,10 @@ export default function PipelinesPage() {
       <Dialog open={newPipelineOpen} onOpenChange={setNewPipelineOpen}>
         <DialogContent className="sm:max-w-sm bg-slate-900 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-white">New Pipeline</DialogTitle>
+            <DialogTitle className="text-white">Nouveau pipeline</DialogTitle>
           </DialogHeader>
           <div className="py-2">
-            <Label className="text-slate-300">Pipeline Name</Label>
+            <Label className="text-slate-300">Nom du pipeline</Label>
             <Input
               value={newPipelineName}
               onChange={(e) => setNewPipelineName(e.target.value)}
@@ -414,7 +414,7 @@ export default function PipelinesPage() {
               }}
             />
             <p className="mt-2 text-xs text-slate-400">
-              Default stages (New Lead → Won) will be created automatically.
+              Les etapes par defaut (Nouveau prospect &rarr; Gagne) seront creees automatiquement.
             </p>
           </div>
           <DialogFooter className="bg-slate-900/50 border-slate-700">
@@ -423,14 +423,14 @@ export default function PipelinesPage() {
               onClick={() => setNewPipelineOpen(false)}
               className="border-slate-700 text-slate-300 hover:bg-slate-800"
             >
-              Cancel
+              Annuler
             </Button>
             <Button
               onClick={handleCreatePipeline}
               disabled={creating || !newPipelineName.trim()}
               className="bg-violet-600 text-white hover:bg-violet-700"
             >
-              {creating ? "Creating..." : "Create Pipeline"}
+              {creating ? "Creation..." : "Creer le pipeline"}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -14,7 +14,7 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
   return (
     <section className="flex h-full flex-col rounded-xl border border-slate-800 bg-slate-900">
       <header className="border-b border-slate-800 px-5 py-4">
-        <h2 className="text-sm font-semibold text-white">Pipeline Value</h2>
+        <h2 className="text-sm font-semibold text-white">Valeur du pipeline</h2>
         <p className="mt-0.5 text-xs text-slate-500">
           Open deals by stage
         </p>
@@ -26,8 +26,8 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
         ) : data.stages.length === 0 ? (
           <EmptyState
             icon={GitBranch}
-            title="No open deals yet"
-            hint="Create deals in Pipelines to see stage breakdowns here."
+            title="Aucune opportunite ouverte"
+            hint="Creez des opportunites dans Pipelines pour voir la repartition par etape."
           />
         ) : (
           <>
@@ -58,8 +58,8 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
 }
 
 // ------------------------------------------------------------
-// SVG ring. 200×200 viewBox, 12px ring width. We draw one <path>
-// per stage using an SVG arc from startAngle → endAngle. Gaps
+// SVG ring. 200Ã—200 viewBox, 12px ring width. We draw one <path>
+// per stage using an SVG arc from startAngle -> endAngle. Gaps
 // between segments are implied by a thin slate-900 stroke between
 // them for a cleaner look.
 // ------------------------------------------------------------
@@ -80,7 +80,7 @@ function Donut({ data }: { data: PipelineDonutData }) {
   const floorSum = floored.reduce((a, b) => a + b, 0)
   const shares = floored.map((x) => x / floorSum)
 
-  // Build a cumulative-offset array, then map stages → arc paths. Using
+  // Build a cumulative-offset array, then map stages -> arc paths. Using
   // a pre-computed offsets array avoids the Next 16 React Compiler's
   // "Cannot reassign variable after render completes" rule.
   const offsets: number[] = [0]

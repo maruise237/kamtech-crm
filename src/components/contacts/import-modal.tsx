@@ -126,7 +126,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
         data: { session },
       } = await supabase.auth.getSession();
       const user = session?.user;
-      if (!user) throw new Error('Not authenticated');
+      if (!user) throw new Error('Non authentifie');
 
       let imported = 0;
       let failed = 0;
@@ -185,7 +185,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="bg-slate-900 border-slate-700 text-slate-200 sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="text-white">Import Contacts</DialogTitle>
+          <DialogTitle className="text-white">Importer des contacts</DialogTitle>
           <DialogDescription className="text-slate-400">
             Upload a CSV file with a &quot;phone&quot; column (required). Optional columns:
             name, email, company.
@@ -210,7 +210,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
               <>
                 <Upload className="size-8 text-slate-500" />
                 <p className="text-sm text-slate-400">
-                  Click to upload CSV file
+                  Cliquez pour televerser un fichier CSV
                 </p>
                 <p className="text-xs text-slate-500">
                   CSV with &quot;phone&quot; column required
@@ -237,10 +237,10 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="bg-slate-800">
-                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Phone</th>
-                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Name</th>
-                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Email</th>
-                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Company</th>
+                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Telephone</th>
+                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Nom</th>
+                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">E-mail</th>
+                      <th className="px-3 py-1.5 text-left text-slate-400 font-medium">Entreprise</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -266,7 +266,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
           {/* Results */}
           {result && (
             <div className="rounded-lg border border-slate-700 p-4 space-y-2">
-              <p className="text-sm font-medium text-white">Import Complete</p>
+              <p className="text-sm font-medium text-white">Importation terminee</p>
               <div className="flex items-center gap-4">
                 {result.imported > 0 && (
                   <div className="flex items-center gap-1.5 text-violet-400 text-sm">
@@ -292,7 +292,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
             onClick={() => handleOpenChange(false)}
             className="border-slate-700 text-slate-300 hover:bg-slate-800"
           >
-            {result ? 'Close' : 'Cancel'}
+            {result ? 'Close' : 'Annuler'}
           </Button>
           {!result && (
             <Button

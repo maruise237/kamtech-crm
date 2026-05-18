@@ -1,63 +1,44 @@
-# Environment variables
+# Variables d environnement
 
-All runtime configuration lives in `.env.local` during development and in
-your host's environment settings in production. `.env.local.example` is a
-minimal template; the table below is the full reference.
+Toute la configuration se fait dans `.env.local` en developpement et dans les variables d environnement de l hebergeur en production.
 
-## Required
+## Obligatoires
 
-| Variable                          | Where to find it                                                     | Notes                                                                 |
-| --------------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`        | Supabase → Project Settings → API → **Project URL**                  | Public. Shipped to the browser.                                       |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY`   | Supabase → Project Settings → API → **anon / public** key            | Public. Relies on RLS for safety.                                     |
-| `SUPABASE_SERVICE_ROLE_KEY`       | Supabase → Project Settings → API → **service_role** key             | **Secret.** Bypasses RLS. Used by webhook + admin routes only.        |
-| `ENCRYPTION_KEY`                  | Generate: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` | 64 hex chars (32 bytes, AES-256-CBC). **Rotating breaks existing tokens.** |
-| `META_APP_SECRET`                 | Meta → App Settings → Basic → **App Secret**                         | Verifies the `X-Hub-Signature-256` HMAC on every inbound webhook. **Without it the webhook rejects every request** — a public deploy cannot receive messages until this is set. |
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL du projet Supabase. Publique. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Cle anon/public Supabase. Publique, protegee par RLS. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Cle service-role Supabase. Secrete. |
+| `ENCRYPTION_KEY` | Cle hex de 64 caracteres pour chiffrer les jetons WhatsApp. |
+| `META_APP_SECRET` | Secret de l application Meta pour verifier les signatures webhook. |
 
-## Recommended
+## Recommandee
 
-| Variable               | Purpose                                                                                  |
-| ---------------------- | ---------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical public URL (e.g., `https://crm.example.com`). Used for absolute URLs, sitemap, OG images. |
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | URL publique canonique, par exemple `https://crm.example.com`. |
 
-## Optional
+## Facultative
 
-| Variable                    | Purpose                                                                                                  |
-| --------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `AUTOMATION_CRON_SECRET`    | Shared secret that protects `GET /api/automations/cron`. Required if you schedule the automations drain. See [automations-and-cron.md](./automations-and-cron.md). |
+| Variable | Description |
+| --- | --- |
+| `AUTOMATION_CRON_SECRET` | Secret partage pour proteger `GET /api/automations/cron`. |
 
-## Sample `.env.local`
+## Exemple
 
 ```bash
-# Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://abcd1234.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOi...
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOi...
-
-# Meta App Secret — required for webhook signature verification
 META_APP_SECRET=abcdef0123456789...
-
-# Encryption — DO NOT change after first deploy
 ENCRYPTION_KEY=3f9c0a7e4d8b2f1a6c5e8d4b9f0a2c6e8d4b9f0a2c6e8d4b9f0a2c6e8d4b9f0a
-
-# Public URL
 NEXT_PUBLIC_SITE_URL=https://crm.example.com
-
-# Automation cron
-AUTOMATION_CRON_SECRET=generate-a-long-random-string
+AUTOMATION_CRON_SECRET=une-longue-valeur-aleatoire
 ```
 
-## Security checklist
+## Checklist securite
 
-- Never commit `.env.local`. The repo already ignores it.
-- On Hostinger Managed Node.js (and any other host), set env vars via the
-  platform's **Environment variables** panel rather than writing them
-  into a tracked file on disk.
-- Rotate `SUPABASE_SERVICE_ROLE_KEY` if it leaks — Supabase lets you
-  regenerate it under Project Settings → API.
-- Treat `ENCRYPTION_KEY` like a database master key. Losing it means
-  connected WhatsApp® accounts must reconnect; rotating it means the same.
-
-## Next step
-
-[Deploy on Hostinger →](./deployment-hostinger.md)
+- Ne commitez jamais `.env.local`.
+- Configurez les secrets dans Dokploy ou dans l hebergeur.
+- Regénérez `SUPABASE_SERVICE_ROLE_KEY` si elle fuit.
+- Gardez `ENCRYPTION_KEY` stable apres le premier deploiement.

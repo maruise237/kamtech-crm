@@ -31,7 +31,7 @@ export default function InboxPage() {
     null
   );
 
-  // Fire the deep-link auto-select exactly once per URL — subsequent
+  // Fire the deep-link auto-select exactly once per URL - subsequent
   // list refreshes (realtime, manual refetch) must not snap the user
   // back to the deep-linked conversation if they've already clicked
   // elsewhere.
@@ -48,7 +48,7 @@ export default function InboxPage() {
 
       if (!user) return;
 
-      // Table is `whatsapp_config` (singular) — the previous "whatsapp_configs"
+      // Table is `whatsapp_config` (singular) - the previous "whatsapp_configs"
       // query always returned no rows, so the banner always showed "not connected".
       const { data } = await supabase
         .from("whatsapp_config")
@@ -152,7 +152,7 @@ export default function InboxPage() {
   const handleConversationsLoaded = useCallback(
     (loaded: Conversation[]) => {
       setConversations(loaded);
-      // Resolve a pending deep-link here rather than in an effect — this
+      // Resolve a pending deep-link here rather than in an effect - this
       // is an event handler, so the setState calls below are allowed by
       // react-hooks/set-state-in-effect. Runs once per ?c=<id> URL value
       // via the ref, so realtime refreshes of the list can't snap the
@@ -168,9 +168,9 @@ export default function InboxPage() {
         // router.replace()'d the URL, which made the ConversationList
         // refetch and land us back here), do NOT re-apply it. Doing so
         // would setMessages([]) on a thread whose messages have
-        // already been loaded by MessageThread — and because
+        // already been loaded by MessageThread - and because
         // conversationId didn't change, MessageThread wouldn't
-        // refetch. The thread would read "No messages yet" until a
+        // refetch. The thread would read "Aucun message pour le moment" until a
         // full page reload rehydrated state from scratch.
         if (activeConversation?.id === deepLinkConvId) return;
         const match = loaded.find((c) => c.id === deepLinkConvId);
@@ -188,7 +188,7 @@ export default function InboxPage() {
     (conv: Conversation) => {
       // Re-clicking the already-active conversation would clear the
       // messages array, but the fetch effect in MessageThread only re-runs
-      // when conversationId changes — so messages would stay empty until
+      // when conversationId changes - so messages would stay empty until
       // the user navigated away and back. Bail out early instead.
       if (activeConversation?.id === conv.id) return;
       setActiveConversation(conv);
@@ -210,7 +210,7 @@ export default function InboxPage() {
     [activeConversation?.id, router]
   );
 
-  // Mobile "back" — deselect the conversation so the list pane comes
+  // Mobile "back" - deselect the conversation so the list pane comes
   // back. Also clears the ?c= param so a refresh lands on the list
   // instead of re-opening the thread the user just backed out of.
   const handleCloseConversation = useCallback(() => {
@@ -218,7 +218,7 @@ export default function InboxPage() {
     setActiveContact(null);
     setMessages([]);
     // Clearing the ref lets the deep-link auto-selector fire again if
-    // the user later visits /inbox?c=<same-id> — desirable UX.
+    // the user later visits /inbox?c=<same-id> - desirable UX.
     autoSelectedForDeepLinkRef.current = null;
     router.replace("/inbox", { scroll: false });
   }, [router]);
@@ -256,8 +256,8 @@ export default function InboxPage() {
     [activeConversation]
   );
 
-  // On mobile (<lg) we show a SINGLE pane — either the list or the
-  // thread — rather than cramming both side-by-side. Selecting a
+  // On mobile (<lg) we show a SINGLE pane - either the list or the
+  // thread - rather than cramming both side-by-side. Selecting a
   // conversation slides the thread in; the thread's back button pops
   // it back to the list. On lg+ both panes render side-by-side as
   // before, unchanged.
@@ -265,13 +265,13 @@ export default function InboxPage() {
 
   return (
     <div className="-m-4 flex h-[calc(100vh-3.5rem)] flex-col overflow-hidden sm:-m-6">
-      {/* WhatsApp connection banner — in the flex column, not absolute,
+      {/* WhatsApp connection banner - in the flex column, not absolute,
           so it pushes the panels down instead of overlapping them. */}
       {whatsappConnected === false && (
         <div className="flex shrink-0 items-center justify-center gap-2 border-b border-amber-500/20 bg-amber-500/10 px-4 py-2">
           <WifiOff className="h-4 w-4 text-amber-400" />
           <p className="text-xs text-amber-400">
-            WhatsApp® is not connected. Go to Settings to connect your account.
+            WhatsApp n est pas connecte. Allez dans les parametres pour connecter votre compte.
           </p>
         </div>
       )}
@@ -316,7 +316,7 @@ export default function InboxPage() {
           />
         </div>
 
-        {/* Right panel: Contact sidebar — desktop only. */}
+        {/* Right panel: Contact sidebar - desktop only. */}
         <div className="hidden lg:block">
           <ContactSidebar contact={activeContact} />
         </div>

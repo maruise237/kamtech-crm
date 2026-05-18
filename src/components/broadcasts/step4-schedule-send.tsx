@@ -94,7 +94,7 @@ export function Step4ScheduleSend({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-semibold text-white">Review & Send</h2>
+        <h2 className="text-lg font-semibold text-white">Verifier et envoyer</h2>
         <p className="mt-1 text-sm text-slate-400">
           Name your broadcast, review the details, and send.
         </p>
@@ -102,7 +102,7 @@ export function Step4ScheduleSend({
 
       {/* Broadcast Name */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-white">Broadcast Name</label>
+        <label className="mb-1.5 block text-sm font-medium text-white">Nom de la diffusion</label>
         <Input
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
@@ -113,10 +113,10 @@ export function Step4ScheduleSend({
 
       {/* Summary Card */}
       <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-3">
-        <p className="text-sm font-medium text-white">Summary</p>
+        <p className="text-sm font-medium text-white">Resume</p>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div>
-            <p className="text-xs text-slate-400">Template</p>
+            <p className="text-xs text-slate-400">Modele</p>
             <p className="text-white">{template.name}</p>
           </div>
           <div>
@@ -124,7 +124,7 @@ export function Step4ScheduleSend({
             <p className="text-white">{audienceLabel}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-400">Estimated Reach</p>
+            <p className="text-xs text-slate-400">Portee estimee</p>
             <div className="flex items-center gap-1.5">
               {loadingReach ? (
                 <Loader2 className="h-3 w-3 animate-spin text-violet-500" />
@@ -137,7 +137,7 @@ export function Step4ScheduleSend({
             </div>
           </div>
           <div>
-            <p className="text-xs text-slate-400">Language</p>
+            <p className="text-xs text-slate-400">Langue</p>
             <p className="text-white">{template.language ?? 'en_US'}</p>
           </div>
         </div>
@@ -145,7 +145,7 @@ export function Step4ScheduleSend({
 
       {/* Delivery Timing */}
       <div className="space-y-3">
-        <p className="text-sm font-medium text-white">Delivery Timing</p>
+        <p className="text-sm font-medium text-white">Moment d envoi</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
             onClick={() => setTiming('now')}
@@ -157,8 +157,8 @@ export function Step4ScheduleSend({
           >
             <Send className={`mt-0.5 h-4 w-4 ${timing === 'now' ? 'text-violet-400' : 'text-slate-400'}`} />
             <div>
-              <p className="text-sm font-medium text-white">Send Immediately</p>
-              <p className="mt-0.5 text-xs text-slate-400">Start sending right away</p>
+              <p className="text-sm font-medium text-white">Envoyer immediatement</p>
+              <p className="mt-0.5 text-xs text-slate-400">Commencer l envoi tout de suite</p>
             </div>
           </button>
 
@@ -166,13 +166,13 @@ export function Step4ScheduleSend({
             <Clock className="mt-0.5 h-4 w-4 text-slate-500" />
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-sm font-medium text-slate-400">Schedule for Later</p>
+                <p className="text-sm font-medium text-slate-400">Programmer pour plus tard</p>
                 <span className="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-medium text-slate-400">
                   <Lock className="h-2.5 w-2.5" />
                   Pro
                 </span>
               </div>
-              <p className="mt-0.5 text-xs text-slate-500">Pick a date and time</p>
+              <p className="mt-0.5 text-xs text-slate-500">Choisir une date et une heure</p>
             </div>
           </div>
         </div>
@@ -184,7 +184,7 @@ export function Step4ScheduleSend({
           <div className="mb-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Loader2 className="h-4 w-4 animate-spin text-violet-500" />
-              <p className="text-sm font-medium text-white">Sending broadcast...</p>
+              <p className="text-sm font-medium text-white">Envoi de la diffusion...</p>
             </div>
             <span className="text-xs font-medium text-violet-400">{progress}%</span>
           </div>
@@ -235,7 +235,7 @@ export function Step4ScheduleSend({
           </DialogTrigger>
           <DialogContent className="border-slate-700 bg-slate-900 sm:max-w-md">
             <DialogHeader>
-              <DialogTitle className="text-white">Confirm Broadcast</DialogTitle>
+              <DialogTitle className="text-white">Confirmer la diffusion</DialogTitle>
               <DialogDescription className="text-slate-400">
                 You are about to send this broadcast to{' '}
                 <span className="font-medium text-white">{estimatedReach.toLocaleString()}</span>{' '}
@@ -250,7 +250,7 @@ export function Step4ScheduleSend({
                 onClick={() => setShowConfirm(false)}
                 className="border-slate-700 text-slate-300"
               >
-                Cancel
+                Annuler
               </Button>
               <Button
                 onClick={() => {

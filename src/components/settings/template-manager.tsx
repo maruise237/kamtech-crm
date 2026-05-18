@@ -53,7 +53,7 @@ interface TemplateFormData {
   footer_text: string;
 }
 
-// Meta's language codes are exact — "en" and "en_US" are distinct and a
+// Meta's language codes are exact - "en" and "en_US" are distinct and a
 // template approved under one will be rejected if you send with the other
 // (Graph API error #132001 "Template name does not exist in the
 // translation"). Default to en_US to match the DB default on
@@ -68,7 +68,7 @@ const emptyForm: TemplateFormData = {
 };
 
 // Common Meta template language codes. The field still accepts any
-// string — this just offers autocomplete for the usual suspects. Full
+// string - this just offers autocomplete for the usual suspects. Full
 // list: https://developers.facebook.com/docs/whatsapp/api/messages/message-templates#supported-languages
 const COMMON_LANGUAGE_CODES = [
   'en_US',
@@ -125,7 +125,7 @@ export function TemplateManager() {
       setTemplates(data || []);
     } catch (err) {
       console.error('Failed to fetch templates:', err);
-      toast.error('Failed to load templates');
+      toast.error('Impossible de charger les modeles');
     } finally {
       setLoading(false);
     }
@@ -133,18 +133,18 @@ export function TemplateManager() {
 
   async function handleSave() {
     if (!form.name.trim()) {
-      toast.error('Template name is required');
+      toast.error('Le nom du modele est obligatoire');
       return;
     }
     if (!form.body_text.trim()) {
-      toast.error('Body text is required');
+      toast.error('Le texte du corps est obligatoire');
       return;
     }
 
     try {
       setSaving(true);
       if (!user) {
-        toast.error('Not authenticated');
+        toast.error('Non authentifie');
         return;
       }
 
@@ -165,13 +165,13 @@ export function TemplateManager() {
 
       if (error) throw error;
 
-      toast.success('Template created successfully');
+      toast.success('Modele cree avec succes');
       setDialogOpen(false);
       setForm(emptyForm);
       if (user) await fetchTemplates(user.id);
     } catch (err) {
       console.error('Save error:', err);
-      toast.error('Failed to create template');
+      toast.error('Impossible de creer le modele');
     } finally {
       setSaving(false);
     }
@@ -180,7 +180,7 @@ export function TemplateManager() {
   /**
    * Pull approved templates from Meta and upsert them into the local
    * catalog. After this runs, every local row is guaranteed to match
-   * something Meta will actually accept on send — stops users getting
+   * something Meta will actually accept on send - stops users getting
    * stuck on error #132001 "Template name does not exist".
    */
   async function handleSyncFromMeta() {
@@ -213,7 +213,7 @@ export function TemplateManager() {
       }
       if (data.truncated) {
         toast.warning(
-          'Hit Meta pagination cap — more templates may exist. Contact support if this persists.',
+          'Hit Meta pagination cap - more templates may exist. Contact support if this persists.',
         );
       }
       await fetchTemplates(user.id);
@@ -235,11 +235,11 @@ export function TemplateManager() {
         .eq('id', id);
 
       if (error) throw error;
-      toast.success('Template deleted');
+      toast.success('Modele supprime');
       setTemplates((prev) => prev.filter((t) => t.id !== id));
     } catch (err) {
       console.error('Delete error:', err);
-      toast.error('Failed to delete template');
+      toast.error('Impossible de supprimer le modele');
     }
   }
 
@@ -255,11 +255,11 @@ export function TemplateManager() {
     <div className="space-y-4 mt-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h2 className="text-lg font-semibold text-white">Message Templates</h2>
+          <h2 className="text-lg font-semibold text-white">Modeles de message</h2>
           <p className="text-sm text-slate-400">
-            Create and manage your WhatsApp message templates. Meta requires
-            every template to be approved in the WhatsApp Manager before it can
-            be sent — use &quot;Sync from Meta&quot; to pull your approved list.
+            Creez et gerez vos modeles de messages WhatsApp. Meta exige que
+            chaque modele soit approuve dans WhatsApp Manager avant son envoi.
+            Utilisez &quot;Synchroniser depuis Meta&quot; pour importer la liste approuvee.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -268,12 +268,12 @@ export function TemplateManager() {
             onClick={handleSyncFromMeta}
             disabled={syncing}
             className="border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
-            title="Pull approved templates from your Meta WhatsApp Business Account"
+            title="Importer les modeles approuves depuis votre compte Meta WhatsApp Business"
           >
             <RefreshCw
               className={`size-4 ${syncing ? 'animate-spin' : ''}`}
             />
-            {syncing ? 'Syncing…' : 'Sync from Meta'}
+            {syncing ? 'Syncing...' : 'Synchroniser depuis Meta'}
           </Button>
           <Button
             onClick={() => {
@@ -283,7 +283,7 @@ export function TemplateManager() {
             className="bg-violet-600 hover:bg-violet-700 text-white"
           >
             <Plus className="size-4" />
-            New Template
+            Nouveau modele
           </Button>
         </div>
       </div>
@@ -291,8 +291,8 @@ export function TemplateManager() {
       {templates.length === 0 ? (
         <Card className="bg-slate-900 border-slate-700 ring-0 ring-transparent">
           <CardContent className="flex flex-col items-center justify-center py-12 text-center">
-            <p className="text-slate-400 text-sm">No templates yet.</p>
-            <p className="text-slate-500 text-xs mt-1">Create your first message template to get started.</p>
+            <p className="text-slate-400 text-sm">Aucun modele pour le moment.</p>
+            <p className="text-slate-500 text-xs mt-1">Creez votre premier modele de message pour commencer.</p>
           </CardContent>
         </Card>
       ) : (
@@ -340,15 +340,15 @@ export function TemplateManager() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="bg-slate-900 border-slate-700 sm:max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-white">New Message Template</DialogTitle>
+            <DialogTitle className="text-white">Nouveau modele de message</DialogTitle>
             <DialogDescription className="text-slate-400">
-              Create a new WhatsApp message template.
+              Creez un nouveau modele de message WhatsApp.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 py-2">
             <div className="space-y-2">
-              <Label className="text-slate-300">Template Name</Label>
+              <Label className="text-slate-300">Nom du modele</Label>
               <Input
                 placeholder="e.g. order_confirmation"
                 value={form.name}
@@ -359,7 +359,7 @@ export function TemplateManager() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label className="text-slate-300">Category</Label>
+                <Label className="text-slate-300">Categorie</Label>
                 <Select
                   value={form.category}
                   onValueChange={(val) =>
@@ -380,7 +380,7 @@ export function TemplateManager() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-slate-300">Language</Label>
+                <Label className="text-slate-300">Langue</Label>
                 <Input
                   list="template-language-codes"
                   placeholder="en_US"
@@ -394,25 +394,25 @@ export function TemplateManager() {
                   ))}
                 </datalist>
                 <p className="text-[11px] text-slate-500">
-                  Must match the exact language code the template is approved
-                  under on Meta — e.g. <code>en_US</code> and <code>en</code>{' '}
-                  are distinct.
+                  Doit correspondre exactement au code de langue approuve
+                  sur Meta. Par exemple, <code>en_US</code> et <code>en</code>{' '}
+                  sont distincts.
                 </p>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-slate-300">Header Type</Label>
+              <Label className="text-slate-300">Type d en-tete</Label>
               <Select
                 value={form.header_type}
                 onValueChange={(val) => setForm({ ...form, header_type: val || '' })}
               >
                 <SelectTrigger className="w-full bg-slate-800 border-slate-700 text-white">
-                  <SelectValue placeholder="None" />
+                  <SelectValue placeholder="Aucun" />
                 </SelectTrigger>
                 <SelectContent className="bg-slate-800 border-slate-700">
                   <SelectItem value="none" className="text-white focus:bg-slate-700 focus:text-white">
-                    None
+                    Aucun
                   </SelectItem>
                   {HEADER_TYPES.map((type) => (
                     <SelectItem key={type} value={type} className="text-white focus:bg-slate-700 focus:text-white">
@@ -424,9 +424,9 @@ export function TemplateManager() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-slate-300">Body Text</Label>
+              <Label className="text-slate-300">Texte du corps</Label>
               <Textarea
-                placeholder="Enter your template message body. Use {{1}}, {{2}} for variables."
+                placeholder="Saisissez le corps de votre modele. Utilisez {{1}}, {{2}} pour les variables."
                 value={form.body_text}
                 onChange={(e) => setForm({ ...form, body_text: e.target.value })}
                 rows={4}
@@ -435,9 +435,9 @@ export function TemplateManager() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-slate-300">Footer Text</Label>
+              <Label className="text-slate-300">Texte du pied de page</Label>
               <Input
-                placeholder="Optional footer text"
+                placeholder="Texte de pied de page facultatif"
                 value={form.footer_text}
                 onChange={(e) => setForm({ ...form, footer_text: e.target.value })}
                 className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
@@ -451,7 +451,7 @@ export function TemplateManager() {
               onClick={() => setDialogOpen(false)}
               className="border-slate-700 text-slate-300 hover:bg-slate-800"
             >
-              Cancel
+              Annuler
             </Button>
             <Button
               onClick={handleSave}
@@ -461,10 +461,10 @@ export function TemplateManager() {
               {saving ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  Creating...
+                  Creation...
                 </>
               ) : (
-                'Create Template'
+                'Creer le modele'
               )}
             </Button>
           </DialogFooter>

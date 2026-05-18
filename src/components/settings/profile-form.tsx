@@ -30,7 +30,7 @@ const ALLOWED_MIME = new Set([
   'image/gif',
 ]);
 
-// Rough email shape check — the real validator is Supabase Auth, which
+// Rough email shape check - the real validator is Supabase Auth, which
 // rejects anything malformed when we call updateUser({ email }). We
 // just want to stop obvious typos before making a network call.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -156,7 +156,7 @@ export function ProfileForm() {
 
       // Email change goes through Supabase Auth, which emails a
       // confirmation to both the old and new addresses. We don't
-      // touch profiles.email — Supabase will push the change there
+      // touch profiles.email - Supabase will push the change there
       // after the user clicks the link (handled by the handle_new_user
       // trigger pattern in production deployments).
       let emailSent = false;
@@ -183,11 +183,11 @@ export function ProfileForm() {
 
       toast.success(
         emailSent
-          ? 'Profile saved — check your email to confirm the address change'
+          ? 'Profile saved - check your email to confirm the address change'
           : 'Profile saved',
       );
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
+      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
       toast.error(msg);
     } finally {
       setSaving(false);
@@ -207,12 +207,12 @@ export function ProfileForm() {
         month: 'long',
         day: 'numeric',
       })
-    : '—';
+    : '-';
 
   return (
     <Card className="bg-slate-900/40 border-slate-800">
       <CardHeader>
-        <CardTitle className="text-white">Profile</CardTitle>
+        <CardTitle className="text-white">Profil</CardTitle>
         <CardDescription className="text-slate-400">
           How you show up across the app. Your avatar and name appear in the
           header, sidebar, and anywhere your teammates see you.
@@ -258,11 +258,11 @@ export function ProfileForm() {
                   className="text-slate-400 hover:text-white"
                 >
                   <Trash2 className="size-4" />
-                  Remove
+                  Retirer
                 </Button>
               )}
               <p className="w-full text-xs text-slate-500">
-                PNG, JPG, WebP, or GIF. Up to 2 MB.
+                PNG, JPG, WebP ou GIF. Jusqu a 2 Mo.
               </p>
             </div>
           </div>
@@ -270,7 +270,7 @@ export function ProfileForm() {
           {/* Name */}
           <div className="space-y-2">
             <Label htmlFor="profile-full-name" className="text-slate-200">
-              Display name
+              Nom affiche
             </Label>
             <Input
               id="profile-full-name"
@@ -286,7 +286,7 @@ export function ProfileForm() {
           {/* Email */}
           <div className="space-y-2">
             <Label htmlFor="profile-email" className="text-slate-200">
-              Email
+              E-mail
             </Label>
             <Input
               id="profile-email"
@@ -300,9 +300,9 @@ export function ProfileForm() {
               <p className="flex items-start gap-2 rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
                 <Mail className="mt-0.5 size-3.5 shrink-0" />
                 <span>
-                  Check the inbox for <strong>{profile?.email}</strong> and{' '}
-                  <strong>{email}</strong> — both need to confirm before the
-                  change takes effect.
+                  Verifiez les boites de reception de <strong>{profile?.email}</strong> et{' '}
+                  <strong>{email}</strong> : les deux adresses doivent confirmer avant
+                  que le changement prenne effet.
                 </span>
               </p>
             )}
@@ -311,7 +311,7 @@ export function ProfileForm() {
           {/* Read-only block */}
           <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
             <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Account details
+              Details du compte
             </p>
             <dl className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
               <div>
@@ -321,13 +321,13 @@ export function ProfileForm() {
                 </dd>
               </div>
               <div>
-                <dt className="text-slate-500">Joined</dt>
+                <dt className="text-slate-500">Inscrit le</dt>
                 <dd className="mt-0.5 text-slate-200">{joined}</dd>
               </div>
               <div className="sm:col-span-2">
-                <dt className="text-slate-500">User ID</dt>
+                <dt className="text-slate-500">ID utilisateur</dt>
                 <dd className="mt-0.5 break-all font-mono text-xs text-slate-400">
-                  {user?.id ?? '—'}
+                  {user?.id ?? '-'}
                 </dd>
               </div>
             </dl>
@@ -336,7 +336,7 @@ export function ProfileForm() {
           {!profile && (
             <p className="flex items-center gap-2 text-sm text-slate-400">
               <CircleAlert className="size-4" />
-              Loading your profile…
+              Chargement de votre profil...
             </p>
           )}
 
@@ -345,10 +345,10 @@ export function ProfileForm() {
               {saving ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  Saving…
+                  Enregistrement...
                 </>
               ) : (
-                'Save changes'
+                'Enregistrer les modifications'
               )}
             </Button>
           </div>

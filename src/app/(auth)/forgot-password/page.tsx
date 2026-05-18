@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
           <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-violet-500/10">
             <MessageSquare className="h-6 w-6 text-violet-500" />
           </div>
-          <CardTitle className="text-xl text-white">Reset password</CardTitle>
+          <CardTitle className="text-xl text-white">Reinitialiser le mot de passe</CardTitle>
           <CardDescription className="text-slate-400">
             Enter your email and we&apos;ll send you a reset link
           </CardDescription>
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
 
             <div className="flex flex-col gap-2">
               <Label htmlFor="email" className="text-slate-300">
-                Email
+                E-mail
               </Label>
               <Input
                 id="email"
@@ -113,7 +113,7 @@ export default function ForgotPasswordPage() {
               disabled={loading}
               className="mt-2 h-10 w-full bg-violet-600 text-white hover:bg-violet-500 disabled:opacity-50"
             >
-              {loading ? "Sending..." : "Send reset link"}
+              {loading ? "Envoi..." : "Envoyer le lien de reinitialisation"}
             </Button>
           </form>
 

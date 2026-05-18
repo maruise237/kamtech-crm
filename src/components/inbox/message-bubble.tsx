@@ -57,7 +57,7 @@ function MediaImage({ url, alt }: { url: string; alt: string }) {
     if (url.startsWith("/api/whatsapp/media/")) {
       try {
         const res = await fetch(url);
-        if (!res.ok) throw new Error("Failed to load media");
+        if (!res.ok) throw new Error("Impossible de charger le media");
         const blob = await res.blob();
         const blobUrl = URL.createObjectURL(blob);
         setSrc(blobUrl);

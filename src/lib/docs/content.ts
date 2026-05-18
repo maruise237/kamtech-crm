@@ -21,43 +21,43 @@ export interface DocContent extends DocPage {
 const ORDER: Record<string, { order: number; section: string; description: string }> = {
   'getting-started': {
     order: 1,
-    section: 'Setup',
-    description: 'Fork, install, run the template locally in about 15 minutes.',
+    section: 'Configuration',
+    description: 'Forker, installer et lancer le modele en local en environ 15 minutes.',
   },
   'supabase-setup': {
     order: 2,
-    section: 'Setup',
-    description: 'Create the database, apply migrations, grab the keys.',
+    section: 'Configuration',
+    description: 'Creer la base de donnees, appliquer les migrations et recuperer les cles.',
   },
   'whatsapp-setup': {
     order: 3,
-    section: 'Setup',
-    description: 'Meta app, access token, webhook verification.',
+    section: 'Configuration',
+    description: 'Application Meta, jeton d acces et verification du webhook.',
   },
   'environment-variables': {
     order: 4,
-    section: 'Setup',
-    description: 'Full reference for every env var the app reads.',
+    section: 'Configuration',
+    description: 'Reference complete des variables d environnement lues par l application.',
   },
   'deployment-hostinger': {
     order: 5,
-    section: 'Deploy',
-    description: 'Ship the template on Hostinger Managed Node.js Hosting.',
+    section: 'Deploiement',
+    description: 'Deployer le modele sur Hostinger Managed Node.js Hosting.',
   },
   'automations-and-cron': {
     order: 6,
-    section: 'Deploy',
-    description: 'Schedule the drain so Wait steps resume on time.',
+    section: 'Deploiement',
+    description: 'Planifier le traitement pour que les etapes d attente reprennent a temps.',
   },
   architecture: {
     order: 7,
     section: 'Reference',
-    description: 'Stack, folder layout, request lifecycle.',
+    description: 'Stack, structure des dossiers et cycle de vie des requetes.',
   },
   troubleshooting: {
     order: 8,
     section: 'Reference',
-    description: 'The usual suspects when something breaks.',
+    description: 'Les causes les plus courantes quand quelque chose casse.',
   },
 }
 

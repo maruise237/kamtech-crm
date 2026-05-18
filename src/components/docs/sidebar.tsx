@@ -31,7 +31,7 @@ export function DocsSidebar({ pages, onNavigate }: DocsSidebarProps) {
             : 'text-slate-300 hover:bg-slate-800/60 hover:text-white',
         )}
       >
-        <span>Overview</span>
+        <span>Vue d ensemble</span>
       </Link>
 
       {Object.entries(sections).map(([section, items]) => (

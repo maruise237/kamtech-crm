@@ -103,7 +103,7 @@ export default function ContactsPage() {
     const { data, count, error } = await query;
 
     if (error) {
-      toast.error('Failed to load contacts');
+      toast.error('Impossible de charger les contacts');
       setLoading(false);
       return;
     }
@@ -241,7 +241,7 @@ export default function ContactsPage() {
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
-            // Reset pagination when the query changes — the result
+            // Reset pagination when the query changes - the result
             // set shrinks/grows, page N may no longer be valid.
             setPage(0);
           }}
@@ -255,12 +255,12 @@ export default function ContactsPage() {
         <Table>
           <TableHeader>
             <TableRow className="border-slate-800 hover:bg-transparent">
-              <TableHead className="text-slate-400">Name</TableHead>
-              <TableHead className="text-slate-400">Phone</TableHead>
-              <TableHead className="text-slate-400 hidden md:table-cell">Email</TableHead>
-              <TableHead className="text-slate-400 hidden lg:table-cell">Company</TableHead>
-              <TableHead className="text-slate-400 hidden md:table-cell">Tags</TableHead>
-              <TableHead className="text-slate-400 hidden lg:table-cell">Created</TableHead>
+              <TableHead className="text-slate-400">Nom</TableHead>
+              <TableHead className="text-slate-400">Telephone</TableHead>
+              <TableHead className="text-slate-400 hidden md:table-cell">E-mail</TableHead>
+              <TableHead className="text-slate-400 hidden lg:table-cell">Entreprise</TableHead>
+              <TableHead className="text-slate-400 hidden md:table-cell">Etiquettes</TableHead>
+              <TableHead className="text-slate-400 hidden lg:table-cell">Cree le</TableHead>
               <TableHead className="text-slate-400 w-12" />
             </TableRow>
           </TableHeader>
@@ -270,7 +270,7 @@ export default function ContactsPage() {
                 <TableCell colSpan={7} className="text-center py-12">
                   <div className="flex flex-col items-center gap-2">
                     <Loader2 className="size-6 animate-spin text-violet-500" />
-                    <p className="text-sm text-slate-500">Loading contacts...</p>
+                    <p className="text-sm text-slate-500">Chargement des contacts...</p>
                   </div>
                 </TableCell>
               </TableRow>
@@ -280,7 +280,7 @@ export default function ContactsPage() {
                   <div className="flex flex-col items-center gap-2">
                     <Users className="size-8 text-slate-600" />
                     <p className="text-sm text-slate-500">
-                      {search ? 'No contacts match your search.' : 'No contacts yet.'}
+                      {search ? 'Aucun contact ne correspond a votre recherche.' : 'Aucun contact pour le moment.'}
                     </p>
                     {!search && (
                       <Button
@@ -304,7 +304,7 @@ export default function ContactsPage() {
                   onClick={() => openDetail(contact.id)}
                 >
                   <TableCell className="text-white font-medium">
-                    {contact.name || <span className="text-slate-500 italic">Unnamed</span>}
+                    {contact.name || <span className="text-slate-500 italic">Sans nom</span>}
                   </TableCell>
                   <TableCell className="text-slate-300 font-mono text-xs">
                     {contact.phone}
@@ -384,7 +384,7 @@ export default function ContactsPage() {
                           }}
                         >
                           <Trash2 className="size-4" />
-                          Delete
+                          Supprimer
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -460,7 +460,7 @@ export default function ContactsPage() {
       <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
         <DialogContent className="bg-slate-900 border-slate-700 text-slate-200 sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle className="text-white">Delete Contact</DialogTitle>
+            <DialogTitle className="text-white">Supprimer le contact</DialogTitle>
             <DialogDescription className="text-slate-400">
               Are you sure you want to delete{' '}
               <span className="text-slate-200 font-medium">
@@ -475,7 +475,7 @@ export default function ContactsPage() {
               onClick={() => setDeleteConfirmOpen(false)}
               className="border-slate-700 text-slate-300 hover:bg-slate-800"
             >
-              Cancel
+              Annuler
             </Button>
             <Button
               variant="destructive"
@@ -483,7 +483,7 @@ export default function ContactsPage() {
               disabled={deleting}
             >
               {deleting && <Loader2 className="size-4 animate-spin" />}
-              Delete
+              Supprimer
             </Button>
           </DialogFooter>
         </DialogContent>

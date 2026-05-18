@@ -73,7 +73,7 @@ export function PasswordForm() {
       setConfirm('');
       toast.success('Password updated');
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
+      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
       toast.error(msg);
     } finally {
       setSaving(false);
@@ -85,11 +85,11 @@ export function PasswordForm() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-white">
           <KeyRound className="size-4 text-violet-400" />
-          Password
+          Mot de passe
         </CardTitle>
         <CardDescription className="text-slate-400">
-          Use at least {MIN_PASSWORD} characters. You will stay signed in on
-          this device after changing it.
+          Utilisez au moins {MIN_PASSWORD} caracteres. Vous resterez connecte
+          sur cet appareil apres la modification.
         </CardDescription>
       </CardHeader>
 
@@ -97,7 +97,7 @@ export function PasswordForm() {
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="current-password" className="text-slate-200">
-              Current password
+              Mot de passe actuel
             </Label>
             <Input
               id="current-password"
@@ -113,7 +113,7 @@ export function PasswordForm() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="new-password" className="text-slate-200">
-                New password
+                Nouveau mot de passe
               </Label>
               <Input
                 id="new-password"
@@ -128,7 +128,7 @@ export function PasswordForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm-password" className="text-slate-200">
-                Confirm new password
+                Confirmer le nouveau mot de passe
               </Label>
               <Input
                 id="confirm-password"
@@ -157,10 +157,10 @@ export function PasswordForm() {
               {saving ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  Updating…
+                  Mise a jour...
                 </>
               ) : (
-                'Update password'
+                'Mettre a jour le mot de passe'
               )}
             </Button>
           </div>

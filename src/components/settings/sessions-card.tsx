@@ -40,7 +40,7 @@ export function SessionsCard() {
       }
       window.location.href = '/login';
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
+      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
       toast.error(msg);
     } finally {
       setSigningOut(false);
@@ -53,11 +53,11 @@ export function SessionsCard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-white">
             <LogOut className="size-4 text-violet-400" />
-            Active sessions
+            Sessions actives
           </CardTitle>
           <CardDescription className="text-slate-400">
-            Sign out of every device where you&apos;re logged in — including
-            this one. Useful if you lost a laptop or shared your password.
+            Deconnectez tous les appareils sur lesquels vous etes connecte,
+            y compris celui-ci. Utile si vous avez perdu un ordinateur ou partage votre mot de passe.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -67,7 +67,7 @@ export function SessionsCard() {
             onClick={() => setOpen(true)}
           >
             <LogOut className="size-4" />
-            Sign out of all devices
+            Se deconnecter de tous les appareils
           </Button>
         </CardContent>
       </Card>
@@ -75,11 +75,10 @@ export function SessionsCard() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Sign out everywhere?</DialogTitle>
+            <DialogTitle>Se deconnecter partout ?</DialogTitle>
             <DialogDescription>
-              Every device logged into this account will be signed out and
-              will need to log in again. You will be redirected to the login
-              page.
+              Tous les appareils connectes a ce compte seront deconnectes et
+              devront se reconnecter. Vous serez redirige vers la page de connexion.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -89,16 +88,16 @@ export function SessionsCard() {
               onClick={() => setOpen(false)}
               disabled={signingOut}
             >
-              Cancel
+              Annuler
             </Button>
             <Button type="button" onClick={onConfirm} disabled={signingOut}>
               {signingOut ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  Signing out…
+                  Deconnexion...
                 </>
               ) : (
-                'Sign out everywhere'
+                'Se deconnecter partout'
               )}
             </Button>
           </DialogFooter>

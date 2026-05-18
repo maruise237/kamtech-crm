@@ -21,7 +21,7 @@ import type {
 // All client-side aggregation. RLS scopes every query to the
 // signed-in user automatically, so we never pass user_id explicitly
 // here. Perf is acceptable for the current scale (low thousands of
-// messages) — if a tenant's dataset outgrows this, we'd migrate the
+// messages) - if a tenant's dataset outgrows this, we'd migrate the
 // heavy aggregations to SQL RPCs. Noted in the PR.
 // ------------------------------------------------------------
 
@@ -82,7 +82,7 @@ export async function loadMetrics(db: DB): Promise<MetricsBundle> {
     activeConversations: {
       current: openConvCur.count ?? 0,
       // "vs yesterday" on a current-state count has no clean answer
-      // without snapshots — we show the delta in NEW open conversations
+      // without snapshots - we show the delta in NEW open conversations
       // today vs yesterday. That's the business-meaningful daily signal.
       previous: (newConvToday.count ?? 0) - (newConvYesterday.count ?? 0),
     },
@@ -157,7 +157,7 @@ export async function loadPipelineDonut(db: DB): Promise<PipelineDonutData> {
       totalValue: byStage.get(s.id)?.total ?? 0,
     }))
     // Hide empty stages from the ring (but we'd still show them in the
-    // legend if the user wanted a full breakdown — trimming keeps the
+    // legend if the user wanted a full breakdown - trimming keeps the
     // visual clean for the common case).
     .filter((s) => s.totalValue > 0 || s.dealCount > 0)
 
@@ -171,7 +171,7 @@ export async function loadPipelineDonut(db: DB): Promise<PipelineDonutData> {
 
 export async function loadResponseTime(db: DB): Promise<ResponseTimeSummary> {
   // Pull the last 14 days of messages in one shot, then walk per
-  // conversation to find each "first inbound" → "first subsequent
+  // conversation to find each "first inbound" -> "first subsequent
   // outbound" pair. 14 days gives us both "this week" + "last week"
   // with enough overlap if the user opens the dashboard late on a
   // Monday.
@@ -252,7 +252,7 @@ export async function loadResponseTime(db: DB): Promise<ResponseTimeSummary> {
     }
   })
 
-  // Silence unused-label warnings — keep the arrays explicitly named
+  // Silence unused-label warnings - keep the arrays explicitly named
   // for readability above.
   void DOW_SHORT_MON_FIRST
 
@@ -314,7 +314,7 @@ export async function loadActivity(db: DB, limit = 20): Promise<ActivityItem[]> 
   }>) {
     const conv = Array.isArray(m.conversations) ? m.conversations[0] : m.conversations
     const contact = Array.isArray(conv?.contacts) ? conv?.contacts[0] : conv?.contacts
-    const who = contact?.name || contact?.phone || 'Unknown'
+    const who = contact?.name || contact?.phone || 'Inconnu'
     items.push({
       id: `msg-${m.id}`,
       kind: 'message',
@@ -383,7 +383,7 @@ export async function loadActivity(db: DB, limit = 20): Promise<ActivityItem[]> 
     const automation = Array.isArray(l.automation) ? l.automation[0] : l.automation
     const contact = Array.isArray(l.contact) ? l.contact[0] : l.contact
     const who = contact?.name || contact?.phone || 'a contact'
-    const autoName = automation?.name || 'Automation'
+    const autoName = automation?.name || 'Automatisation'
     items.push({
       id: `auto-${l.id}`,
       kind: 'automation',

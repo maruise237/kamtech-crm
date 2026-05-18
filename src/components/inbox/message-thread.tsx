@@ -114,9 +114,9 @@ export function MessageThread({
   }, [messages]);
 
   // Store latest callback in a ref so fetchMessages doesn't need to
-  // depend on `onMessagesLoaded` — otherwise parent re-renders cause
-  // fetchMessages to change → useEffect re-fires → refetch → realtime
-  // UPDATE on conversations.unread_count → parent re-renders → LOOP.
+  // depend on `onMessagesLoaded` - otherwise parent re-renders cause
+  // fetchMessages to change -> useEffect re-fires -> refetch -> realtime
+  // UPDATE on conversations.unread_count -> parent re-renders -> LOOP.
   // The ref is written inside an effect so the mutation doesn't happen
   // during render (React 19 refs rule); consumers only read `.current`
   // inside the async fetch completion, which runs after the render.
@@ -130,7 +130,7 @@ export function MessageThread({
 
   // Fetch messages whenever the selected conversation changes. Kept
   // separate from the unread-reset effect so that incoming messages
-  // arriving while the thread is open don't trigger a full refetch —
+  // arriving while the thread is open don't trigger a full refetch -
   // they only flip hasUnread, which only the reset effect listens to.
   useEffect(() => {
     if (!conversationId) return;
@@ -164,7 +164,7 @@ export function MessageThread({
   }, [conversationId]);
 
   // Reset the server-side unread_count to 0 whenever an unread count
-  // surfaces on the active conversation — covers both (a) opening a
+  // surfaces on the active conversation - covers both (a) opening a
   // conversation that had unread messages and (b) new messages arriving
   // while the user is already viewing the thread (webhook server-bumps
   // unread_count to N+1; the realtime UPDATE propagates it into the
@@ -198,7 +198,7 @@ export function MessageThread({
 
       const tempId = `temp-${Date.now()}`;
 
-      // Optimistic update — shows the message immediately with "sending" status
+      // Optimistic update - shows the message immediately with "sending" status
       const optimisticMsg: Message = {
         id: tempId,
         conversation_id: conversation.id,
@@ -232,7 +232,7 @@ export function MessageThread({
           return;
         }
 
-        // Success — the realtime INSERT event will replace the temp bubble
+        // Success - the realtime INSERT event will replace the temp bubble
         // with the real DB row. If realtime hasn't arrived yet, at least
         // flip status to 'sent' so the UI stops showing "sending".
         onUpdateMessage(tempId, { status: "sent" });
@@ -294,7 +294,7 @@ export function MessageThread({
       {/* Header */}
       <div className="flex items-center justify-between gap-2 border-b border-slate-800 bg-slate-900 px-3 py-3 sm:px-4">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-          {/* Back-to-list button — mobile only. Hidden on lg+ where the
+          {/* Back-to-list button - mobile only. Hidden on lg+ where the
               conversation list is always visible next to the thread. */}
           {onBack && (
             <button
@@ -313,7 +313,7 @@ export function MessageThread({
             <h2 className="truncate text-sm font-semibold text-white">{displayName}</h2>
             <p className="truncate text-xs text-slate-400">{contact.phone}</p>
           </div>
-          {/* Session timer badge — hidden on the narrowest phones so
+          {/* Session timer badge - hidden on the narrowest phones so
               the name + back arrow keep their room. */}
           <Badge
             variant="outline"
@@ -334,7 +334,7 @@ export function MessageThread({
                   "inline-flex items-center justify-center h-7 gap-1 px-2 text-xs rounded-md hover:bg-slate-800",
                   currentStatus?.color ?? "text-slate-400"
                 )}>
-                {currentStatus?.label ?? "Status"}
+                {currentStatus?.label ?? "Statut"}
                 <ChevronDown className="h-3 w-3" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -373,7 +373,7 @@ export function MessageThread({
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12">
-            <p className="text-sm text-slate-500">No messages yet</p>
+            <p className="text-sm text-slate-500">Aucun message pour le moment</p>
             <p className="text-xs text-slate-600">
               Send a template to start the conversation
             </p>

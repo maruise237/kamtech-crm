@@ -1,98 +1,62 @@
-# CRM Template for WhatsApp
+# Modele CRM pour WhatsApp
 
-> Self-hostable CRM template for WhatsApp® — shared inbox, contacts,
-> sales pipelines, broadcasts, and no-code automations. Fork it, brand
-> it, host it.
+> CRM auto-heberge pour WhatsApp : boite de reception partagee, contacts, pipelines de vente, diffusions et automatisations sans code. Forkez-le, adaptez votre marque et deployez-le.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-violet.svg)](./LICENSE)
-[![CI](https://github.com/ArnasDon/wacrm/actions/workflows/ci.yml/badge.svg)](https://github.com/ArnasDon/wacrm/actions/workflows/ci.yml)
+[![Licence : MIT](https://img.shields.io/badge/License-MIT-violet.svg)](./LICENSE)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org)
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3ecf8e?logo=supabase)](https://supabase.com)
-[![Stars](https://img.shields.io/github/stars/ArnasDon/wacrm?style=social)](https://github.com/ArnasDon/wacrm/stargazers)
 
-## What you get out of the box
+## Ce que vous obtenez
 
-- **Shared inbox** on the official WhatsApp Business API — multiple
-  agents working one number, per-conversation assignment, status, and
-  notes.
-- **Contacts + tags + custom fields**, CSV import, deduplication.
-- **Sales pipelines** (Kanban) with deals linked to conversations.
-- **Broadcasts** with Meta-approved templates, delivery + read
-  tracking, per-recipient variable substitution.
-- **No-code automations** — triggers on inbound messages, new
-  contacts, keywords, or schedule; conditional branches, waits,
-  tags, webhooks. Visual builder.
-- **Real-time dashboard** — response times, daily volume, pipeline
-  value, cross-module activity feed.
-- **Account management** — email, password, avatar, global sign-out.
+- **Boite de reception partagee** sur l API officielle WhatsApp Business : plusieurs agents sur un meme numero, assignation par conversation, statuts et notes.
+- **Contacts, etiquettes et champs personnalises**, import CSV et deduplication.
+- **Pipelines de vente** en Kanban avec opportunites liees aux conversations.
+- **Diffusions** via des modeles approuves par Meta, suivi de livraison/lecture et variables par destinataire.
+- **Automatisations sans code** : messages entrants, nouveaux contacts, mots-cles, planification, conditions, attentes, etiquettes et webhooks.
+- **Tableau de bord en temps reel** : temps de reponse, volume quotidien, valeur du pipeline et activite recente.
+- **Gestion du compte** : e-mail, mot de passe, avatar et deconnexion globale.
 
-## Why fork this?
+## Pourquoi utiliser ce modele ?
 
-This is a **template**, not a product. Forking means you get:
+C est un **modele**, pas un SaaS ferme. Vous gardez le code, le projet Supabase, le domaine et les donnees. Vous pouvez ajouter vos champs, retirer les modules inutiles et personnaliser l interface. La stack reste simple : Next.js, Supabase et Tailwind.
 
-- **Full ownership** — your code, your Supabase project, your domain,
-  your data. No SaaS lock-in, no seat pricing, no trust dance.
-- **Full customisation** — add the fields your team needs, remove the
-  modules you don't, redesign anything. The stack is boring on
-  purpose (Next.js + Supabase + Tailwind) so the learning curve is
-  short.
-- **Zero ops to start** — Hostinger Managed Node.js deploys a fork in
-  a few clicks. No Docker, no Kubernetes, no infra team needed.
-- **Real security primitives** — token encryption (AES-256-GCM), RLS
-  on every table, HMAC-verified webhooks, CSP, rate limiting, CI
-  typecheck/build on every PR.
-
-Not a framework. Not an SDK. A concrete, working CRM you can stand up
-in an afternoon and make yours.
-
-## Quick start
+## Demarrage rapide
 
 ```bash
-# Fork on GitHub first: https://github.com/ArnasDon/wacrm → Fork
-git clone https://github.com/<your-username>/wacrm.git
-cd wacrm
+git clone git@github.com:maruise237/kamtech-crm.git
+cd kamtech-crm
 npm install
-cp .env.local.example .env.local   # fill in Supabase + Meta creds
+cp .env.local.example .env.local
 npm run dev
 ```
 
-Open <http://localhost:3000>.
+Ouvrez <http://localhost:3000>.
 
-Full setup — Supabase migrations, WhatsApp Business API config, and
-production deploy — is in [`docs/`](./docs/README.md).
+La configuration complete se trouve dans [`docs/`](./docs/README.md).
 
 ## Documentation
 
-**Setup**
-- [Getting started](./docs/getting-started.md)
-- [Supabase setup](./docs/supabase-setup.md)
-- [WhatsApp setup](./docs/whatsapp-setup.md)
-- [Environment variables](./docs/environment-variables.md)
+**Configuration**
+- [Demarrage](./docs/getting-started.md)
+- [Configuration Supabase](./docs/supabase-setup.md)
+- [Configuration WhatsApp](./docs/whatsapp-setup.md)
+- [Variables d environnement](./docs/environment-variables.md)
 
-**Deploy**
-- [Deploy on Hostinger](./docs/deployment-hostinger.md)
-- [Automations cron](./docs/automations-and-cron.md)
+**Deploiement**
+- [Deploiement Dokploy](./docs/deployment-dokploy.md)
+- [Deploiement Hostinger](./docs/deployment-hostinger.md)
+- [Cron des automatisations](./docs/automations-and-cron.md)
 
 **Reference**
-- [Architecture](./docs/architecture.md) — stack, folder layout,
-  request lifecycle
-- [Troubleshooting](./docs/troubleshooting.md)
+- [Architecture](./docs/architecture.md)
+- [Depannage](./docs/troubleshooting.md)
 
 ## Stack
 
-- **App** — Next.js 16 (App Router), React 19, TypeScript, Tailwind v4.
-- **Data** — Supabase (Postgres + Auth + Storage + RLS).
-- **WhatsApp** — Meta Cloud API (official WhatsApp Business API).
+- **Application** : Next.js 16, React 19, TypeScript, Tailwind v4.
+- **Donnees** : Supabase avec Postgres, Auth, Storage et RLS.
+- **WhatsApp** : Meta Cloud API, l API officielle WhatsApp Business.
 
-## Contributing
+## Licence
 
-This is a template, not a collaborative product — the expected flow is
-fork → customise → deploy, **not** upstream contribution. Bug reports
-and security issues are welcome; feature PRs often belong in your fork
-rather than here. Details in
-[`CONTRIBUTING.md`](./CONTRIBUTING.md) and
-[`.github/SECURITY.md`](./.github/SECURITY.md).
-
-## License
-
-[MIT](./LICENSE). Fork it, brand it, host it.
+[MIT](./LICENSE). Forkez, adaptez votre marque et deployez.

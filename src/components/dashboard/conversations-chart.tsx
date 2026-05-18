@@ -49,8 +49,8 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
     <section className="flex h-full flex-col rounded-xl border border-slate-800 bg-slate-900">
       <header className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">Conversations Over Time</h2>
-          <p className="mt-0.5 text-xs text-slate-500">Daily message volume by direction</p>
+          <h2 className="text-sm font-semibold text-white">Conversations au fil du temps</h2>
+          <p className="mt-0.5 text-xs text-slate-500">Volume quotidien de messages par direction</p>
         </div>
         <div className="flex items-center gap-1 rounded-lg bg-slate-800/60 p-1">
           {[7, 30, 90].map((r) => (
@@ -77,8 +77,8 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
         ) : data.every((p) => p.incoming === 0 && p.outgoing === 0) ? (
           <EmptyState
             icon={MessageSquare}
-            title="No message activity in this range"
-            hint="Send or receive messages to start populating this chart."
+            title="Aucune activite de message sur cette periode"
+            hint="Envoyez ou recevez des messages pour alimenter ce graphique."
           />
         ) : (
           <LineSvg data={data} maxY={maxY} ticks={niceTicks} />
@@ -134,7 +134,7 @@ function LineSvg({
   // assumed the viewBox filled the SVG DOM box linearly, but
   // `preserveAspectRatio="xMidYMid meet"` (the SVG default)
   // letterboxes the content horizontally when the container is
-  // wider than the viewBox aspect — so hover snapped hundreds of
+  // wider than the viewBox aspect - so hover snapped hundreds of
   // pixels off on wide layouts. CTM-inverse correctly accounts for
   // letterboxing, scaling, and any future transform changes.
   useEffect(() => {
@@ -159,7 +159,7 @@ function LineSvg({
         Math.min(data.length - 1, Math.round(stepX === 0 ? 0 : relative / stepX)),
       )
       // Map the snapped data-point's viewBox x back to screen, then
-      // subtract the wrapper's left edge — that pixel offset is what
+      // subtract the wrapper's left edge - that pixel offset is what
       // the absolutely-positioned tooltip div consumes. `xFor` is
       // inlined here so the effect deps stay stable (it's a closure
       // that'd otherwise be a new reference every render).
@@ -274,7 +274,7 @@ function LineSvg({
         )}
       </svg>
 
-      {/* Tooltip — absolute-positioned div so we get crisp text, not
+      {/* Tooltip - absolute-positioned div so we get crisp text, not
           SVG-rendered text. The left offset comes from the CTM-based
           mapping so it lines up with the actual crosshair pixel, not a
           letterboxed viewBox percentage. */}
@@ -325,7 +325,7 @@ function longDayLabel(key: string): string {
 
 /**
  * Round `max` up to a "nice" number so Y-axis ticks feel natural
- * (1, 2, 5, 10, 20, 50, …). Keeps the chart readable even when the
+ * (1, 2, 5, 10, 20, 50, ...). Keeps the chart readable even when the
  * series is small (max=3 becomes ceil=4, not 3).
  */
 function niceCeil(max: number): number {

@@ -12,21 +12,21 @@ import { SITE_NAME, SITE_TAGLINE } from '@/lib/seo/site-config'
  * high contrast).
  */
 
-export const alt = `${SITE_NAME} — ${SITE_TAGLINE}`
+export const alt = `${SITE_NAME} - ${SITE_TAGLINE}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default async function Image() {
   // Satori (the renderer behind next/og) is strict about two things
-  // that the first version of this file violated at BUILD time —
+  // that the first version of this file violated at BUILD time -
   // which meant `next build` failed on /opengraph-image during
   // static generation and the whole production build blew up.
   //
   //   1. Every <div> with more than one child must explicitly declare
   //      display: flex / contents / none.
   //   2. Any Unicode glyph outside the default font's coverage fails
-  //      with "Failed to download dynamic font". ✓ was the worst
-  //      offender — replaced below with plain text dot separators.
+  //      with "Failed to download dynamic font". âœ“ was the worst
+  //      offender - replaced below with plain text dot separators.
   return new ImageResponse(
     (
       <div
@@ -104,12 +104,12 @@ export default async function Image() {
           }}
         >
           <span>Boite partagee</span>
-          <span>·</span>
-          <span>Automations</span>
-          <span>·</span>
+          <span>Â·</span>
+          <span>Automatisations</span>
+          <span>Â·</span>
           <span>Ventes</span>
-          <span>·</span>
-          <span>Analytics</span>
+          <span>Â·</span>
+          <span>Analyses</span>
         </div>
       </div>
     ),

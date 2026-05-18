@@ -245,7 +245,7 @@ export function ContactDetailView({
     } = await supabase.auth.getSession();
     const user = session?.user;
     if (!user) {
-      toast.error('Not authenticated');
+      toast.error('Non authentifie');
       setSavingNote(false);
       return;
     }
@@ -345,7 +345,7 @@ export function ContactDetailView({
                 </Avatar>
                 <div className="flex-1 min-w-0">
                   <SheetTitle className="text-white truncate">
-                    {contact.name || 'Unknown'}
+                    {contact.name || 'Inconnu'}
                   </SheetTitle>
                   <SheetDescription className="text-slate-400 text-xs mt-0.5">
                     Contact details
@@ -419,7 +419,7 @@ export function ContactDetailView({
               <TabsContent value="details" className="flex-1 overflow-y-auto px-4 py-3">
                 <div className="space-y-3">
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Name</Label>
+                    <Label className="text-slate-400 text-xs">Nom</Label>
                     <Input
                       value={editName}
                       onChange={(e) => setEditName(e.target.value)}
@@ -428,7 +428,7 @@ export function ContactDetailView({
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-slate-400 text-xs">
-                      Phone <span className="text-red-400">*</span>
+                      Telephone <span className="text-red-400">*</span>
                     </Label>
                     <Input
                       value={editPhone}
@@ -437,7 +437,7 @@ export function ContactDetailView({
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Email</Label>
+                    <Label className="text-slate-400 text-xs">E-mail</Label>
                     <Input
                       value={editEmail}
                       onChange={(e) => setEditEmail(e.target.value)}
@@ -445,7 +445,7 @@ export function ContactDetailView({
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-slate-400 text-xs">Company</Label>
+                    <Label className="text-slate-400 text-xs">Entreprise</Label>
                     <Input
                       value={editCompany}
                       onChange={(e) => setEditCompany(e.target.value)}
@@ -463,7 +463,7 @@ export function ContactDetailView({
                     ) : (
                       <Save className="size-3.5" />
                     )}
-                    Save Changes
+                    Enregistrer les modifications
                   </Button>
                 </div>
               </TabsContent>
@@ -472,11 +472,11 @@ export function ContactDetailView({
               <TabsContent value="tags" className="flex-1 overflow-y-auto px-4 py-3">
                 <div className="space-y-3">
                   <p className="text-xs text-slate-400">
-                    Click a tag to add or remove it from this contact.
+                    Cliquez sur une etiquette pour l ajouter ou la retirer de ce contact.
                   </p>
                   {allTags.length === 0 ? (
                     <p className="text-sm text-slate-500">
-                      No tags available. Create tags in Settings.
+                      Aucune etiquette disponible. Creez des etiquettes dans les parametres.
                     </p>
                   ) : (
                     <div className="flex flex-wrap gap-2">
@@ -513,7 +513,7 @@ export function ContactDetailView({
                   <Textarea
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
-                    placeholder="Write a note..."
+                    placeholder="Ecrire une note..."
                     className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[60px] text-sm resize-none"
                   />
                   <Button
@@ -527,7 +527,7 @@ export function ContactDetailView({
                     ) : (
                       <Plus className="size-3.5" />
                     )}
-                    Add Note
+                    Ajouter une note
                   </Button>
                 </div>
 
@@ -538,7 +538,7 @@ export function ContactDetailView({
                     </div>
                   ) : notes.length === 0 ? (
                     <p className="text-sm text-slate-500 text-center py-8">
-                      No notes yet.
+                      Aucune note pour le moment.
                     </p>
                   ) : (
                     notes.map((note) => (
@@ -580,7 +580,7 @@ export function ContactDetailView({
                   </div>
                 ) : customFields.length === 0 ? (
                   <p className="text-sm text-slate-500 text-center py-8">
-                    No custom fields defined. Create them in Settings.
+                    Aucun champ personnalise defini. Creez-les dans les parametres.
                   </p>
                 ) : (
                   <div className="space-y-3">
@@ -597,7 +597,7 @@ export function ContactDetailView({
                               [field.id]: e.target.value,
                             }))
                           }
-                          placeholder={`Enter ${field.field_name}...`}
+                          placeholder={`Saisir ${field.field_name}...`}
                           className="bg-slate-800 border-slate-700 text-white h-8 text-sm placeholder:text-slate-500"
                         />
                       </div>
@@ -613,7 +613,7 @@ export function ContactDetailView({
                       ) : (
                         <Save className="size-3.5" />
                       )}
-                      Save Custom Fields
+                      Enregistrer les champs personnalises
                     </Button>
                   </div>
                 )}
@@ -626,7 +626,7 @@ export function ContactDetailView({
                     <Loader2 className="size-5 animate-spin text-violet-500" />
                   </div>
                 ) : deals.length === 0 ? (
-                  <p className="text-xs text-slate-500">No deals yet</p>
+                  <p className="text-xs text-slate-500">Aucune opportunite pour le moment</p>
                 ) : (
                   <div className="space-y-2">
                     {deals.map((deal) => (

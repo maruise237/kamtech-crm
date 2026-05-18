@@ -90,7 +90,7 @@ export function ContactForm({
         data: { session },
       } = await supabase.auth.getSession();
       const user = session?.user;
-      if (!user) throw new Error('Not authenticated');
+      if (!user) throw new Error('Non authentifie');
 
       let contactId = contact?.id;
 
@@ -141,11 +141,11 @@ export function ContactForm({
         }
       }
 
-      toast.success(isEdit ? 'Contact updated' : 'Contact created');
+      toast.success(isEdit ? 'Contact mis a jour' : 'Contact cree');
       onOpenChange(false);
       onSaved();
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to save contact';
+      const message = err instanceof Error ? err.message : 'Impossible d enregistrer le contact';
       toast.error(message);
     } finally {
       setSaving(false);
@@ -157,19 +157,19 @@ export function ContactForm({
       <DialogContent className="bg-slate-900 border-slate-700 text-slate-200 sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-white">
-            {isEdit ? 'Edit Contact' : 'Add Contact'}
+            {isEdit ? 'Modifier le contact' : 'Ajouter un contact'}
           </DialogTitle>
           <DialogDescription className="text-slate-400">
             {isEdit
-              ? 'Update the contact details below.'
-              : 'Fill in the details to create a new contact.'}
+              ? 'Mettez a jour les informations du contact ci-dessous.'
+              : 'Renseignez les informations pour creer un nouveau contact.'}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="cf-name" className="text-slate-300">
-              Name
+              Nom
             </Label>
             <Input
               id="cf-name"
@@ -182,7 +182,7 @@ export function ContactForm({
 
           <div className="space-y-2">
             <Label htmlFor="cf-phone" className="text-slate-300">
-              Phone <span className="text-red-400">*</span>
+              Telephone <span className="text-red-400">*</span>
             </Label>
             <Input
               id="cf-phone"
@@ -192,13 +192,13 @@ export function ContactForm({
               className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
             />
             <p className="text-xs text-slate-500">
-              Include country code, e.g. +1 for US
+              Incluez l indicatif pays, par exemple +237 pour le Cameroun
             </p>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="cf-email" className="text-slate-300">
-              Email
+              E-mail
             </Label>
             <Input
               id="cf-email"
@@ -212,7 +212,7 @@ export function ContactForm({
 
           <div className="space-y-2">
             <Label htmlFor="cf-company" className="text-slate-300">
-              Company
+              Entreprise
             </Label>
             <Input
               id="cf-company"
@@ -224,15 +224,15 @@ export function ContactForm({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-slate-300">Tags</Label>
+            <Label className="text-slate-300">Etiquettes</Label>
             {loadingTags ? (
               <div className="flex items-center gap-2 text-slate-500 text-sm">
                 <Loader2 className="size-3 animate-spin" />
-                Loading tags...
+                Chargement des etiquettes...
               </div>
             ) : tags.length === 0 ? (
               <p className="text-xs text-slate-500">
-                No tags available. Create tags in Settings.
+                Aucune etiquette disponible. Creez des etiquettes dans les parametres.
               </p>
             ) : (
               <div className="flex flex-wrap gap-1.5">
@@ -269,7 +269,7 @@ export function ContactForm({
               onClick={() => onOpenChange(false)}
               className="border-slate-700 text-slate-300 hover:bg-slate-800"
             >
-              Cancel
+              Annuler
             </Button>
             <Button
               type="submit"
@@ -277,7 +277,7 @@ export function ContactForm({
               className="bg-violet-600 hover:bg-violet-700 text-white"
             >
               {saving && <Loader2 className="size-4 animate-spin" />}
-              {isEdit ? 'Update' : 'Create'}
+              {isEdit ? 'Mettre a jour' : 'Creer'}
             </Button>
           </DialogFooter>
         </form>

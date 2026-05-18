@@ -1,54 +1,39 @@
 # Documentation
 
-A self-hostable CRM template for WhatsApp® built on Next.js and Supabase.
-These docs walk you from a freshly forked repo to a production deploy.
+Ce CRM WhatsApp auto-heberge est construit avec Next.js et Supabase. Cette documentation vous accompagne depuis le depot Git jusqu au deploiement en production.
 
-## Reading order
+## Ordre de lecture
 
-**Setup**
+**Configuration**
 
-1. **[Getting started](./getting-started.md)** — fork the repo, install, run
-   locally.
-2. **[Supabase setup](./supabase-setup.md)** — create the database, run the
-   migrations, grab the keys.
-3. **[WhatsApp setup](./whatsapp-setup.md)** — create a Meta app, connect a
-   phone number, wire the webhook.
-4. **[Environment variables](./environment-variables.md)** — the full reference.
+1. **[Demarrage](./getting-started.md)** : installer le projet et le lancer en local.
+2. **[Configuration Supabase](./supabase-setup.md)** : creer la base, appliquer les migrations et recuperer les cles.
+3. **[Configuration WhatsApp](./whatsapp-setup.md)** : creer l application Meta, connecter un numero et configurer le webhook.
+4. **[Variables d environnement](./environment-variables.md)** : reference complete.
 
-**Deploy**
+**Deploiement**
 
-5. **[Deploy on Hostinger](./deployment-hostinger.md)** — Managed Node.js
-   Hosting walkthrough, the recommended way to ship the template.
-6. **[Automations cron](./automations-and-cron.md)** — schedule the pending
-   executions drain so waits and delays fire.
+5. **[Deploiement Dokploy](./deployment-dokploy.md)** : deploiement avec Docker Compose.
+6. **[Deploiement Hostinger](./deployment-hostinger.md)** : alternative Managed Node.js.
+7. **[Cron des automatisations](./automations-and-cron.md)** : relancer les etapes d attente.
 
 **Reference**
 
-7. **[Architecture](./architecture.md)** — stack, folder layout, request
-   lifecycle, where to change things.
-8. **[Troubleshooting](./troubleshooting.md)** — the usual suspects.
+8. **[Architecture](./architecture.md)** : stack, dossiers et cycle des requetes.
+9. **[Depannage](./troubleshooting.md)** : erreurs frequentes et corrections.
 
-## What you will need before starting
+## Prerequis
 
-- A GitHub account (to fork the repo).
-- A [Supabase](https://supabase.com) project on any paid or free tier.
-- A [Meta for Developers](https://developers.facebook.com) account with a
-  WhatsApp Business app.
-- A WhatsApp phone number that is **not** already tied to the regular
-  WhatsApp or WhatsApp Business mobile apps.
-- A [Hostinger Managed Node.js Hosting](https://www.hostinger.com/web-apps-hosting)
-  plan (or any Node host that runs long-running Node.js 20+ processes).
+- Un compte GitHub.
+- Un projet [Supabase](https://supabase.com).
+- Un compte [Meta for Developers](https://developers.facebook.com) avec une application WhatsApp Business.
+- Un numero WhatsApp non lie a l application mobile WhatsApp classique.
+- Un serveur Dokploy, Hostinger ou tout hebergeur Node.js 20+.
 
-## Stack at a glance
+## Stack en bref
 
-- **Frontend / API** — Next.js 16 (App Router), React 19, Tailwind v4.
-- **Database + auth + storage** — Supabase (Postgres + RLS).
-- **WhatsApp transport** — Meta Cloud API (official WhatsApp Business API).
-- **Encryption** — AES-256-GCM for per-user WhatsApp access + verify
-  tokens at rest. Legacy CBC-encrypted rows self-heal on next use.
-- **Scheduler** — cron (or any pinger) that hits `GET /api/automations/cron`.
-
-## Getting help
-
-If something is unclear or broken, open an issue against the source repo:
-<https://github.com/ArnasDon/wacrm/issues>.
+- **Frontend / API** : Next.js 16, React 19, Tailwind v4.
+- **Base + auth + stockage** : Supabase avec Postgres et RLS.
+- **Transport WhatsApp** : Meta Cloud API officielle.
+- **Chiffrement** : AES-256-GCM pour les jetons WhatsApp.
+- **Planification** : cron ou ping regulier vers `GET /api/automations/cron`.

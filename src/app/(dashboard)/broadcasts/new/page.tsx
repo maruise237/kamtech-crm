@@ -13,10 +13,10 @@ import { useBroadcastSending } from '@/hooks/use-broadcast-sending';
 import { Check } from 'lucide-react';
 
 const steps = [
-  { label: 'Template', key: 'template' },
+  { label: 'Modele', key: 'template' },
   { label: 'Audience', key: 'audience' },
   { label: 'Personalize', key: 'personalize' },
-  { label: 'Send', key: 'send' },
+  { label: 'Envoyer', key: 'send' },
 ] as const;
 
 export default function NewBroadcastPage() {
@@ -59,16 +59,16 @@ export default function NewBroadcastPage() {
       });
       router.push(`/broadcasts/${broadcastId}`);
     } catch (err) {
-      // Previously swallowed with console.error — the wizard would
+      // Previously swallowed with console.error - the wizard would
       // just no-op, leaving the user confused. Surface the reason.
-      const message = err instanceof Error ? err.message : 'Broadcast failed';
+      const message = err instanceof Error ? err.message : 'Echec de la diffusion';
       console.error('Broadcast failed:', err);
       toast.error(message);
     }
   }
 
   /**
-   * Writes a draft broadcast row — no recipients, no sending. The user
+   * Writes a draft broadcast row - no recipients, no sending. The user
    * can revisit it via the list page to finish the flow later. We
    * don't persist the in-progress audience/variable config here
    * because the current schema doesn't carry it past `audience_filter`
@@ -122,9 +122,9 @@ export default function NewBroadcastPage() {
     <div className="mx-auto max-w-3xl space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">New Broadcast</h1>
+        <h1 className="text-2xl font-bold text-white">Nouvelle diffusion</h1>
         <p className="mt-1 text-sm text-slate-400">
-          Create and send a broadcast message to your contacts.
+          Creez et envoyez une diffusion a vos contacts.
         </p>
       </div>
 

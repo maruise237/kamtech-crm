@@ -56,7 +56,7 @@ export default function AutomationLogsPage({
         setAutomation(autRes.data as Automation | null)
         setLogs((logRes.data ?? []) as AutomationLog[])
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load logs")
+        setError(err instanceof Error ? err.message : "Impossible de charger les journaux")
       }
     }
     load()
@@ -94,13 +94,13 @@ export default function AutomationLogsPage({
         </button>
         <div>
           <h1 className="text-2xl font-bold text-white">{automation.name}</h1>
-          <p className="mt-0.5 text-sm text-slate-400">Execution logs</p>
+          <p className="mt-0.5 text-sm text-slate-400">Journaux d execution</p>
         </div>
       </div>
 
       {logs.length === 0 ? (
         <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-900/40">
-          <p className="text-sm text-white">No executions yet</p>
+          <p className="text-sm text-white">Aucune execution pour le moment</p>
           <p className="mt-1 text-xs text-slate-400">
             Trigger this automation to see runs here.
           </p>
@@ -127,10 +127,10 @@ export default function AutomationLogsPage({
                   <StatusBadge status={log.status} />
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-sm font-medium text-white">
-                      {log.contact?.name ?? log.contact?.phone ?? "Unknown contact"}
+                      {log.contact?.name ?? log.contact?.phone ?? "Contact inconnu"}
                     </div>
                     <div className="truncate text-xs text-slate-500">
-                      {log.trigger_event} · {log.steps_executed?.length ?? 0} step
+                      {log.trigger_event} Â· {log.steps_executed?.length ?? 0} step
                       {log.steps_executed?.length === 1 ? "" : "s"}
                     </div>
                   </div>
@@ -150,7 +150,7 @@ export default function AutomationLogsPage({
                         <StepRow key={i} result={r} />
                       ))}
                       {(log.steps_executed ?? []).length === 0 && (
-                        <li className="text-xs text-slate-500">No steps recorded.</li>
+                        <li className="text-xs text-slate-500">Aucune etape enregistree.</li>
                       )}
                     </ul>
                   </div>
@@ -198,7 +198,7 @@ function StepRow({ result }: { result: AutomationLogStepResult }) {
       </span>
       <span className="text-slate-300">{result.step_type}</span>
       {result.detail && (
-        <span className="truncate text-slate-500">— {result.detail}</span>
+        <span className="truncate text-slate-500">- {result.detail}</span>
       )}
     </li>
   )

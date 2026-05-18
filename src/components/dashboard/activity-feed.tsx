@@ -39,7 +39,7 @@ const KIND_THEME: Record<ActivityKind, KindTheme> = {
 }
 
 export function ActivityFeed({ items, loading }: ActivityFeedProps) {
-  // Start at 5 — a quick scan of the most recent events without
+  // Start at 5 - a quick scan of the most recent events without
   // dominating vertical real estate. User expands explicitly via the
   // footer control when they want deeper history.
   const [pageSize, setPageSize] = useState<PageSize>(5)
@@ -48,7 +48,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
   const visible = items?.slice(0, pageSize) ?? []
   // A size option is "useful" if picking it would reveal rows the
   // smaller option doesn't already show. With PAGE_SIZES=[5,10,20,50]:
-  // "10" is useful only once we've loaded ≥6 items, "20" once ≥11, etc.
+  // "10" is useful only once we've loaded â‰¥6 items, "20" once â‰¥11, etc.
   // The smallest option is always enabled.
   const isSizeUseful = (size: PageSize, i: number) =>
     i === 0 || totalLoaded > PAGE_SIZES[i - 1]
@@ -56,12 +56,12 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
   return (
     <section className="rounded-xl border border-slate-800 bg-slate-900">
       <header className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
-        <h2 className="text-sm font-semibold text-white">Recent Activity</h2>
+        <h2 className="text-sm font-semibold text-white">Activite recente</h2>
         <Link
           href="/inbox"
           className="text-xs font-medium text-violet-400 hover:text-violet-300"
         >
-          View all →
+          Tout voir &rarr;
         </Link>
       </header>
 
@@ -75,7 +75,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
         <div className="p-5">
           <EmptyState
             icon={Inbox}
-            title="No activity yet"
+            title="Aucune activite pour le moment"
             hint="Activity from messages, deals, broadcasts, and automations will appear here."
           />
         </div>
@@ -85,7 +85,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
             {visible.map((it, i) => {
               const theme = KIND_THEME[it.kind]
               const Icon = theme.icon
-              // Alternating row background for scanability — dark-theme
+              // Alternating row background for scanability - dark-theme
               // translation of the spec's white / #f9fafb stripes.
               const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-slate-900/40'
               const row = (
@@ -125,7 +125,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
               {totalLoaded === 50 ? '+' : ''}
             </span>
             <div className="flex items-center gap-1">
-              <span className="mr-1 text-slate-500">Show</span>
+              <span className="mr-1 text-slate-500">Afficher</span>
               {PAGE_SIZES.map((size, i) => {
                 const disabled = !isSizeUseful(size, i)
                 return (

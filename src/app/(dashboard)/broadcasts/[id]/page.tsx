@@ -78,7 +78,7 @@ function FunnelChart({ steps }: { steps: FunnelStep[] }) {
   const max = Math.max(...steps.map((s) => s.value), 1);
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-      <h3 className="mb-4 text-sm font-medium text-white">Funnel</h3>
+      <h3 className="mb-4 text-sm font-medium text-white">Entonnoir</h3>
       <div className="space-y-2">
         {steps.map((step) => {
           const pctOfMax = Math.max(5, Math.round((step.value / max) * 100));
@@ -121,7 +121,7 @@ const RECIPIENT_STATUSES: readonly RecipientStatus[] = [
 ];
 
 /**
- * CSV export helper — RFC 4180 quoting. Quote every field so
+ * CSV export helper - RFC 4180 quoting. Quote every field so
  * commas/newlines/quotes round-trip cleanly.
  */
 function toCsv(rows: string[][]): string {
@@ -179,7 +179,7 @@ export default function BroadcastDetailPage() {
         if (recsError) throw recsError;
         setRecipients(recs ?? []);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load broadcast');
+        setError(err instanceof Error ? err.message : 'Impossible de charger la diffusion');
       } finally {
         setLoading(false);
       }
@@ -200,13 +200,13 @@ export default function BroadcastDetailPage() {
     if (!broadcast) return;
     const header = [
       'Contact',
-      'Phone',
-      'Status',
-      'Sent At',
-      'Delivered At',
-      'Read At',
+      'Telephone',
+      'Statut',
+      'Envoye le',
+      'Livre le',
+      'Lu le',
       'Replied At',
-      'Error',
+      'Erreur',
     ];
     const rows = recipients.map((r) => [
       r.contact?.name ?? '',
@@ -227,7 +227,7 @@ export default function BroadcastDetailPage() {
     setDeleting(true);
     const supabase = createClient();
     // broadcast_recipients cascades on broadcasts.id (migration 001), so a
-    // single delete is sufficient — the aggregate trigger in migration 003
+    // single delete is sufficient - the aggregate trigger in migration 003
     // is defined on broadcast_recipients but fires only on its own row
     // changes, not on a cascaded drop of the parent row.
     const { error: delErr } = await supabase
@@ -239,7 +239,7 @@ export default function BroadcastDetailPage() {
       toast.error(`Failed to delete: ${delErr.message}`);
       return;
     }
-    toast.success('Broadcast deleted');
+    toast.success('Diffusion supprimee');
     router.push('/broadcasts');
   }
 
@@ -254,7 +254,7 @@ export default function BroadcastDetailPage() {
   if (error || !broadcast) {
     return (
       <div className="flex h-64 flex-col items-center justify-center gap-2">
-        <p className="text-sm text-red-400">{error ?? 'Broadcast not found'}</p>
+        <p className="text-sm text-red-400">{error ?? 'Diffusion introuvable'}</p>
         <Button variant="outline" onClick={() => router.push('/broadcasts')}>
           Back to Broadcasts
         </Button>
@@ -265,9 +265,9 @@ export default function BroadcastDetailPage() {
   const status = getBroadcastStatus(broadcast.status);
 
   const funnelSteps: FunnelStep[] = [
-    { label: 'Sent', value: broadcast.sent_count, color: 'bg-violet-500' },
-    { label: 'Delivered', value: broadcast.delivered_count, color: 'bg-teal-500' },
-    { label: 'Read', value: broadcast.read_count, color: 'bg-blue-500' },
+    { label: 'Envoye', value: broadcast.sent_count, color: 'bg-violet-500' },
+    { label: 'Livre', value: broadcast.delivered_count, color: 'bg-teal-500' },
+    { label: 'Lu', value: broadcast.read_count, color: 'bg-blue-500' },
     { label: 'Replied', value: broadcast.replied_count, color: 'bg-indigo-500' },
   ];
 
@@ -294,7 +294,7 @@ export default function BroadcastDetailPage() {
               </span>
             </div>
             <div className="mt-1 flex items-center gap-3 text-sm text-slate-400">
-              <span>Template: {broadcast.template_name}</span>
+              <span>Modele : {broadcast.template_name}</span>
               <span>-</span>
               <span>
                 Created {new Date(broadcast.created_at).toLocaleDateString()}
@@ -303,13 +303,13 @@ export default function BroadcastDetailPage() {
           </div>
         </div>
 
-        {/* Delete — inline-confirm pattern matches the pipeline-settings
-            "Delete Pipeline" flow. Mid-send broadcasts can't be deleted
+        {/* Delete - inline-confirm pattern matches the pipeline-settings
+            "Supprimer le pipeline" flow. Mid-send broadcasts can't be deleted
             because orphaning in-flight Meta messages would leave the
             funnel inconsistent. */}
         {confirmDelete ? (
           <div className="flex items-center gap-2 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-sm">
-            <span className="text-red-300">Delete this broadcast?</span>
+            <span className="text-red-300">Supprimer cette diffusion ?</span>
             <Button
               variant="outline"
               size="sm"
@@ -317,7 +317,7 @@ export default function BroadcastDetailPage() {
               disabled={deleting}
               className="h-7 border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
             >
-              Cancel
+              Annuler
             </Button>
             <Button
               size="sm"
@@ -325,7 +325,7 @@ export default function BroadcastDetailPage() {
               disabled={deleting}
               className="h-7 bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
             >
-              {deleting ? 'Deleting…' : 'Confirm'}
+              {deleting ? 'Deleting...' : 'Confirm'}
             </Button>
           </div>
         ) : (
@@ -337,17 +337,17 @@ export default function BroadcastDetailPage() {
             title={
               broadcast.status === 'sending'
                 ? 'Cannot delete while a broadcast is actively sending'
-                : 'Delete this broadcast'
+                : 'Supprimer cette diffusion'
             }
             className="border-red-500/30 bg-transparent text-red-400 hover:bg-red-500/10 disabled:opacity-40"
           >
             <Trash2 className="h-3.5 w-3.5" />
-            Delete
+            Supprimer
           </Button>
         )}
       </div>
 
-      {/* Stats — 6 cards: Total / Sent / Delivered / Read / Replied / Failed */}
+      {/* Stats - 6 cards: Total / Sent / Delivered / Read / Replied / Failed */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard
           label="Total Recipients"
@@ -357,21 +357,21 @@ export default function BroadcastDetailPage() {
           color="bg-slate-800 text-slate-300"
         />
         <StatCard
-          label="Sent"
+          label="Envoye"
           value={broadcast.sent_count}
           total={broadcast.total_recipients}
           icon={<Send className="h-4 w-4" />}
           color="bg-violet-500/10 text-violet-400"
         />
         <StatCard
-          label="Delivered"
+          label="Livre"
           value={broadcast.delivered_count}
           total={broadcast.total_recipients}
           icon={<CheckCheck className="h-4 w-4" />}
           color="bg-teal-500/10 text-teal-400"
         />
         <StatCard
-          label="Read"
+          label="Lu"
           value={broadcast.read_count}
           total={broadcast.total_recipients}
           icon={<Eye className="h-4 w-4" />}
@@ -385,7 +385,7 @@ export default function BroadcastDetailPage() {
           color="bg-indigo-500/10 text-indigo-400"
         />
         <StatCard
-          label="Failed"
+          label="Echec"
           value={broadcast.failed_count}
           total={broadcast.total_recipients}
           icon={<AlertCircle className="h-4 w-4" />}
@@ -461,8 +461,8 @@ export default function BroadcastDetailPage() {
           <div className="flex h-32 items-center justify-center">
             <p className="text-sm text-slate-400">
               {recipients.length === 0
-                ? 'No recipients found.'
-                : 'No recipients match this filter.'}
+                ? 'Aucun destinataire trouve.'
+                : 'Aucun destinataire ne correspond a ce filtre.'}
             </p>
           </div>
         ) : (
@@ -471,12 +471,12 @@ export default function BroadcastDetailPage() {
               <TableHeader>
                 <TableRow className="border-slate-800 hover:bg-transparent">
                   <TableHead className="text-slate-400">Contact</TableHead>
-                  <TableHead className="text-slate-400">Phone</TableHead>
-                  <TableHead className="text-slate-400">Status</TableHead>
-                  <TableHead className="text-slate-400">Sent</TableHead>
-                  <TableHead className="text-slate-400">Delivered</TableHead>
-                  <TableHead className="text-slate-400">Read</TableHead>
-                  <TableHead className="text-slate-400">Error</TableHead>
+                  <TableHead className="text-slate-400">Telephone</TableHead>
+                  <TableHead className="text-slate-400">Statut</TableHead>
+                  <TableHead className="text-slate-400">Envoye</TableHead>
+                  <TableHead className="text-slate-400">Livre</TableHead>
+                  <TableHead className="text-slate-400">Lu</TableHead>
+                  <TableHead className="text-slate-400">Erreur</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -485,7 +485,7 @@ export default function BroadcastDetailPage() {
                   return (
                     <TableRow key={recipient.id} className="border-slate-800">
                       <TableCell className="font-medium text-white">
-                        {recipient.contact?.name ?? 'Unknown'}
+                        {recipient.contact?.name ?? 'Inconnu'}
                       </TableCell>
                       <TableCell className="text-slate-300">
                         {recipient.contact?.phone ?? '-'}

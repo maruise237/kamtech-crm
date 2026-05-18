@@ -31,7 +31,7 @@ export function LandingNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    // Quick auth check — no realtime needed, just the initial state.
+    // Quick auth check - no realtime needed, just the initial state.
     const supabase = createClient()
     let cancelled = false
     supabase.auth.getSession().then(({ data }) => {
@@ -99,7 +99,7 @@ export function LandingNav() {
         <button
           type="button"
           className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-slate-800 hover:text-white md:hidden"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           onClick={() => setMobileOpen((v) => !v)}
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -158,11 +158,11 @@ function NavCtas({ auth, mobile = false }: { auth: AuthState; mobile?: boolean }
     // nothing shifts once auth resolves.
     return (
       <>
-        <span className={cn(btnBase, 'w-20 bg-slate-800/60 text-transparent')}>·</span>
+        <span className={cn(btnBase, 'w-20 bg-slate-800/60 text-transparent')}>Â·</span>
         <span
           className={cn(btnBase, 'w-28 bg-slate-800/60 text-transparent')}
         >
-          ·
+          Â·
         </span>
       </>
     )

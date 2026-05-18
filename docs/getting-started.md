@@ -1,79 +1,61 @@
-# Getting started
+# Demarrage
 
-Run the template locally in about 15 minutes. This guide assumes Node.js 20+ and
-npm are already installed.
+Lancez le projet en local en quelques minutes. Ce guide suppose que Node.js 20+ et npm sont installes.
 
-## 1. Fork and clone
+## 1. Cloner le depot
 
-1. Go to <https://github.com/ArnasDon/wacrm> and click **Fork** (top right).
-2. Clone your fork:
+```bash
+git clone git@github.com:maruise237/kamtech-crm.git
+cd kamtech-crm
+```
 
-   ```bash
-   git clone https://github.com/<your-username>/wacrm.git
-   cd wacrm
-   ```
-
-## 2. Install dependencies
+## 2. Installer les dependances
 
 ```bash
 npm install
 ```
 
-## 3. Create the environment file
-
-Copy the template and fill in the values (full reference in
-[environment-variables.md](./environment-variables.md)):
+## 3. Creer le fichier d environnement
 
 ```bash
 cp .env.local.example .env.local
 ```
 
-You cannot run `npm run dev` until **at least** `NEXT_PUBLIC_SUPABASE_URL`
-and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are set. You need the full Supabase
-setup before WhatsApp® features will work, so do that next.
+Renseignez au minimum `NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Les fonctionnalites WhatsApp exigent aussi les variables Supabase, Meta et chiffrement.
 
-## 4. Set up Supabase
+## 4. Configurer Supabase
 
-Follow [supabase-setup.md](./supabase-setup.md) to create the project and
-run the migrations. Come back here when the URL, anon key, and service-role
-key are populated in `.env.local`.
+Suivez [supabase-setup.md](./supabase-setup.md), puis revenez ici quand l URL, la cle anon et la cle service-role sont dans `.env.local`.
 
-## 5. Generate the encryption key
-
-Access tokens for WhatsApp are encrypted at rest with AES-256-CBC. Generate
-a 64-character hex key:
+## 5. Generer la cle de chiffrement
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
-Paste the output into `ENCRYPTION_KEY` in `.env.local`. **Do not change
-this value later** — existing tokens are encrypted with whatever value was
-set at the time, and rotating it will make them unreadable.
+Copiez la valeur dans `ENCRYPTION_KEY`. Ne la changez pas apres le premier deploiement, sinon les jetons deja chiffres deviendront illisibles.
 
-## 6. Run the dev server
+## 6. Lancer le serveur local
 
 ```bash
 npm run dev
 ```
 
-Open <http://localhost:3000>. You should see the marketing landing page.
+Ouvrez <http://localhost:3000>.
 
-- Create an account at `/signup`.
-- After sign-in you land on `/dashboard`.
-- The inbox, contacts, pipelines, automations, and broadcasts modules are
-  all empty until you connect a WhatsApp number
-  ([whatsapp-setup.md](./whatsapp-setup.md)).
+- Creez un compte dans `/signup`.
+- Apres connexion, vous arrivez sur `/dashboard`.
+- Les modules restent vides tant qu aucun numero WhatsApp n est connecte.
 
-## 7. Commands cheat sheet
+## Commandes utiles
 
-| Command          | Purpose                                        |
-| ---------------- | ---------------------------------------------- |
-| `npm run dev`    | Dev server with Turbopack HMR on `:3000`.      |
-| `npm run build`  | Production build.                              |
-| `npm start`      | Run the production build.                      |
-| `npm run lint`   | ESLint across the project.                     |
+| Commande | Role |
+| --- | --- |
+| `npm run dev` | Serveur de developpement sur `:3000`. |
+| `npm run build` | Build de production. |
+| `npm start` | Lance le build de production. |
+| `npm run lint` | Analyse ESLint. |
 
-## Next step
+## Etape suivante
 
-[Supabase setup →](./supabase-setup.md)
+[Configuration Supabase ->](./supabase-setup.md)
