@@ -26,10 +26,11 @@ import {
   X,
   Trash2,
   MessageSquare,
-  DollarSign,
+  Banknote,
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { CURRENCY_OPTIONS, DEFAULT_CURRENCY } from "@/lib/currency";
 
 interface DealFormProps {
   open: boolean;
@@ -54,7 +55,7 @@ export function DealForm({
 
   const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
-  const [currency, setCurrency] = useState("USD");
+  const [currency, setCurrency] = useState(DEFAULT_CURRENCY);
   const [contactId, setContactId] = useState("");
   const [stageId, setStageId] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
@@ -81,7 +82,7 @@ export function DealForm({
     if (deal) {
       setTitle(deal.title);
       setValue(String(deal.value ?? ""));
-      setCurrency(deal.currency || "USD");
+      setCurrency(deal.currency || DEFAULT_CURRENCY);
       // contact_id is nullable when the contact has been deleted
       // (migration 004: ON DELETE SET NULL). "" means "no selection".
       setContactId(deal.contact_id ?? "");
@@ -92,7 +93,7 @@ export function DealForm({
     } else {
       setTitle("");
       setValue("");
-      setCurrency("USD");
+      setCurrency(DEFAULT_CURRENCY);
       setContactId("");
       setStageId(defaultStageId || stages[0]?.id || "");
       setAssignedTo("");
@@ -148,7 +149,7 @@ export function DealForm({
 
   async function handleSave() {
     if (!title.trim() || !contactId || !stageId) {
-      toast.error("Title, contact, and stage are required");
+      toast.error("Le titre, le contact et l etape sont obligatoires");
       return;
     }
     setSaving(true);
@@ -280,7 +281,7 @@ export function DealForm({
                   className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md bg-violet-500/10 px-2 py-1 text-xs text-violet-400 hover:bg-violet-500/20"
                 >
                   <MessageSquare className="h-3 w-3" />
-                  Link to Conversation
+                  Ouvrir la conversation
                 </Link>
               )}
             </div>
@@ -289,7 +290,7 @@ export function DealForm({
               <div className="grid gap-2">
                 <Label className="text-slate-300">Valeur</Label>
                 <div className="relative">
-                  <DollarSign className="absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
+                  <Banknote className="absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-500" />
                   <Input
                     type="number"
                     value={value}
@@ -306,9 +307,11 @@ export function DealForm({
                   onChange={(e) => setCurrency(e.target.value)}
                   className="h-9 w-full rounded-lg border border-slate-700 bg-slate-800 px-2.5 text-sm text-white outline-none focus:border-violet-500"
                 >
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="GBP">GBP</option>
+                  {CURRENCY_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -409,7 +412,7 @@ export function DealForm({
                     disabled={!!statusAction}
                     className="w-full text-slate-400 hover:text-white"
                   >
-                    Reopen deal
+                    Rouvrir l opportunite
                   </Button>
                 )}
               </div>

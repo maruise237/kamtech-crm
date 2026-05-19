@@ -288,6 +288,7 @@ export interface CreateDealStepConfig {
   stage_id: string;
   title: string;
   value?: number;
+  currency?: string;
 }
 
 export interface WaitStepConfig {

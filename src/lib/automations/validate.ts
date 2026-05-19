@@ -1,4 +1,7 @@
 import type { AutomationTriggerType } from '@/types'
+import { CURRENCY_OPTIONS } from '@/lib/currency'
+
+const SUPPORTED_CURRENCIES = new Set<string>(CURRENCY_OPTIONS.map((option) => option.value))
 
 // ------------------------------------------------------------
 // Pre-flight config validation for automations about to be activated.
@@ -94,6 +97,9 @@ function validateOne(step: StepLike, path: string, issues: ValidationIssue[]): v
       }
       if (!nonEmpty(c.title)) {
         issues.push({ path: `${path}.title`, message: 'title is required' })
+      }
+      if (c.currency !== undefined && !SUPPORTED_CURRENCIES.has(String(c.currency))) {
+        issues.push({ path: `${path}.currency`, message: 'currency is not supported' })
       }
       break
     case 'wait':

@@ -42,6 +42,7 @@ import type {
   KeywordMatchTriggerConfig,
 } from "@/types"
 import { cn } from "@/lib/utils"
+import { CURRENCY_OPTIONS, DEFAULT_CURRENCY } from "@/lib/currency"
 
 // ------------------------------------------------------------
 // Types (builder-local - mirror the flattened rows we POST)
@@ -141,7 +142,7 @@ function blankConfig(type: AutomationStepType): Record<string, unknown> {
     case "update_contact_field":
       return { field: "name", value: "" }
     case "create_deal":
-      return { pipeline_id: "", stage_id: "", title: "", value: 0 }
+      return { pipeline_id: "", stage_id: "", title: "", value: 0, currency: DEFAULT_CURRENCY }
     case "wait":
       return { amount: 1, unit: "hours" }
     case "condition":
@@ -830,6 +831,19 @@ function StepEditor({
               onChange={(e) => set({ value: Number(e.target.value) })}
               className="bg-slate-800 text-white"
             />
+          </FieldBlock>
+          <FieldBlock label="Devise">
+            <select
+              value={(cfg.currency as string) ?? DEFAULT_CURRENCY}
+              onChange={(e) => set({ currency: e.target.value })}
+              className="w-full rounded-md border border-slate-700 bg-slate-800 px-2 py-1.5 text-sm text-white"
+            >
+              {CURRENCY_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </FieldBlock>
         </>
       )

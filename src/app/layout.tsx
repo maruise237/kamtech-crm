@@ -90,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="fr" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full bg-slate-950 text-white font-sans">
         {children}
         <Toaster

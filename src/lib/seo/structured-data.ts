@@ -6,6 +6,7 @@ import {
   SITE_URL,
 } from './site-config'
 import { FAQ_ITEMS } from './faq-data'
+import { DEFAULT_CURRENCY } from '@/lib/currency'
 
 /**
  * Builders for the JSON-LD blobs we inject on the landing page. Each
@@ -56,7 +57,7 @@ export function softwareApplicationLd(): Ld {
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'USD',
+      priceCurrency: DEFAULT_CURRENCY,
       availability: 'https://schema.org/InStock',
     },
     featureList: [

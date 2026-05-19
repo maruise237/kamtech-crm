@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
-import type { Contact, Tag, ContactTag, ContactNote, CustomField, ContactCustomValue, Deal } from '@/types';
+import type { Contact, Tag, ContactNote, CustomField, Deal } from '@/types';
 import {
   Sheet,
   SheetContent,
@@ -17,8 +17,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Phone,
   Mail,
@@ -29,9 +27,9 @@ import {
   Plus,
   Trash2,
   Save,
-  X,
-  DollarSign,
+  Banknote,
 } from 'lucide-react';
+import { formatCurrency } from '@/lib/currency';
 
 interface ContactDetailViewProps {
   open: boolean;
@@ -201,7 +199,7 @@ export function ContactDetailView({
     if (error) {
       toast.error('Impossible de mettre a jour le contact');
     } else {
-      toast.success('Contact updated');
+      toast.success('Contact mis a jour');
       fetchContact();
       onUpdated();
     }
@@ -261,7 +259,7 @@ export function ContactDetailView({
     } else {
       setNewNote('');
       fetchNotes();
-      toast.success('Note added');
+      toast.success('Note ajoutee');
     }
     setSavingNote(false);
   }
@@ -276,7 +274,7 @@ export function ContactDetailView({
       toast.error('Impossible de supprimer la note');
     } else {
       setNotes((prev) => prev.filter((n) => n.id !== noteId));
-      toast.success('Note deleted');
+      toast.success('Note supprimee');
     }
   }
 
@@ -306,7 +304,7 @@ export function ContactDetailView({
         if (error) throw error;
       }
 
-      toast.success('Custom fields saved');
+      toast.success('Champs personnalises enregistres');
     } catch {
       toast.error('Impossible d enregistrer les champs personnalises');
     }
@@ -348,7 +346,7 @@ export function ContactDetailView({
                     {contact.name || 'Inconnu'}
                   </SheetTitle>
                   <SheetDescription className="text-slate-400 text-xs mt-0.5">
-                    Contact details
+                    Details du contact
                   </SheetDescription>
                   <div className="flex flex-wrap items-center gap-3 mt-1.5 text-xs text-slate-400">
                     <button
@@ -411,7 +409,7 @@ export function ContactDetailView({
                   value="deals"
                   className="data-active:bg-slate-800 data-active:text-violet-400 text-slate-400"
                 >
-                  Deals
+                  Opportunites
                 </TabsTrigger>
               </TabsList>
 
@@ -652,12 +650,8 @@ export function ContactDetailView({
                         </div>
                         <div className="mt-1.5 flex items-center justify-between text-xs text-slate-400">
                           <span className="flex items-center gap-1">
-                            <DollarSign className="size-3" />
-                            {new Intl.NumberFormat('en-US', {
-                              style: 'currency',
-                              currency: deal.currency || 'USD',
-                              maximumFractionDigits: 0,
-                            }).format(Number(deal.value || 0))}
+                            <Banknote className="size-3" />
+                            {formatCurrency(deal.value, deal.currency)}
                           </span>
                           {deal.status && deal.status !== 'open' && (
                             <span
@@ -667,7 +661,7 @@ export function ContactDetailView({
                                   : 'text-red-400'
                               }
                             >
-                              {deal.status}
+                              {deal.status === 'won' ? 'Gagnee' : 'Perdue'}
                             </span>
                           )}
                         </div>

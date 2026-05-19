@@ -2,22 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { cn } from "@/lib/utils";
 import type { Contact, Deal, ContactNote, Tag } from "@/types";
 import {
   Phone,
   Mail,
   Copy,
   Check,
-  User,
   Tag as TagIcon,
-  DollarSign,
+  Banknote,
   StickyNote,
   Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { format } from "date-fns";
+import { formatCurrency } from "@/lib/currency";
 
 interface ContactSidebarProps {
   contact: Contact | null;
@@ -205,8 +204,8 @@ export function ContactSidebar({ contact }: ContactSidebarProps) {
           {/* Active Deals */}
           <div>
             <div className="flex items-center gap-2 px-1 text-xs font-medium uppercase tracking-wider text-slate-500">
-              <DollarSign className="h-3 w-3" />
-              Active Deals
+              <Banknote className="h-3 w-3" />
+              Opportunites actives
             </div>
             <div className="mt-2 space-y-2">
               {deals.length === 0 ? (
@@ -222,8 +221,7 @@ export function ContactSidebar({ contact }: ContactSidebarProps) {
                     </p>
                     <div className="mt-1 flex items-center justify-between text-xs text-slate-400">
                       <span>
-                        {deal.currency ?? "$"}
-                        {deal.value.toLocaleString()}
+                        {formatCurrency(deal.value, deal.currency)}
                       </span>
                       {deal.stage && (
                         <span

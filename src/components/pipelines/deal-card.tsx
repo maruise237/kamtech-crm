@@ -2,6 +2,7 @@
 
 import type { Deal, PipelineStage } from "@/types";
 import { Calendar, Check, X } from "lucide-react";
+import { formatCurrency } from "@/lib/currency";
 
 interface DealCardProps {
   deal: Deal;
@@ -10,17 +11,8 @@ interface DealCardProps {
   isOverlay?: boolean;
 }
 
-function formatCurrency(value: number, currency?: string) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency || "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(Number(value || 0));
-}
-
 function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("en-US", {
+  return new Date(dateStr).toLocaleDateString("fr-CM", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -67,13 +59,13 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
         {deal.status === "won" && (
           <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-violet-500/15 px-2 py-0.5 text-[10px] font-semibold text-violet-400">
             <Check className="h-3 w-3" />
-            Won
+            Gagnee
           </span>
         )}
         {deal.status === "lost" && (
           <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-semibold text-red-400">
             <X className="h-3 w-3" />
-            Lost
+            Perdue
           </span>
         )}
       </div>

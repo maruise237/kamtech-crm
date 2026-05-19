@@ -8,23 +8,23 @@ export function PipelineMock() {
       name: 'Lead',
       color: 'bg-blue-500',
       deals: [
-        { title: 'Acme Co', value: '$1,200' },
-        { title: 'Bakery on 3rd', value: '$450' },
+        { title: 'Acme Co', value: '750k FCFA' },
+        { title: 'Bakery on 3rd', value: '280k FCFA' },
       ],
     },
     {
       name: 'Proposal',
       color: 'bg-amber-500',
       deals: [
-        { title: 'Nova Studios', value: '$4,800' },
-        { title: 'Riveria Hotel', value: '$2,100' },
-        { title: 'Pine & Co', value: '$960' },
+        { title: 'Nova Studios', value: '2.9M FCFA' },
+        { title: 'Riveria Hotel', value: '1.3M FCFA' },
+        { title: 'Pine & Co', value: '590k FCFA' },
       ],
     },
     {
       name: 'Won',
       color: 'bg-violet-500',
-      deals: [{ title: 'Lagoon Spa', value: '$3,200' }],
+      deals: [{ title: 'Lagoon Spa', value: '1.9M FCFA' }],
     },
   ]
 
