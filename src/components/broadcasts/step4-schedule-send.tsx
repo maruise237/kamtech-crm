@@ -84,19 +84,19 @@ export function Step4ScheduleSend({
 
   const audienceLabel =
     audience.type === 'all'
-      ? 'All Contacts'
+      ? 'Tous les contacts'
       : audience.type === 'tags'
-        ? `Tags (${audience.tagIds?.length ?? 0} selected)`
+        ? `Etiquettes (${audience.tagIds?.length ?? 0} selectionnees)`
         : audience.type === 'csv'
-          ? 'CSV Upload'
-          : 'Custom';
+          ? 'Import CSV'
+          : 'Personnalise';
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-semibold text-white">Verifier et envoyer</h2>
         <p className="mt-1 text-sm text-slate-400">
-          Name your broadcast, review the details, and send.
+          Nommez la diffusion, verifiez les details, puis envoyez.
         </p>
       </div>
 
@@ -106,7 +106,7 @@ export function Step4ScheduleSend({
         <Input
           value={name}
           onChange={(e) => onNameChange(e.target.value)}
-          placeholder="e.g. Summer Sale Announcement"
+          placeholder="ex. Promotion d ete"
           className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-500"
         />
       </div>
@@ -205,7 +205,7 @@ export function Step4ScheduleSend({
           className="border-slate-700 text-slate-300"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back
+          Retour
         </Button>
 
         <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export function Step4ScheduleSend({
               className="border-slate-700 text-slate-300 hover:bg-slate-800 disabled:opacity-50"
             >
               <Save className="h-4 w-4" />
-              Save as Draft
+              Enregistrer comme brouillon
             </Button>
           )}
 
@@ -231,17 +231,17 @@ export function Step4ScheduleSend({
             }
           >
             <Send className="h-4 w-4" />
-            Send Broadcast
+            Envoyer la diffusion
           </DialogTrigger>
           <DialogContent className="border-slate-700 bg-slate-900 sm:max-w-md">
             <DialogHeader>
               <DialogTitle className="text-white">Confirmer la diffusion</DialogTitle>
               <DialogDescription className="text-slate-400">
-                You are about to send this broadcast to{' '}
+                Vous etes sur le point d envoyer cette diffusion a{' '}
                 <span className="font-medium text-white">{estimatedReach.toLocaleString()}</span>{' '}
-                contacts using the{' '}
-                <span className="font-medium text-white">{template.name}</span> template.
-                This action cannot be undone.
+                contacts avec le modele{' '}
+                <span className="font-medium text-white">{template.name}</span>.
+                Cette action est irreversible.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
@@ -260,7 +260,7 @@ export function Step4ScheduleSend({
                 className="bg-violet-600 text-white hover:bg-violet-700"
               >
                 <Send className="h-4 w-4" />
-                Confirm & Send
+                Confirmer et envoyer
               </Button>
             </DialogFooter>
           </DialogContent>

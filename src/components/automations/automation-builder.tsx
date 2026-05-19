@@ -231,7 +231,7 @@ export function AutomationBuilder({ initial }: { initial: BuilderInitial }) {
             description: firstIssue.path ? `at ${firstIssue.path}` : undefined,
           })
         } else {
-          toast.error(body?.error ?? "Save failed")
+          toast.error(body?.error ?? "Echec de l enregistrement")
         }
         return
       }
@@ -278,7 +278,7 @@ export function AutomationBuilder({ initial }: { initial: BuilderInitial }) {
           className="bg-violet-600 text-white hover:bg-violet-700"
         >
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-          {isEditing ? "Save" : "Save Draft"}
+          {isEditing ? "Enregistrer" : "Enregistrer le brouillon"}
         </Button>
       </header>
 
@@ -671,7 +671,7 @@ function AddButton({ onPick }: { onPick: (t: AutomationStepType) => void }) {
       <DropdownMenu>
         <DropdownMenuTrigger
           className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-dashed border-slate-700 bg-slate-950 text-slate-400 transition-colors hover:border-violet-500 hover:bg-violet-500/10 hover:text-violet-400 data-[popup-open]:border-violet-500 data-[popup-open]:bg-violet-500/20 data-[popup-open]:text-violet-400"
-          aria-label="Add step"
+          aria-label="Ajouter une etape"
         >
           <Plus className="h-4 w-4" />
         </DropdownMenuTrigger>

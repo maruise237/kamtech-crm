@@ -182,7 +182,7 @@ export function ContactDetailView({
 
   async function saveDetails() {
     if (!contactId || !editPhone.trim()) {
-      toast.error('Phone number is required');
+      toast.error('Le numero de telephone est obligatoire');
       return;
     }
 
@@ -199,7 +199,7 @@ export function ContactDetailView({
       .eq('id', contactId);
 
     if (error) {
-      toast.error('Failed to update contact');
+      toast.error('Impossible de mettre a jour le contact');
     } else {
       toast.success('Contact updated');
       fetchContact();
@@ -257,7 +257,7 @@ export function ContactDetailView({
     });
 
     if (error) {
-      toast.error('Failed to add note');
+      toast.error('Impossible d ajouter la note');
     } else {
       setNewNote('');
       fetchNotes();
@@ -273,7 +273,7 @@ export function ContactDetailView({
       .eq('id', noteId);
 
     if (error) {
-      toast.error('Failed to delete note');
+      toast.error('Impossible de supprimer la note');
     } else {
       setNotes((prev) => prev.filter((n) => n.id !== noteId));
       toast.success('Note deleted');
@@ -308,7 +308,7 @@ export function ContactDetailView({
 
       toast.success('Custom fields saved');
     } catch {
-      toast.error('Failed to save custom fields');
+      toast.error('Impossible d enregistrer les champs personnalises');
     }
     setSavingCustom(false);
   }
@@ -393,7 +393,7 @@ export function ContactDetailView({
                   value="tags"
                   className="data-active:bg-slate-800 data-active:text-violet-400 text-slate-400"
                 >
-                  Tags
+                  Etiquettes
                 </TabsTrigger>
                 <TabsTrigger
                   value="notes"
@@ -405,7 +405,7 @@ export function ContactDetailView({
                   value="custom"
                   className="data-active:bg-slate-800 data-active:text-violet-400 text-slate-400"
                 >
-                  Custom Fields
+                  Champs personnalises
                 </TabsTrigger>
                 <TabsTrigger
                   value="deals"

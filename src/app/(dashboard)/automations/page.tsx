@@ -137,7 +137,7 @@ export default function AutomationsPage() {
       <div className="flex h-64 flex-col items-center justify-center gap-2">
         <p className="text-sm text-red-400">{error}</p>
         <Button variant="outline" onClick={() => window.location.reload()}>
-          Retry
+          Reessayer
         </Button>
       </div>
     )
@@ -310,10 +310,10 @@ function AutomationCard({
               {meta.label}
             </span>
             <span className="tabular-nums">
-              {automation.execution_count} run{automation.execution_count === 1 ? "" : "s"}
+              {automation.execution_count} execution{automation.execution_count === 1 ? "" : "s"}
             </span>
             <span aria-hidden>Â·</span>
-            <span>last {formatRelative(automation.last_executed_at)}</span>
+            <span>derniere execution {formatRelative(automation.last_executed_at)}</span>
           </div>
         </button>
 
@@ -321,7 +321,7 @@ function AutomationCard({
           <Switch
             checked={automation.is_active}
             onCheckedChange={(v) => onToggle(!!v)}
-            aria-label={automation.is_active ? "Deactivate" : "Activate"}
+            aria-label={automation.is_active ? "Desactiver" : "Activer"}
           />
 
           <DropdownMenu>
@@ -334,15 +334,15 @@ function AutomationCard({
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={onEdit}>
                 <Pencil className="h-4 w-4" />
-                Edit
+                Modifier
               </DropdownMenuItem>
               <DropdownMenuItem onClick={onDuplicate}>
                 <Copy className="h-4 w-4" />
-                Duplicate
+                Dupliquer
               </DropdownMenuItem>
               <DropdownMenuItem onClick={onLogs}>
                 <FileText className="h-4 w-4" />
-                View Logs
+                Voir les journaux
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem variant="destructive" onClick={onDelete}>

@@ -118,14 +118,14 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
 
       <div className="flex items-center justify-between border-t border-slate-800 pt-4">
         <Button variant="outline" onClick={onBack} className="border-slate-700 text-slate-300">
-          Back
+          Retour
         </Button>
         <Button
           onClick={onNext}
           disabled={!selectedTemplate}
           className="bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-50"
         >
-          Next
+          Suivant
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

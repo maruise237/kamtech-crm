@@ -109,7 +109,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
     const rows = parseCSV(text);
 
     if (rows.length === 0) {
-      toast.error('No valid rows found. Ensure CSV has a "phone" column header.');
+      toast.error('Aucune ligne valide trouvee. Verifiez que le CSV contient une colonne "phone".');
       setParsedRows([]);
       return;
     }
@@ -172,7 +172,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
         toast.error(`${failed} contact${failed !== 1 ? 's' : ''} failed to import`);
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Import failed';
+      const message = err instanceof Error ? err.message : 'Echec de l import';
       toast.error(message);
     } finally {
       setImporting(false);
@@ -292,7 +292,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
             onClick={() => handleOpenChange(false)}
             className="border-slate-700 text-slate-300 hover:bg-slate-800"
           >
-            {result ? 'Close' : 'Annuler'}
+            {result ? 'Fermer' : 'Annuler'}
           </Button>
           {!result && (
             <Button
@@ -302,7 +302,7 @@ export function ImportModal({ open, onOpenChange, onImported }: ImportModalProps
               className="bg-violet-600 hover:bg-violet-700 text-white"
             >
               {importing && <Loader2 className="size-4 animate-spin" />}
-              Import {parsedRows.length > 0 ? `${parsedRows.length} Contacts` : ''}
+              Importer {parsedRows.length > 0 ? `${parsedRows.length} contacts` : ''}
             </Button>
           )}
         </DialogFooter>

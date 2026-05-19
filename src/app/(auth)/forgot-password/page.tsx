@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
                 variant="outline"
                 className="w-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
               >
-                Back to sign in
+                Retour a la connexion
               </Button>
             </Link>
           </CardContent>
@@ -122,7 +122,7 @@ export default function ForgotPasswordPage() {
             className="mt-6 flex items-center justify-center gap-2 text-sm text-slate-400 hover:text-slate-300"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to sign in
+            Retour a la connexion
           </Link>
         </CardContent>
       </Card>

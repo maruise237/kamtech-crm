@@ -63,7 +63,7 @@ export function InboxMock() {
               <div className="text-[10px] text-slate-500">+44 7700 900123</div>
             </div>
             <div className="ml-auto inline-flex items-center gap-1 rounded-full border border-violet-500/30 bg-violet-500/10 px-2 py-0.5 text-[10px] text-violet-300">
-              Open
+              Ouverte
             </div>
           </div>
 

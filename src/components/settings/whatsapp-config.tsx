@@ -533,7 +533,7 @@ export function WhatsAppConfig() {
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-400">
                   <ol className="list-decimal list-inside space-y-1 text-sm">
-                    <li>Dans le tableau de bord de l application, cliquez sur &quot;Add Product&quot;</li>
+                    <li>Dans le tableau de bord de l application, cliquez sur &quot;Ajouter un produit&quot;</li>
                     <li>Trouvez &quot;WhatsApp&quot; et cliquez sur &quot;Set Up&quot;</li>
                     <li>Suivez l assistant de configuration pour lier votre entreprise</li>
                   </ol>
@@ -567,7 +567,7 @@ export function WhatsAppConfig() {
                 <AccordionContent className="text-slate-400">
                   <ol className="list-decimal list-inside space-y-1 text-sm">
                     <li>Allez dans WhatsApp &gt; Configuration</li>
-                    <li>Cliquez sur &quot;Edit&quot; dans la section Webhook</li>
+                    <li>Cliquez sur &quot;Modifier&quot; dans la section Webhook</li>
                     <li>Collez l <strong className="text-slate-200">URL de rappel du webhook</strong> ci-dessus</li>
                     <li>Saisissez le meme <strong className="text-slate-200">jeton de verification</strong> que celui defini ici</li>
                     <li>Abonnez-vous au champ webhook &quot;messages&quot;</li>

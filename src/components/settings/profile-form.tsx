@@ -151,7 +151,7 @@ export function ProfileForm() {
         })
         .eq('user_id', user.id);
       if (updateError) {
-        throw new Error(`Save failed: ${updateError.message}`);
+        throw new Error(`Echec de l enregistrement : ${updateError.message}`);
       }
 
       // Email change goes through Supabase Auth, which emails a
@@ -166,7 +166,7 @@ export function ProfileForm() {
         });
         if (emailError) {
           // Partial success: name/avatar saved but email didn't.
-          toast.success('Profile saved');
+          toast.success('Profil enregistre');
           toast.error(`Email change failed: ${emailError.message}`);
           setSaving(false);
           await refreshProfile();
@@ -183,8 +183,8 @@ export function ProfileForm() {
 
       toast.success(
         emailSent
-          ? 'Profile saved - check your email to confirm the address change'
-          : 'Profile saved',
+          ? 'Profil enregistre - verifiez votre e-mail pour confirmer le changement d adresse'
+          : 'Profil enregistre',
       );
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Erreur inconnue';

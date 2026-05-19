@@ -76,7 +76,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
           <EmptyState
             icon={Inbox}
             title="Aucune activite pour le moment"
-            hint="Activity from messages, deals, broadcasts, and automations will appear here."
+            hint="Les messages, opportunites, diffusions et automatisations apparaitront ici."
           />
         </div>
       ) : (
@@ -121,7 +121,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
           </ul>
           <footer className="flex items-center justify-between border-t border-slate-800 px-5 py-3 text-xs">
             <span className="text-slate-500 tabular-nums">
-              Showing {visible.length} of {totalLoaded}
+              Affichage de {visible.length} sur {totalLoaded}
               {totalLoaded === 50 ? '+' : ''}
             </span>
             <div className="flex items-center gap-1">
@@ -158,9 +158,9 @@ function relativeTime(iso: string): string {
   const then = new Date(iso).getTime()
   if (Number.isNaN(then)) return ''
   const diffSec = Math.round((Date.now() - then) / 1000)
-  if (diffSec < 60) return `${Math.max(1, diffSec)}s ago`
-  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`
-  if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`
-  if (diffSec < 2_592_000) return `${Math.floor(diffSec / 86400)}d ago`
+  if (diffSec < 60) return `il y a ${Math.max(1, diffSec)} s`
+  if (diffSec < 3600) return `il y a ${Math.floor(diffSec / 60)} min`
+  if (diffSec < 86400) return `il y a ${Math.floor(diffSec / 3600)} h`
+  if (diffSec < 2_592_000) return `il y a ${Math.floor(diffSec / 86400)} j`
   return new Date(iso).toLocaleDateString()
 }

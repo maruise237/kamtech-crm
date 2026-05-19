@@ -31,9 +31,9 @@ const STATUS_COLORS: Record<ConversationStatus, string> = {
 
 const FILTER_OPTIONS: { label: string; value: ConversationStatus | "all" }[] = [
   { label: "All", value: "all" },
-  { label: "Open", value: "open" },
+  { label: "Ouvertes", value: "open" },
   { label: "Pending", value: "pending" },
-  { label: "Closed", value: "closed" },
+  { label: "Fermees", value: "closed" },
 ];
 
 export function ConversationList({
@@ -144,7 +144,7 @@ export function ConversationList({
           <Input
             value={search}
             onChange={handleSearchChange}
-            placeholder="Search conversations..."
+            placeholder="Rechercher des conversations..."
             className="border-slate-700 bg-slate-800 pl-9 text-sm text-white placeholder-slate-500 focus:border-violet-500/50"
           />
         </div>

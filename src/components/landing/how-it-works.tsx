@@ -14,7 +14,7 @@ const STEPS = [
     icon: Users,
     title: 'Bring in your contacts',
     body:
-      'Import a CSV, or let incoming messages build your contact list automatically. Tags and custom fields are ready from day one.',
+      'Importez un CSV, ou laissez les messages entrants creer votre liste de contacts automatiquement. Les etiquettes et champs personnalises sont prets des le depart.',
   },
   {
     num: '03',
@@ -31,7 +31,7 @@ export function HowItWorks() {
       <SectionHeader
         eyebrow="How it works"
         title="Live in under 30 minutes"
-        description="Most teams are up and running before their first coffee refill. No onboarding calls required."
+        description="La plupart des equipes sont operationnelles en quelques minutes. Aucun appel d onboarding requis."
       />
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

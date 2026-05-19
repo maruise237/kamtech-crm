@@ -67,7 +67,7 @@ export default function AutomationLogsPage({
       <div className="flex h-64 flex-col items-center justify-center gap-3">
         <p className="text-sm text-red-400">{error}</p>
         <Button variant="outline" onClick={() => router.push("/automations")}>
-          Back
+          Retour
         </Button>
       </div>
     )
@@ -88,7 +88,7 @@ export default function AutomationLogsPage({
           type="button"
           onClick={() => router.push("/automations")}
           className="flex h-8 w-8 items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
-          aria-label="Back"
+          aria-label="Retour"
         >
           <ArrowLeft className="h-4 w-4" />
         </button>

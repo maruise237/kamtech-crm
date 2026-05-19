@@ -30,19 +30,19 @@ interface Step3Props {
 }
 
 const contactFields = [
-  { value: 'name', label: 'Contact Name' },
-  { value: 'phone', label: 'Phone Number' },
-  { value: 'email', label: 'Email Address' },
+  { value: 'name', label: 'Nom du contact' },
+  { value: 'phone', label: 'Numero de telephone' },
+  { value: 'email', label: 'Adresse e-mail' },
   { value: 'company', label: 'Entreprise' },
 ];
 
 const SAMPLE_CONTACT: Contact = {
   id: 'sample',
   user_id: '',
-  name: 'John Doe',
+  name: 'Jean Kamga',
   phone: '+1234567890',
   email: 'john@example.com',
-  company: 'Acme Corp',
+  company: 'Kamtech',
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
 };
@@ -181,22 +181,22 @@ export function Step3Personalize({
 
   const previewLabel = firstContact
     ? firstContact.name || firstContact.phone
-    : 'sample data';
+    : 'donnees exemple';
 
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-lg font-semibold text-white">Personnaliser le message</h2>
         <p className="mt-1 text-sm text-slate-400">
-          Map template variables to contact fields, custom fields, or static
-          values.
+          Associez les variables du modele a des champs de contact, champs personnalises
+          ou valeurs fixes.
         </p>
       </div>
 
       {placeholders.length === 0 ? (
         <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6 text-center">
           <p className="text-sm text-slate-400">
-            This template has no variables to personalize.
+            Ce modele ne contient aucune variable a personnaliser.
           </p>
         </div>
       ) : (
@@ -219,7 +219,7 @@ export function Step3Personalize({
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <div>
                     <label className="mb-1.5 block text-xs font-medium text-slate-400">
-                      Mapping Type
+                      Type de correspondance
                     </label>
                     <Select
                       value={mapping.type}
@@ -237,7 +237,7 @@ export function Step3Personalize({
                         <SelectItem value="static">Valeur fixe</SelectItem>
                         <SelectItem value="field">Champ du contact</SelectItem>
                         <SelectItem value="custom_field">
-                          Custom Field
+                          Champ personnalise
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -245,7 +245,7 @@ export function Step3Personalize({
 
                   <div>
                     <label className="mb-1.5 block text-xs font-medium text-slate-400">
-                      {mapping.type === 'static' ? 'Valeur' : 'Field'}
+                      {mapping.type === 'static' ? 'Valeur' : 'Champ'}
                     </label>
                     {mapping.type === 'static' ? (
                       <Input
@@ -253,7 +253,7 @@ export function Step3Personalize({
                         onChange={(e) =>
                           updateVariable(key, { value: e.target.value })
                         }
-                        placeholder="Enter value..."
+                        placeholder="Saisir une valeur..."
                         className="border-slate-700 bg-slate-800 text-white placeholder:text-slate-500"
                       />
                     ) : mapping.type === 'field' ? (
@@ -285,9 +285,9 @@ export function Step3Personalize({
                           <SelectValue
                             placeholder={
                               loadingFields
-                                ? 'Loading...'
+                                ? 'Chargement...'
                                 : customFields.length === 0
-                                  ? 'No custom fields'
+                                  ? 'Aucun champ personnalise'
                                   : 'Selectionner un champ personnalise...'
                             }
                           />
@@ -331,11 +331,11 @@ export function Step3Personalize({
 
       {unmappedKeys.length > 0 && (
         <div className="rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-300">
-          Map every placeholder before continuing - still missing{' '}
+          Associez chaque variable avant de continuer - il manque encore{' '}
           <span className="font-mono font-semibold">
             {unmappedKeys.join(', ')}
           </span>
-          . Otherwise those placeholders will ship to Meta as empty strings.
+          . Sinon ces variables seront envoyees a Meta avec des valeurs vides.
         </div>
       )}
 
@@ -346,14 +346,14 @@ export function Step3Personalize({
           className="border-slate-700 text-slate-300"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back
+          Retour
         </Button>
         <Button
           onClick={onNext}
           disabled={unmappedKeys.length > 0}
           className="bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-50"
         >
-          Next
+          Suivant
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>

@@ -205,7 +205,7 @@ export default function BroadcastDetailPage() {
       'Envoye le',
       'Livre le',
       'Lu le',
-      'Replied At',
+      'Repondu le',
       'Erreur',
     ];
     const rows = recipients.map((r) => [
@@ -236,7 +236,7 @@ export default function BroadcastDetailPage() {
       .eq('id', broadcastId);
     setDeleting(false);
     if (delErr) {
-      toast.error(`Failed to delete: ${delErr.message}`);
+      toast.error(`Impossible de supprimer : ${delErr.message}`);
       return;
     }
     toast.success('Diffusion supprimee');
@@ -256,7 +256,7 @@ export default function BroadcastDetailPage() {
       <div className="flex h-64 flex-col items-center justify-center gap-2">
         <p className="text-sm text-red-400">{error ?? 'Diffusion introuvable'}</p>
         <Button variant="outline" onClick={() => router.push('/broadcasts')}>
-          Back to Broadcasts
+          Retour aux diffusions
         </Button>
       </div>
     );
@@ -268,7 +268,7 @@ export default function BroadcastDetailPage() {
     { label: 'Envoye', value: broadcast.sent_count, color: 'bg-violet-500' },
     { label: 'Livre', value: broadcast.delivered_count, color: 'bg-teal-500' },
     { label: 'Lu', value: broadcast.read_count, color: 'bg-blue-500' },
-    { label: 'Replied', value: broadcast.replied_count, color: 'bg-indigo-500' },
+    { label: 'Repondu', value: broadcast.replied_count, color: 'bg-indigo-500' },
   ];
 
   return (
@@ -297,7 +297,7 @@ export default function BroadcastDetailPage() {
               <span>Modele : {broadcast.template_name}</span>
               <span>-</span>
               <span>
-                Created {new Date(broadcast.created_at).toLocaleDateString()}
+                Cree le {new Date(broadcast.created_at).toLocaleDateString()}
               </span>
             </div>
           </div>
@@ -325,7 +325,7 @@ export default function BroadcastDetailPage() {
               disabled={deleting}
               className="h-7 bg-red-600 text-white hover:bg-red-700 disabled:opacity-50"
             >
-              {deleting ? 'Deleting...' : 'Confirm'}
+              {deleting ? 'Suppression...' : 'Confirmer'}
             </Button>
           </div>
         ) : (
@@ -336,7 +336,7 @@ export default function BroadcastDetailPage() {
             onClick={() => setConfirmDelete(true)}
             title={
               broadcast.status === 'sending'
-                ? 'Cannot delete while a broadcast is actively sending'
+                ? 'Impossible de supprimer une diffusion en cours d envoi'
                 : 'Supprimer cette diffusion'
             }
             className="border-red-500/30 bg-transparent text-red-400 hover:bg-red-500/10 disabled:opacity-40"
@@ -350,7 +350,7 @@ export default function BroadcastDetailPage() {
       {/* Stats - 6 cards: Total / Sent / Delivered / Read / Replied / Failed */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         <StatCard
-          label="Total Recipients"
+          label="Total destinataires"
           value={broadcast.total_recipients}
           total={broadcast.total_recipients}
           icon={<Users className="h-4 w-4" />}
@@ -378,7 +378,7 @@ export default function BroadcastDetailPage() {
           color="bg-blue-500/10 text-blue-400"
         />
         <StatCard
-          label="Replied"
+          label="Repondu"
           value={broadcast.replied_count}
           total={broadcast.total_recipients}
           icon={<MessageCircle className="h-4 w-4" />}
@@ -399,8 +399,8 @@ export default function BroadcastDetailPage() {
       <div className="rounded-xl border border-slate-800 bg-slate-900">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 px-4 py-3">
           <h2 className="text-sm font-medium text-white">
-            Recipients ({filteredRecipients.length}
-            {statusFilter !== 'all' ? ` of ${recipients.length}` : ''})
+            Destinataires ({filteredRecipients.length}
+            {statusFilter !== 'all' ? ` sur ${recipients.length}` : ''})
           </h2>
           <div className="flex items-center gap-2">
             <DropdownMenu>
@@ -415,7 +415,7 @@ export default function BroadcastDetailPage() {
               >
                 <Filter className="h-3.5 w-3.5" />
                 {statusFilter === 'all'
-                  ? 'All statuses'
+                  ? 'Tous les statuts'
                   : getRecipientStatus(statusFilter).label}
                 <ChevronDown className="h-3 w-3" />
               </DropdownMenuTrigger>
@@ -426,7 +426,7 @@ export default function BroadcastDetailPage() {
                     statusFilter === 'all' ? 'text-violet-400' : 'text-slate-300'
                   }
                 >
-                  All statuses
+                  Tous les statuts
                 </DropdownMenuItem>
                 {RECIPIENT_STATUSES.map((s) => (
                   <DropdownMenuItem
@@ -452,7 +452,7 @@ export default function BroadcastDetailPage() {
               className="border-slate-700 text-slate-300 hover:bg-slate-800"
             >
               <Download className="h-3.5 w-3.5" />
-              Export CSV
+              Exporter CSV
             </Button>
           </div>
         </div>

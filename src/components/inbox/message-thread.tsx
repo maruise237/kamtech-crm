@@ -67,9 +67,9 @@ function groupMessagesByDate(messages: Message[]) {
 }
 
 const STATUS_OPTIONS: { label: string; value: ConversationStatus; color: string }[] = [
-  { label: "Open", value: "open", color: "text-violet-400" },
+  { label: "Ouverte", value: "open", color: "text-violet-400" },
   { label: "Pending", value: "pending", color: "text-amber-400" },
-  { label: "Closed", value: "closed", color: "text-slate-400" },
+  { label: "Fermee", value: "closed", color: "text-slate-400" },
 ];
 
 export function MessageThread({
@@ -226,7 +226,7 @@ export function MessageThread({
         if (!res.ok) {
           const reason = payload?.error || `HTTP ${res.status}`;
           console.error("Failed to send message:", reason);
-          toast.error(`Failed to send: ${reason}`);
+          toast.error(`Echec de l envoi : ${reason}`);
           // Mark the optimistic bubble as failed so the user sees what happened
           onUpdateMessage(tempId, { status: "failed" });
           return;
@@ -239,7 +239,7 @@ export function MessageThread({
       } catch (err) {
         console.error("Failed to send message:", err);
         const reason = err instanceof Error ? err.message : "network error";
-        toast.error(`Failed to send: ${reason}`);
+        toast.error(`Echec de l envoi : ${reason}`);
         onUpdateMessage(tempId, { status: "failed" });
       }
     },
@@ -300,7 +300,7 @@ export function MessageThread({
             <button
               type="button"
               onClick={onBack}
-              aria-label="Back to conversations"
+              aria-label="Retour aux conversations"
               className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md text-slate-300 hover:bg-slate-800 hover:text-white lg:hidden"
             >
               <ArrowLeft className="h-5 w-5" />

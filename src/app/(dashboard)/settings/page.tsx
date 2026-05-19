@@ -51,7 +51,7 @@ export default function SettingsPage() {
             className="data-active:bg-slate-800 data-active:text-violet-400 text-slate-400"
           >
             <User className="size-4" />
-            Profile
+            Profil
           </TabsTrigger>
           <TabsTrigger
             value="whatsapp"

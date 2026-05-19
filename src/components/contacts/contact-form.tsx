@@ -79,7 +79,7 @@ export function ContactForm({
     e.preventDefault();
 
     if (!phone.trim()) {
-      toast.error('Phone number is required');
+      toast.error('Le numero de telephone est obligatoire');
       return;
     }
 

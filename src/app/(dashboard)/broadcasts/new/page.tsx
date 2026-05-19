@@ -15,7 +15,7 @@ import { Check } from 'lucide-react';
 const steps = [
   { label: 'Modele', key: 'template' },
   { label: 'Audience', key: 'audience' },
-  { label: 'Personalize', key: 'personalize' },
+  { label: 'Personnaliser', key: 'personalize' },
   { label: 'Envoyer', key: 'send' },
 ] as const;
 
@@ -78,7 +78,7 @@ export default function NewBroadcastPage() {
    */
   async function handleSaveDraft() {
     if (!template || !name.trim()) {
-      toast.error('Give the broadcast a name before saving a draft.');
+      toast.error('Donnez un nom a la diffusion avant d enregistrer un brouillon.');
       return;
     }
     const supabase = createClient();
@@ -87,7 +87,7 @@ export default function NewBroadcastPage() {
     } = await supabase.auth.getSession();
     const user = session?.user;
     if (!user) {
-      toast.error('Not signed in.');
+      toast.error('Vous n etes pas connecte.');
       return;
     }
 
@@ -111,10 +111,10 @@ export default function NewBroadcastPage() {
     });
 
     if (error) {
-      toast.error(`Failed to save draft: ${error.message}`);
+      toast.error(`Impossible d enregistrer le brouillon : ${error.message}`);
       return;
     }
-    toast.success('Draft saved');
+    toast.success('Brouillon enregistre');
     router.push('/broadcasts');
   }
 

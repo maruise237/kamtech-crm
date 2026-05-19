@@ -56,7 +56,7 @@ export default async function DocPage({ params }: DocPageProps) {
           >
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500">
               <ArrowLeft className="h-3.5 w-3.5" />
-              Previous
+              Precedent
             </span>
             <span className="text-sm font-semibold text-white">
               {prev.title}
@@ -71,7 +71,7 @@ export default async function DocPage({ params }: DocPageProps) {
             className="group flex flex-col items-end gap-1 rounded-xl border border-slate-800 bg-slate-900/40 px-5 py-4 text-right transition-colors hover:border-slate-700 hover:bg-slate-900/70"
           >
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Next
+              Suivant
               <ArrowRight className="h-3.5 w-3.5" />
             </span>
             <span className="text-sm font-semibold text-white">

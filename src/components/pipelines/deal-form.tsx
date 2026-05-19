@@ -171,7 +171,7 @@ export function DealForm({
         .update(payload)
         .eq("id", deal.id);
       if (error) {
-        toast.error("Failed to save deal");
+        toast.error("Impossible d enregistrer l opportunite");
         setSaving(false);
         return;
       }
@@ -181,7 +181,7 @@ export function DealForm({
       } = await supabase.auth.getSession();
       const user = session?.user;
       if (!user) {
-        toast.error("Not signed in");
+        toast.error("Vous n etes pas connecte");
         setSaving(false);
         return;
       }
@@ -189,14 +189,14 @@ export function DealForm({
         .from("deals")
         .insert({ ...payload, user_id: user.id, status: "open" });
       if (error) {
-        toast.error("Failed to create deal");
+        toast.error("Impossible de creer l opportunite");
         setSaving(false);
         return;
       }
     }
 
     setSaving(false);
-    toast.success(deal ? "Deal updated" : "Deal created");
+    toast.success(deal ? "Opportunite mise a jour" : "Opportunite creee");
     onOpenChange(false);
     onSaved();
   }
@@ -210,11 +210,11 @@ export function DealForm({
       .eq("id", deal.id);
     setStatusAction(null);
     if (error) {
-      toast.error("Failed to update deal status");
+      toast.error("Impossible de mettre a jour le statut");
       return;
     }
     toast.success(
-      status === "won" ? "Marked as won" : status === "lost" ? "Marked as lost" : "Deal reopened",
+      status === "won" ? "Marquee comme gagnee" : status === "lost" ? "Marquee comme perdue" : "Opportunite rouverte",
     );
     onOpenChange(false);
     onSaved();
@@ -226,10 +226,10 @@ export function DealForm({
     const { error } = await supabase.from("deals").delete().eq("id", deal.id);
     setDeleting(false);
     if (error) {
-      toast.error("Failed to delete deal");
+      toast.error("Impossible de supprimer l opportunite");
       return;
     }
-    toast.success("Deal deleted");
+    toast.success("Opportunite supprimee");
     setConfirmDelete(false);
     onOpenChange(false);
     onSaved();
@@ -254,7 +254,7 @@ export function DealForm({
               <Input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Deal title"
+                placeholder="Titre de l opportunite"
                 className="border-slate-700 bg-slate-800 text-white"
               />
             </div>
@@ -359,7 +359,7 @@ export function DealForm({
               <Textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                placeholder="Add notes..."
+                placeholder="Ajouter des notes..."
                 className="min-h-[100px] border-slate-700 bg-slate-800 text-white"
               />
             </div>
@@ -367,7 +367,7 @@ export function DealForm({
             {deal && (
               <div className="space-y-2 rounded-lg border border-slate-700 bg-slate-900/50 p-3">
                 <p className="text-xs font-medium uppercase tracking-wider text-slate-400">
-                  Status
+                  Statut
                 </p>
                 <div className="flex gap-2">
                   <Button
@@ -381,7 +381,7 @@ export function DealForm({
                     ) : (
                       <>
                         <Check className="mr-1 h-4 w-4" />
-                        Mark as Won
+                        Marquer comme gagnee
                       </>
                     )}
                   </Button>
@@ -396,7 +396,7 @@ export function DealForm({
                     ) : (
                       <>
                         <X className="mr-1 h-4 w-4" />
-                        Mark as Lost
+                        Marquer comme perdue
                       </>
                     )}
                   </Button>
@@ -453,7 +453,7 @@ export function DealForm({
                       disabled={deleting}
                       className="rounded bg-red-600 px-2 py-1 font-medium text-white hover:bg-red-700 disabled:opacity-50"
                     >
-                      {deleting ? "Suppression..." : "Confirm"}
+                      {deleting ? "Suppression..." : "Confirmer"}
                     </button>
                   </div>
                 </div>

@@ -36,7 +36,7 @@ export function PasswordForm() {
       return;
     }
     if (next.length < MIN_PASSWORD) {
-      setConfirmError(`Password must be at least ${MIN_PASSWORD} characters`);
+      setConfirmError(`Le mot de passe doit contenir au moins ${MIN_PASSWORD} caracteres`);
       return;
     }
     if (next !== confirm) {
@@ -64,14 +64,14 @@ export function PasswordForm() {
         password: next,
       });
       if (updateError) {
-        toast.error(`Password update failed: ${updateError.message}`);
+        toast.error(`Echec de la mise a jour du mot de passe : ${updateError.message}`);
         return;
       }
 
       setCurrent('');
       setNext('');
       setConfirm('');
-      toast.success('Password updated');
+      toast.success('Mot de passe mis a jour');
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Erreur inconnue';
       toast.error(msg);

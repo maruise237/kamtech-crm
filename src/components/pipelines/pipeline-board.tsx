@@ -233,7 +233,7 @@ function StageColumn({
         className="mt-3 w-full justify-start border border-dashed border-slate-700 bg-transparent text-slate-400 hover:border-slate-600 hover:bg-slate-800 hover:text-white"
       >
         <Plus className="mr-1 h-3 w-3" />
-        Add Deal
+        Ajouter une opportunite
       </Button>
     </div>
   );

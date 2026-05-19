@@ -27,7 +27,7 @@ export function DocsShell({ pages, children }: DocsShellProps) {
             <button
               type="button"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-slate-800 hover:text-white lg:hidden"
-              aria-label={mobileOpen ? 'Close docs menu' : 'Open docs menu'}
+              aria-label={mobileOpen ? 'Fermer le menu de documentation' : 'Ouvrir le menu de documentation'}
               onClick={() => setMobileOpen((v) => !v)}
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

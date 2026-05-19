@@ -138,7 +138,7 @@ export default function BroadcastsPage() {
       <div className="flex h-64 flex-col items-center justify-center gap-2">
         <p className="text-sm text-red-400">{error}</p>
         <Button variant="outline" onClick={() => window.location.reload()}>
-          Retry
+          Reessayer
         </Button>
       </div>
     );
@@ -213,7 +213,7 @@ export default function BroadcastsPage() {
                 <TableHead className="text-slate-400">Nom</TableHead>
                 <TableHead className="hidden text-slate-400 md:table-cell">Modele</TableHead>
                 <TableHead className="hidden text-right text-slate-400 sm:table-cell">
-                  Recipients
+                  Destinataires
                 </TableHead>
                 <TableHead className="hidden text-slate-400 lg:table-cell">Livraison</TableHead>
                 <TableHead className="hidden text-slate-400 lg:table-cell">Lu</TableHead>

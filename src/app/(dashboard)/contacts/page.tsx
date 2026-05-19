@@ -190,9 +190,9 @@ export default function ContactsPage() {
       .eq('id', deleteTarget.id);
 
     if (error) {
-      toast.error('Failed to delete contact');
+      toast.error('Impossible de supprimer le contact');
     } else {
-      toast.success('Contact deleted');
+      toast.success('Contact supprime');
       fetchContacts();
     }
 
@@ -212,7 +212,7 @@ export default function ContactsPage() {
         <div>
           <h1 className="text-2xl font-bold text-white">Contacts</h1>
           <p className="text-sm text-slate-400 mt-1">
-            Manage your contact list. {totalCount > 0 && `${totalCount} total contacts.`}
+            Gere votre liste de contacts. {totalCount > 0 && `${totalCount} contacts au total.`}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -222,14 +222,14 @@ export default function ContactsPage() {
             className="border-slate-700 text-slate-300 hover:bg-slate-800"
           >
             <Upload className="size-4" />
-            Import
+            Importer
           </Button>
           <Button
             onClick={openAddForm}
             className="bg-violet-600 hover:bg-violet-700 text-white"
           >
             <Plus className="size-4" />
-            Add Contact
+            Ajouter un contact
           </Button>
         </div>
       </div>
@@ -245,7 +245,7 @@ export default function ContactsPage() {
             // set shrinks/grows, page N may no longer be valid.
             setPage(0);
           }}
-          placeholder="Search by name, phone, or email..."
+          placeholder="Rechercher par nom, telephone ou e-mail..."
           className="pl-8 bg-slate-900 border-slate-700 text-white placeholder:text-slate-500"
         />
       </div>
@@ -290,7 +290,7 @@ export default function ContactsPage() {
                         className="mt-2 border-slate-700 text-slate-300 hover:bg-slate-800"
                       >
                         <Plus className="size-3.5" />
-                        Add your first contact
+                        Ajouter votre premier contact
                       </Button>
                     )}
                   </div>
@@ -373,7 +373,7 @@ export default function ContactsPage() {
                           className="text-slate-300 focus:bg-slate-800 focus:text-white"
                         >
                           <Pencil className="size-4" />
-                          Edit
+                          Modifier
                         </DropdownMenuItem>
                         <DropdownMenuSeparator className="bg-slate-700" />
                         <DropdownMenuItem
@@ -400,7 +400,7 @@ export default function ContactsPage() {
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <p className="text-xs text-slate-500">
-            Showing {page * PAGE_SIZE + 1}-{Math.min((page + 1) * PAGE_SIZE, totalCount)} of{' '}
+            Affichage de {page * PAGE_SIZE + 1}-{Math.min((page + 1) * PAGE_SIZE, totalCount)} sur{' '}
             {totalCount}
           </p>
           <div className="flex items-center gap-1">
@@ -414,7 +414,7 @@ export default function ContactsPage() {
               <ChevronLeft className="size-4" />
             </Button>
             <span className="text-xs text-slate-400 px-2">
-              Page {page + 1} of {totalPages}
+              Page {page + 1} sur {totalPages}
             </span>
             <Button
               variant="outline"
@@ -462,11 +462,11 @@ export default function ContactsPage() {
           <DialogHeader>
             <DialogTitle className="text-white">Supprimer le contact</DialogTitle>
             <DialogDescription className="text-slate-400">
-              Are you sure you want to delete{' '}
+              Voulez-vous vraiment supprimer{' '}
               <span className="text-slate-200 font-medium">
                 {deleteTarget?.name || deleteTarget?.phone}
               </span>
-              ? This action cannot be undone.
+              ? Cette action est irreversible.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="bg-slate-900 border-slate-700">

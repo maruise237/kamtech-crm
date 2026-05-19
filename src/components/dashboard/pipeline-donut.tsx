@@ -16,7 +16,7 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
       <header className="border-b border-slate-800 px-5 py-4">
         <h2 className="text-sm font-semibold text-white">Valeur du pipeline</h2>
         <p className="mt-0.5 text-xs text-slate-500">
-          Open deals by stage
+          Opportunites ouvertes par etape
         </p>
       </header>
 
@@ -42,7 +42,7 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
                   />
                   <span className="flex-1 truncate text-slate-300">{s.name}</span>
                   <span className="text-slate-500 tabular-nums">
-                    {s.dealCount} deal{s.dealCount === 1 ? '' : 's'}
+                    {s.dealCount} opportunite{s.dealCount === 1 ? '' : 's'}
                   </span>
                   <span className="w-20 text-right text-slate-300 tabular-nums">
                     {formatCurrencyShort(s.totalValue)}
@@ -93,7 +93,7 @@ function Donut({ data }: { data: PipelineDonutData }) {
 
   return (
     <div className="flex items-center justify-center">
-      <svg viewBox={`0 0 ${size} ${size}`} className="h-48 w-48" role="img" aria-label="Pipeline value by stage">
+      <svg viewBox={`0 0 ${size} ${size}`} className="h-48 w-48" role="img" aria-label="Valeur du pipeline par etape">
         {/* background ring */}
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgb(30 41 59)" strokeWidth={ringWidth} />
         {segments.map((seg) => (

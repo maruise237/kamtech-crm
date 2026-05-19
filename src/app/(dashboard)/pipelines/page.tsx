@@ -29,11 +29,11 @@ import { toast } from "sonner";
 
 // Spec-defined seed - name and color per the product spec.
 const SPEC_DEFAULT_STAGES = [
-  { name: "New Lead", color: "#3b82f6", position: 0 }, // blue
-  { name: "Qualified", color: "#eab308", position: 1 }, // yellow
-  { name: "Proposal Sent", color: "#f97316", position: 2 }, // orange
+  { name: "Nouveau prospect", color: "#3b82f6", position: 0 }, // blue
+  { name: "Qualifie", color: "#eab308", position: 1 }, // yellow
+  { name: "Proposition envoyee", color: "#f97316", position: 2 }, // orange
   { name: "Negotiation", color: "#8b5cf6", position: 3 }, // purple
-  { name: "Won", color: "#22c55e", position: 4 }, // green
+  { name: "Gagne", color: "#22c55e", position: 4 }, // green
 ];
 
 export default function PipelinesPage() {
@@ -105,7 +105,7 @@ export default function PipelinesPage() {
 
     const { data: pipeline, error } = await supabase
       .from("pipelines")
-      .insert({ user_id: user.id, name: "Sales Pipeline" })
+      .insert({ user_id: user.id, name: "Pipeline de vente" })
       .select()
       .single();
 
@@ -210,7 +210,7 @@ export default function PipelinesPage() {
         .update({ stage_id: newStageId })
         .eq("id", dealId);
       if (error) {
-        toast.error("Failed to move deal");
+        toast.error("Impossible de deplacer l opportunite");
         refreshDeals();
       }
     },
@@ -253,7 +253,7 @@ export default function PipelinesPage() {
       .single();
 
     if (error || !pipeline) {
-      toast.error("Failed to create pipeline");
+      toast.error("Impossible de creer le pipeline");
       setCreating(false);
       return;
     }
@@ -271,7 +271,7 @@ export default function PipelinesPage() {
     setSelectedPipelineId(pipeline.id);
     await refreshPipelines();
     setCreating(false);
-    toast.success("Pipeline created");
+    toast.success("Pipeline cree");
   }
 
   const selectedPipeline = pipelines.find((p) => p.id === selectedPipelineId);
@@ -314,7 +314,7 @@ export default function PipelinesPage() {
             >
               {pipelines.length === 0 && (
                 <DropdownMenuItem disabled className="text-slate-500">
-                  No pipelines yet
+                  Aucun pipeline pour le moment
                 </DropdownMenuItem>
               )}
               {pipelines.map((p) => (
@@ -338,7 +338,7 @@ export default function PipelinesPage() {
                   className="text-slate-300"
                 >
                   <Settings className="mr-2 h-3.5 w-3.5" />
-                  Manage Pipelines
+                  Gerer les pipelines
                 </DropdownMenuItem>
               )}
             </DropdownMenuContent>
@@ -352,7 +352,7 @@ export default function PipelinesPage() {
             className="border-slate-700 bg-slate-900 text-slate-200 hover:bg-slate-800"
           >
             <Plus className="mr-1 h-4 w-4" />
-            Add Pipeline
+            Ajouter un pipeline
           </Button>
           <Button
             onClick={() => handleAddDeal()}
@@ -360,7 +360,7 @@ export default function PipelinesPage() {
             className="bg-violet-600 text-white hover:bg-violet-700"
           >
             <Plus className="mr-1 h-4 w-4" />
-            Add Deal
+            Ajouter une opportunite
           </Button>
         </div>
       </div>
@@ -370,7 +370,7 @@ export default function PipelinesPage() {
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-700 py-20">
           <GitBranch className="h-12 w-12 text-slate-600" />
           <h3 className="mt-4 text-lg font-medium text-white">
-            No pipelines yet
+            Aucun pipeline pour le moment
           </h3>
           <p className="mt-2 text-sm text-slate-400">
             Creez un pipeline pour commencer a suivre vos opportunites
@@ -407,7 +407,7 @@ export default function PipelinesPage() {
             <Input
               value={newPipelineName}
               onChange={(e) => setNewPipelineName(e.target.value)}
-              placeholder="e.g., Enterprise Sales"
+              placeholder="ex. Ventes entreprises"
               className="mt-2 bg-slate-800 border-slate-700 text-white"
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleCreatePipeline();

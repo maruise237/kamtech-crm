@@ -89,7 +89,7 @@ export function MessageComposer({
           size="sm"
           className="h-9 w-9 shrink-0 p-0 text-slate-400 hover:text-white"
           onClick={onOpenTemplates}
-          title="Send template"
+          title="Envoyer un modele"
         >
           <LayoutTemplate className="h-4 w-4" />
         </Button>
@@ -102,7 +102,7 @@ export function MessageComposer({
           placeholder={
             sessionExpired
               ? "Session expired - use a template"
-              : "Type a message... (Shift+Enter for new line)"
+              : "Ecrire un message... (Maj+Entree pour une nouvelle ligne)"
           }
           disabled={sessionExpired}
           rows={1}

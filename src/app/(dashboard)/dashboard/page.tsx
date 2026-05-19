@@ -121,7 +121,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
         <p className="mt-1 text-sm text-slate-400">
-          Live analytics across conversations, contacts, deals, broadcasts, and automations.
+          Analytics en direct sur les conversations, contacts, opportunites, diffusions et automatisations.
         </p>
       </div>
 
@@ -132,16 +132,16 @@ export default function DashboardPage() {
         ) : (
           <>
             <MetricCard
-              title="Active Conversations"
+              title="Conversations actives"
               value={metrics.activeConversations.current.toLocaleString()}
               icon={MessageSquare}
               delta={{
                 sign: metrics.activeConversations.previous,
-                label: deltaLabel(metrics.activeConversations.previous, 'new today vs yesterday'),
+                label: deltaLabel(metrics.activeConversations.previous, 'nouvelles aujourd hui vs hier'),
               }}
             />
             <MetricCard
-              title="New Contacts Today"
+              title="Nouveaux contacts aujourd hui"
               value={metrics.newContactsToday.current.toLocaleString()}
               icon={UserPlus}
               delta={{
@@ -149,18 +149,18 @@ export default function DashboardPage() {
                   metrics.newContactsToday.current - metrics.newContactsToday.previous,
                 label: deltaLabel(
                   metrics.newContactsToday.current - metrics.newContactsToday.previous,
-                  'vs yesterday',
+                  'vs hier',
                 ),
               }}
             />
             <MetricCard
-              title="Open Deals Value"
+              title="Valeur des opportunites ouvertes"
               value={formatCurrency(metrics.openDealsValue)}
               icon={DollarSign}
-              subtitle={`${metrics.openDealsCount} open deal${metrics.openDealsCount === 1 ? '' : 's'}`}
+              subtitle={`${metrics.openDealsCount} opportunite${metrics.openDealsCount === 1 ? '' : 's'} ouverte${metrics.openDealsCount === 1 ? '' : 's'}`}
             />
             <MetricCard
-              title="Messages Sent Today"
+              title="Messages envoyes aujourd hui"
               value={metrics.messagesSentToday.current.toLocaleString()}
               icon={Send}
               delta={{
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                   metrics.messagesSentToday.current - metrics.messagesSentToday.previous,
                 label: deltaLabel(
                   metrics.messagesSentToday.current - metrics.messagesSentToday.previous,
-                  'vs yesterday',
+                  'vs hier',
                 ),
               }}
             />
@@ -221,7 +221,7 @@ function formatCurrency(v: number): string {
 }
 
 function deltaLabel(delta: number, suffix: string): string {
-  if (delta === 0) return `No change ${suffix}`
+  if (delta === 0) return `Aucun changement ${suffix}`
   const sign = delta > 0 ? '+' : ''
   return `${sign}${delta.toLocaleString()} ${suffix}`
 }

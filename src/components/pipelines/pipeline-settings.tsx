@@ -127,14 +127,14 @@ export function PipelineSettings({
     setSaving(false);
 
     if (renameRes.error || stagesRes.error) {
-      toast.error("Failed to save pipeline");
+      toast.error("Impossible d enregistrer le pipeline");
       return;
     }
 
     onOpenChange(false);
     onPipelinesChanged();
     onStagesChanged();
-    toast.success("Pipeline saved");
+    toast.success("Pipeline enregistre");
   }
 
   async function handleAddStage() {
@@ -151,7 +151,7 @@ export function PipelineSettings({
       .select()
       .single();
     if (error || !data) {
-      toast.error("Failed to add stage");
+      toast.error("Impossible d ajouter l etape");
       return;
     }
     setLocalStages([...localStages, data as PipelineStage]);
@@ -174,7 +174,7 @@ export function PipelineSettings({
       .delete()
       .eq("id", stageId);
     if (error) {
-      toast.error("Failed to delete stage");
+      toast.error("Impossible de supprimer l etape");
       return;
     }
     setLocalStages(localStages.filter((s) => s.id !== stageId));
@@ -189,12 +189,12 @@ export function PipelineSettings({
       .eq("id", pipeline.id);
     setDeleting(false);
     if (error) {
-      toast.error("Failed to delete pipeline");
+      toast.error("Impossible de supprimer le pipeline");
       return;
     }
     onOpenChange(false);
     onPipelinesChanged();
-    toast.success("Pipeline deleted");
+    toast.success("Pipeline supprime");
   }
 
   return (
@@ -316,7 +316,7 @@ export function PipelineSettings({
                     className="shrink-0 border-slate-700 bg-transparent text-slate-300 hover:bg-slate-800"
                   >
                     <Plus className="mr-1 h-3 w-3" />
-                    Add
+                    Ajouter
                   </Button>
                 </div>
               </div>

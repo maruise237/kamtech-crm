@@ -22,15 +22,15 @@ export interface StatusDisplay {
 
 export const broadcastStatusConfig: Record<BroadcastStatus, StatusDisplay> = {
   draft: {
-    label: "Draft",
+    label: "Brouillon",
     classes: "bg-slate-500/10 text-slate-400 border-slate-500/20",
   },
   scheduled: {
-    label: "Scheduled",
+    label: "Planifie",
     classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   },
   sending: {
-    label: "Sending",
+    label: "En cours",
     classes: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
     pulse: true,
   },
@@ -39,14 +39,14 @@ export const broadcastStatusConfig: Record<BroadcastStatus, StatusDisplay> = {
     classes: "bg-violet-500/10 text-violet-400 border-violet-500/20",
   },
   failed: {
-    label: "Failed",
+    label: "Echec",
     classes: "bg-red-500/10 text-red-400 border-red-500/20",
   },
 };
 
 export const recipientStatusConfig: Record<RecipientStatus, StatusDisplay> = {
   pending: {
-    label: "Pending",
+    label: "En attente",
     classes: "bg-slate-500/10 text-slate-400 border-slate-500/20",
   },
   sent: {
@@ -62,11 +62,11 @@ export const recipientStatusConfig: Record<RecipientStatus, StatusDisplay> = {
     classes: "bg-violet-500/10 text-violet-300 border-violet-500/20",
   },
   replied: {
-    label: "Replied",
+    label: "Repondu",
     classes: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   },
   failed: {
-    label: "Failed",
+    label: "Echec",
     classes: "bg-red-500/10 text-red-400 border-red-500/20",
   },
 };

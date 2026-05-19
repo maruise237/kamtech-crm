@@ -47,34 +47,34 @@ const audienceOptions: {
 }[] = [
   {
     type: 'all',
-    label: 'All Contacts',
-    description: 'Send to every contact in your database',
+    label: 'Tous les contacts',
+    description: 'Envoyer a tous les contacts de votre base',
     icon: Users,
   },
   {
     type: 'tags',
-    label: 'Filter by Tags',
-    description: 'Target contacts with specific tags',
+    label: 'Filtrer par etiquettes',
+    description: 'Cibler les contacts avec des etiquettes precises',
     icon: Tags,
   },
   {
     type: 'custom_field',
-    label: 'Custom Field',
-    description: 'Filter by a custom field value',
+    label: 'Champ personnalise',
+    description: 'Filtrer par la valeur d un champ personnalise',
     icon: Filter,
   },
   {
     type: 'csv',
-    label: 'Upload CSV',
-    description: 'Upload a list of phone numbers',
+    label: 'Importer un CSV',
+    description: 'Importer une liste de numeros de telephone',
     icon: Upload,
   },
 ];
 
 const OPERATOR_OPTIONS: { value: CustomFieldOperator; label: string }[] = [
-  { value: 'is', label: 'is' },
-  { value: 'is_not', label: 'is not' },
-  { value: 'contains', label: 'contains' },
+  { value: 'is', label: 'est' },
+  { value: 'is_not', label: 'n est pas' },
+  { value: 'contains', label: 'contient' },
 ];
 
 export function Step2SelectAudience({
@@ -251,7 +251,7 @@ export function Step2SelectAudience({
       <div>
         <h2 className="text-lg font-semibold text-white">Selectionner l audience</h2>
         <p className="mt-1 text-sm text-slate-400">
-          Choose who will receive this broadcast.
+          Choisissez les contacts qui recevront cette diffusion.
         </p>
       </div>
 
@@ -394,7 +394,7 @@ export function Step2SelectAudience({
         <div className="mb-3 flex items-center gap-2">
           <X className="h-4 w-4 text-red-400" />
           <p className="text-sm font-medium text-white">
-            Exclude contacts with these tags
+            Exclure les contacts avec ces etiquettes
           </p>
           <span className="text-xs text-slate-500">(facultatif)</span>
         </div>
@@ -456,14 +456,14 @@ export function Step2SelectAudience({
           className="border-slate-700 text-slate-300"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back
+          Retour
         </Button>
         <Button
           onClick={onNext}
           disabled={!isValid}
           className="bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-50"
         >
-          Next
+          Suivant
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
