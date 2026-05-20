@@ -25,26 +25,26 @@ export function ResponseTimeChart({
   const hasData = data?.buckets.some((b) => b.avgMinutes != null) ?? false
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900">
-      <header className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
+    <section className="crm-panel">
+      <header className="flex items-center justify-between border-b border-border/80 px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">
+          <h2 className="text-sm font-semibold text-foreground">
             Temps moyen de premiere reponse
           </h2>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-0.5 text-xs text-muted-foreground">
             Minutes pour repondre au premier message client sans reponse, par
             jour
           </p>
         </div>
         {data && (data.thisWeekAvg != null || data.lastWeekAvg != null) && (
           <div className="text-right text-xs">
-            <div className="text-slate-400">
+            <div className="text-muted-foreground">
               Cette semaine :{' '}
-              <span className="font-medium text-white tabular-nums">
+              <span className="font-medium text-foreground tabular-nums">
                 {fmt(data.thisWeekAvg)}
               </span>
             </div>
-            <div className="text-slate-500">
+            <div className="text-muted-foreground/80">
               Semaine derniere :{' '}
               <span className="tabular-nums">{fmt(data.lastWeekAvg)}</span>
             </div>
@@ -158,7 +158,7 @@ function Bars({
               width={barW}
               height={muted ? 2 : Math.max(1, h)}
               rx={4}
-              fill={muted ? 'rgb(51 65 85)' : '#7c3aed'}
+              fill={muted ? 'oklch(0.315 0.018 238)' : '#54d3a2'}
               opacity={muted ? 0.6 : 1}
             >
               <title>

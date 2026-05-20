@@ -16,10 +16,10 @@ interface Action {
 }
 
 const ACTIONS: Action[] = [
-  { label: 'Nouveau contact', href: '/contacts', icon: UserPlus, tint: 'text-violet-400' },
+  { label: 'Nouveau contact', href: '/contacts', icon: UserPlus, tint: 'text-primary' },
   { label: 'Nouvelle opportunite', href: '/pipelines', icon: Briefcase, tint: 'text-blue-400' },
   { label: 'Nouvelle diffusion', href: '/broadcasts/new', icon: Radio, tint: 'text-amber-400' },
-  { label: 'Nouvelle automatisation', href: '/automations/new', icon: Zap, tint: 'text-violet-400' },
+  { label: 'Nouvelle automatisation', href: '/automations/new', icon: Zap, tint: 'text-cyan-300' },
 ]
 
 export function QuickActions() {
@@ -31,12 +31,12 @@ export function QuickActions() {
           <Link
             key={a.href}
             href={a.href}
-            className="group flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 transition-colors hover:border-slate-700 hover:bg-slate-800/60"
+            className="group crm-panel flex min-h-16 items-center gap-3 px-4 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-slate-800 ${a.tint}`}>
+            <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-secondary ring-1 ring-border/70 ${a.tint}`}>
               <Icon className="h-4 w-4" />
             </div>
-            <span className="text-sm font-medium text-white">{a.label}</span>
+            <span className="text-sm font-medium leading-5 text-foreground">{a.label}</span>
           </Link>
         )
       })}

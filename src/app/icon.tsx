@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Replaces the default Next.js favicon with the Kamtech CRM brand mark.
-// The violet rounded square matches the sidebar logo. Next.js renders
+// The green rounded square matches the sidebar logo. Next.js renders
 // this at build time and auto-injects <link rel="icon"> into <head>.
 //
 // This route takes precedence over src/app/favicon.ico, which is the
@@ -21,7 +21,7 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#7c3aed",
+          background: "#54d3a2",
           borderRadius: 6,
         }}
       >

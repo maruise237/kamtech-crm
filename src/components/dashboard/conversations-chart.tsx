@@ -46,13 +46,13 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
   }, [data])
 
   return (
-    <section className="flex h-full flex-col rounded-xl border border-slate-800 bg-slate-900">
-      <header className="flex items-center justify-between border-b border-slate-800 px-5 py-4">
+    <section className="crm-panel flex h-full flex-col">
+      <header className="flex items-center justify-between border-b border-border/80 px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-white">Conversations au fil du temps</h2>
-          <p className="mt-0.5 text-xs text-slate-500">Volume quotidien de messages par direction</p>
+          <h2 className="text-sm font-semibold text-foreground">Conversations au fil du temps</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">Volume quotidien de messages par direction</p>
         </div>
-        <div className="flex items-center gap-1 rounded-lg bg-slate-800/60 p-1">
+        <div className="flex items-center gap-1 rounded-lg bg-secondary/70 p-1">
           {[7, 30, 90].map((r) => (
             <button
               key={r}
@@ -61,8 +61,8 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
               className={cn(
                 'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
                 range === r
-                  ? 'bg-slate-700 text-white'
-                  : 'text-slate-400 hover:text-white',
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground',
               )}
             >
               {r} days
@@ -85,9 +85,9 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
         )}
       </div>
 
-      <footer className="flex items-center gap-4 border-t border-slate-800 px-5 py-3 text-xs text-slate-400">
-        <LegendDot color="#3b82f6" label="Incoming" />
-        <LegendDot color="#7c3aed" label="Outgoing" />
+      <footer className="flex items-center gap-4 border-t border-border/80 px-5 py-3 text-xs text-muted-foreground">
+        <LegendDot color="#60a5fa" label="Incoming" />
+        <LegendDot color="#54d3a2" label="Outgoing" />
       </footer>
     </section>
   )
@@ -238,11 +238,11 @@ function LineSvg({
           ) : null,
         )}
 
-        {/* Outgoing polyline (violet) */}
+        {/* Outgoing polyline */}
         <path
           d={outgoingPath}
           fill="none"
-          stroke="#7c3aed"
+          stroke="#54d3a2"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -251,7 +251,7 @@ function LineSvg({
         <path
           d={incomingPath}
           fill="none"
-          stroke="#3b82f6"
+          stroke="#60a5fa"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -268,8 +268,8 @@ function LineSvg({
               stroke="rgb(71 85 105)"
               strokeDasharray="3 3"
             />
-            <circle cx={hoverX} cy={yFor(data[hover.idx].incoming)} r={3.5} fill="#3b82f6" />
-            <circle cx={hoverX} cy={yFor(data[hover.idx].outgoing)} r={3.5} fill="#7c3aed" />
+            <circle cx={hoverX} cy={yFor(data[hover.idx].incoming)} r={3.5} fill="#60a5fa" />
+            <circle cx={hoverX} cy={yFor(data[hover.idx].outgoing)} r={3.5} fill="#54d3a2" />
           </g>
         )}
       </svg>
@@ -280,17 +280,17 @@ function LineSvg({
           letterboxed viewBox percentage. */}
       {hovered && hover !== null && (
         <div
-          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 rounded-md border border-slate-700 bg-slate-950 px-2.5 py-1.5 text-[11px] shadow-lg"
+          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 rounded-md border border-border bg-background px-2.5 py-1.5 text-[11px] shadow-lg"
           style={{ left: `${hover.tooltipLeftPx}px` }}
         >
-          <div className="font-medium text-white">{longDayLabel(hovered.day)}</div>
+          <div className="font-medium text-foreground">{longDayLabel(hovered.day)}</div>
           <div className="mt-1 flex flex-col gap-0.5">
             <span className="flex items-center gap-1.5 text-blue-300">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500" />
               {hovered.incoming} incoming
             </span>
-            <span className="flex items-center gap-1.5 text-violet-300">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-violet-500" />
+            <span className="flex items-center gap-1.5 text-primary">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
               {hovered.outgoing} outgoing
             </span>
           </div>

@@ -52,25 +52,25 @@ export function Header({ onOpenSidebar }: HeaderProps) {
     "U";
 
   return (
-    <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-slate-800 bg-slate-950 px-4 lg:px-6">
+    <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border/80 bg-background/78 px-4 backdrop-blur-xl lg:px-6">
       <div className="flex min-w-0 items-center gap-2">
         {/* Hamburger - mobile only. 44Ã—44 hit target per Apple HIG. */}
         <button
           type="button"
           onClick={onOpenSidebar}
           aria-label="Ouvrir le menu"
-          className="flex h-10 w-10 items-center justify-center rounded-md text-slate-300 transition-colors hover:bg-slate-800 hover:text-white lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
         >
           <Menu className="h-5 w-5" />
         </button>
-        <h1 className="truncate text-base font-semibold text-white sm:text-lg">
+        <h1 className="truncate text-base font-semibold text-foreground sm:text-lg">
           {title}
         </h1>
       </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger
-          className="flex items-center gap-2 rounded-md px-1 py-1 transition-colors hover:bg-slate-800/70 focus:bg-slate-800/70 focus:outline-none data-popup-open:bg-slate-800/70 sm:gap-3 sm:pl-1 sm:pr-3"
+          className="flex items-center gap-2 rounded-md px-1 py-1 transition-colors hover:bg-accent focus:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring data-popup-open:bg-accent sm:gap-3 sm:pl-1 sm:pr-3"
           aria-label="Ouvrir le menu du compte"
         >
           <Avatar className="size-8">
@@ -80,11 +80,11 @@ export function Header({ onOpenSidebar }: HeaderProps) {
                 alt={profile.full_name ?? "Avatar"}
               />
             ) : null}
-            <AvatarFallback className="bg-violet-500/10 text-sm font-medium text-violet-500">
+            <AvatarFallback className="bg-primary/12 text-sm font-semibold text-primary">
               {initial}
             </AvatarFallback>
           </Avatar>
-          <span className="hidden text-sm font-medium text-white sm:inline">
+          <span className="hidden text-sm font-medium text-foreground sm:inline">
             {profile?.full_name ?? "Utilisateur"}
           </span>
         </DropdownMenuTrigger>

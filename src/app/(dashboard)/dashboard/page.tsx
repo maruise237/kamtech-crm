@@ -117,13 +117,19 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-[1440px] space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-white">Tableau de bord</h1>
-        <p className="mt-1 text-sm text-slate-400">
-          Analytics en direct sur les conversations, contacts, opportunites, diffusions et automatisations.
-        </p>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-normal text-foreground sm:text-3xl">Tableau de bord</h1>
+          <p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">
+            Analytics en direct sur les conversations, contacts, opportunites, diffusions et automatisations.
+          </p>
+        </div>
+        <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-medium text-primary">
+          <span className="h-2 w-2 rounded-full bg-primary" />
+          Donnees en direct
+        </div>
       </div>
 
       {/* Metric cards */}

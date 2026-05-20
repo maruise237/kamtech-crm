@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import {
@@ -11,9 +11,10 @@ import {
   SITE_URL,
 } from "@/lib/seo/site-config";
 
-const inter = Inter({
+const outfit = Outfit({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 // Consolidated site-wide metadata. Page-specific metadata (landing,
@@ -90,16 +91,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full bg-slate-950 text-white font-sans">
+    <html lang="fr" className={`${outfit.variable} h-full antialiased`}>
+      <body className="min-h-full bg-background font-sans text-foreground">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-primary-foreground"
+        >
+          Aller au contenu principal
+        </a>
         {children}
         <Toaster
           theme="dark"
           position="top-right"
           toastOptions={{
             style: {
-              background: "rgb(30 41 59)",
-              border: "1px solid rgb(51 65 85)",
+              background: "oklch(0.2 0.012 235)",
+              border: "1px solid oklch(0.32 0.018 235)",
               color: "white",
             },
           }}
