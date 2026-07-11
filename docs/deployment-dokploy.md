@@ -4,7 +4,7 @@ Le projet contient un `Dockerfile` de production et un `docker-compose.yml` pret
 
 ## 1. Pousser le projet sur Git
 
-Dokploy recupere les sources depuis GitHub, car le Compose utilise `build: .`.
+Dokploy recupere les sources depuis le depot, car le Compose utilise `build: .`.
 
 ## 2. Creer le service Compose
 
@@ -12,7 +12,7 @@ Dans Dokploy :
 
 1. Ouvrez ou creez un projet.
 2. Ajoutez un service **Compose**.
-3. Connectez le depot `git@github.com:maruise237/kamtech-crm.git`.
+3. Connectez le depot `votre-depot`.
 4. Utilisez `docker-compose.yml`.
 5. Configurez le domaine vers le port interne `3000`.
 

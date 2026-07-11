@@ -5,7 +5,6 @@
   "description": "Kamtech CRM for WhatsApp sales conversations, contacts, pipelines, broadcasts, and automations.",
   "license": "MIT",
   "author": "Arnas Donauskas",
-  "homepage": "https://kamtech.cm",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ArnasDon/wacrm.git"

@@ -37,11 +37,6 @@ export function Footer() {
         <FooterColumn
           title="Ressources"
           links={[
-            {
-              href: 'https://github.com/ArnasDon/wacrm',
-              label: 'Depot GitHub',
-              external: true,
-            },
             { href: '#self-host', label: 'Deploiement' },
             { href: '/docs', label: 'Docs' },
             {
@@ -64,11 +59,11 @@ export function Footer() {
 
       <div className="border-t border-slate-900">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 px-6 py-5 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <span>© {year} Kamtech CRM. Tous droits reserves.</span>
+          <span>&copy; {year} Kamtech CRM. Tous droits reserves.</span>
           <span>Connecte a l API officielle WhatsApp Business.</span>
         </div>
         <div className="mx-auto w-full max-w-7xl px-6 pb-5 text-xs leading-relaxed text-slate-600">
-          WhatsApp® is a registered trademark of Meta Platforms, Inc.
+          WhatsApp&reg; is a registered trademark of Meta Platforms, Inc.
           Hostinger is not affiliated with, endorsed by, or sponsored by
           Meta Platforms, Inc.
         </div>

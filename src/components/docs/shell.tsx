@@ -2,13 +2,9 @@
 
 import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, MessageSquare } from 'lucide-react'
 import { DocsSidebar } from './sidebar'
-import { GithubIcon } from '@/components/landing/github-icon'
-import { MessageSquare } from 'lucide-react'
 import type { DocPage } from '@/lib/docs/content'
-
-const REPO_URL = 'https://github.com/ArnasDon/wacrm'
 
 interface DocsShellProps {
   pages: DocPage[]
@@ -56,15 +52,6 @@ export function DocsShell({ pages, children }: DocsShellProps) {
             >
               Accueil
             </Link>
-            <a
-              href={REPO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View source on GitHub"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-            >
-              <GithubIcon className="h-4 w-4" />
-            </a>
             <Link
               href="/signup"
               className="inline-flex items-center justify-center rounded-lg bg-violet-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-violet-400"
@@ -98,7 +85,7 @@ export function DocsShell({ pages, children }: DocsShellProps) {
 
       <footer className="mt-10 border-t border-slate-800 bg-slate-950">
         <div className="mx-auto w-full max-w-7xl px-4 py-6 text-xs leading-relaxed text-slate-600 sm:px-6">
-          WhatsApp® is a registered trademark of Meta Platforms, Inc.
+          WhatsApp&reg; is a registered trademark of Meta Platforms, Inc.
           Hostinger is not affiliated with, endorsed by, or sponsored by
           Meta Platforms, Inc.
         </div>

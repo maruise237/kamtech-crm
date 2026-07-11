@@ -23,7 +23,6 @@ C est un **modele**, pas un SaaS ferme. Vous gardez le code, le projet Supabase,
 ## Demarrage rapide
 
 ```bash
-git clone git@github.com:maruise237/kamtech-crm.git
 cd kamtech-crm
 npm install
 cp .env.local.example .env.local

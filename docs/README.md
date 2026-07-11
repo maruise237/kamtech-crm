@@ -24,7 +24,6 @@ Ce CRM WhatsApp auto-heberge est construit avec Next.js et Supabase. Cette docum
 
 ## Prerequis
 
-- Un compte GitHub.
 - Un projet [Supabase](https://supabase.com).
 - Un compte [Meta for Developers](https://developers.facebook.com) avec une application WhatsApp Business.
 - Un numero WhatsApp non lie a l application mobile WhatsApp classique.

@@ -4,13 +4,13 @@ Cette page garde l alternative Hostinger si vous ne passez pas par Dokploy.
 
 ## 1. Preparer le depot
 
-Poussez le projet sur GitHub avec `package.json`, `package-lock.json`, `next.config.ts`, `src/`, `public/`, `docs/` et `supabase/`.
+Poussez le projet sur avec `package.json`, `package-lock.json`, `next.config.ts`, `src/`, `public/`, `docs/` et `supabase/`.
 
 ## 2. Creer l application Node.js
 
 Dans Hostinger Managed Node.js :
 
-- Selectionnez le depot GitHub.
+- Selectionnez le depot.
 - Branche : `main`.
 - Version Node : 20 ou plus.
 - Commande d installation : `npm ci`.

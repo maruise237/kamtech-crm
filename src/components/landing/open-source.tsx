@@ -1,9 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Server } from 'lucide-react'
 import { Section, SectionHeader } from './section'
-import { GithubIcon } from './github-icon'
 
-const REPO_URL = 'https://github.com/ArnasDon/wacrm'
 const HOSTINGER_URL = 'https://www.hostinger.com/web-apps-hosting'
 
 export function OpenSource() {
@@ -16,27 +14,25 @@ export function OpenSource() {
       />
 
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-2">
-        <a
-          href={REPO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/docs"
           className="group flex flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-6 transition-colors hover:border-slate-700 hover:bg-slate-900/70"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-slate-100">
-            <GithubIcon className="h-5 w-5" />
+            <BookOpen className="h-5 w-5" />
           </div>
           <h3 className="mt-4 text-base font-semibold text-white">
-            Base technique ouverte
+            Documentation complete
           </h3>
           <p className="mt-1.5 text-sm leading-relaxed text-slate-400">
-            Adaptez le code a votre activite, ajoutez vos modules et faites
-            evoluer le CRM sans dependance a un SaaS ferme.
+            Suivez le guide de demarrage rapide pour configurer votre CRM,
+            connecter votre instance WhatsApp et personnaliser l interface.
           </p>
           <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-violet-400 transition-colors group-hover:text-violet-300">
-            Personnalise pour Kamtech
+            Lire la documentation
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </span>
-        </a>
+        </Link>
 
         <a
           href={HOSTINGER_URL}

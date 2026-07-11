@@ -5,7 +5,6 @@ Lancez le projet en local en quelques minutes. Ce guide suppose que Node.js 20+ 
 ## 1. Cloner le depot
 
 ```bash
-git clone git@github.com:maruise237/kamtech-crm.git
 cd kamtech-crm
 ```
 
