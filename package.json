@@ -1,10 +1,10 @@
 {
-  "name": "wacrm",
-  "version": "0.8.0",
+  "name": "kamtech-crm",
+  "version": "0.1.0",
   "private": true,
-  "description": "Self-hostable CRM template for WhatsApp built on Next.js and Supabase — shared inbox, contacts, sales pipelines, broadcasts, and no-code automations.",
+  "description": "Kamtech CRM for WhatsApp sales conversations, contacts, pipelines, broadcasts, and automations.",
   "license": "MIT",
-  "author": "Arnas Donauskas",
+  "author": "Kamtech",
   "keywords": [
     "crm",
     "whatsapp",
@@ -43,6 +43,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
     "lucide-react": "^1.22.0",
+    "marked": "^18.0.2",
     "next": "16.2.6",
     "next-intl": "^4.13.1",
     "opus-recorder": "^8.0.5",
