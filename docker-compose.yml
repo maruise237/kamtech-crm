@@ -30,6 +30,16 @@ services:
       retries: 3
       start_period: 40s
     labels:
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.rule=Host(`crm.kamtech.online`)
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.entrypoints=web
+      - traefik.http.services.kamtech-kamtech-crm-k9rezu-31-web.loadbalancer.server.port=3000
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.service=kamtech-kamtech-crm-k9rezu-31-web
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.middlewares=redirect-to-https@file
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-websecure.rule=Host(`crm.kamtech.online`)
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-websecure.entrypoints=websecure
+      - traefik.http.services.kamtech-kamtech-crm-k9rezu-31-websecure.loadbalancer.server.port=3000
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-websecure.service=kamtech-kamtech-crm-k9rezu-31-websecure
+      - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-websecure.tls.certresolver=letsencrypt
       - traefik.docker.network=dokploy-network
       - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.rule=Host(`crm.kamtech.online`)
       - traefik.http.routers.kamtech-kamtech-crm-k9rezu-31-web.entrypoints=web

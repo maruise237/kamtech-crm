@@ -5,23 +5,23 @@ const STEPS = [
   {
     num: '01',
     icon: Plug,
-    title: 'Connect your WhatsApp number',
+    title: 'Connectez votre numero WhatsApp',
     body:
-      'Paste your phone number ID and access token from Meta. Works with any Meta-approved WhatsApp Business API provider.',
+      'Renseignez votre ID telephone et votre jeton d acces Meta. Compatible avec tout fournisseur WhatsApp Business API approuve par Meta.',
   },
   {
     num: '02',
     icon: Users,
-    title: 'Bring in your contacts',
+    title: 'Importez vos contacts',
     body:
       'Importez un CSV, ou laissez les messages entrants creer votre liste de contacts automatiquement. Les etiquettes et champs personnalises sont prets des le depart.',
   },
   {
     num: '03',
     icon: Zap,
-    title: 'Reply, automate, measure',
+    title: 'Repondez, automatisez, mesurez',
     body:
-      'Use the shared inbox with your team, set up flows for repeat work, and track what is actually moving the needle in your analytics.',
+      'Utilisez la boite de reception partagee avec votre equipe, creez des flux pour les taches recurrentes et suivez ce qui fait vraiment la difference dans vos analytics.',
   },
 ]
 
@@ -29,8 +29,8 @@ export function HowItWorks() {
   return (
     <Section id="how-it-works">
       <SectionHeader
-        eyebrow="How it works"
-        title="Live in under 30 minutes"
+        eyebrow="Comment ca marche"
+        title="Operationnel en quelques minutes"
         description="La plupart des equipes sont operationnelles en quelques minutes. Aucun appel d onboarding requis."
       />
 

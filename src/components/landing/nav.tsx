@@ -6,19 +6,11 @@ import { MessageSquare, Menu, X } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
-/**
- * Landing-page top nav. Client component because we need to flip the
- * primary CTA depending on whether the visitor is already signed in.
- * "Auth pending" renders a placeholder (a pair of muted pill shapes)
- * so the CTA doesn't pop in jarringly after hydration.
- */
 type AuthState = 'pending' | 'signed-in' | 'signed-out'
 
 const LINKS = [
   { href: '#features', label: 'Fonctionnalites' },
   { href: '#how-it-works', label: 'Comment ca marche' },
-  { href: '#self-host', label: 'Deploiement' },
-  { href: '/docs', label: 'Docs' },
   { href: '#faq', label: 'FAQ' },
 ]
 
@@ -28,16 +20,13 @@ export function LandingNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    // Quick auth check - no realtime needed, just the initial state.
     const supabase = createClient()
     let cancelled = false
     supabase.auth.getSession().then(({ data }) => {
       if (cancelled) return
       setAuth(data.session?.user ? 'signed-in' : 'signed-out')
     })
-    return () => {
-      cancelled = true
-    }
+    return () => { cancelled = true }
   }, [])
 
   useEffect(() => {

@@ -10,27 +10,27 @@ export interface FaqItem {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    q: 'Do I need my own WhatsApp Business API access?',
-    a: 'Yes. This CRM template for WhatsApp plugs into your existing Meta WhatsApp Business setup — you bring the phone number and access token, we provide the CRM tooling around it. Any Meta-approved BSP (Business Solution Provider) works.',
+    q: 'Dois-je avoir mon propre acces WhatsApp Business API ?',
+    a: 'Oui. Kamtech CRM se branche sur votre installation Meta WhatsApp Business existante — vous fournissez le numero et le jeton d acces, nous fournissons l outil CRM autour. N importe quel fournisseur approuve par Meta fonctionne.',
   },
   {
-    q: 'Can my whole team share one WhatsApp number?',
-    a: 'Yes. Assign conversations to specific agents, track who is responding to what, and hand off threads without losing context. All your agents work from a single shared inbox.',
+    q: 'Toute mon equipe peut-elle partager un seul numero WhatsApp ?',
+    a: 'Oui. Assignez les conversations a des agents specifiques, suivez qui repond a quoi et transferez les fils sans perdre le contexte. Tous vos agents travaillent depuis une seule boite de reception partagee.',
   },
   {
-    q: 'How fast is setup?',
-    a: 'Most teams are live in under 30 minutes once their WhatsApp Business number has been approved by Meta. Paste your credentials in Settings, import contacts if you have them, and start replying.',
+    q: 'Combien de temps prend l installation ?',
+    a: 'La plupart des equipes sont operationnelles en moins de 30 minutes une fois le numero WhatsApp Business approuve par Meta. Collez vos identifiants dans les parametres, importez vos contacts si vous en avez, et commencez a repondre.',
   },
   {
-    q: 'Who owns the data?',
-    a: 'You do. Everything lives in your own Supabase project — contacts, conversations, deals, automation logs. Export it anytime; there is no lock-in on the data layer.',
+    q: 'A qui appartiennent les donnees ?',
+    a: 'A vous. Tout vit dans votre propre projet Supabase — contacts, conversations, deals, logs d automatisation. Exportez-les a tout moment ; il n y a pas d enfermement sur la couche de donnees.',
   },
   {
-    q: 'Can I send bulk messages and automated replies?',
-    a: 'Yes. Broadcasts send Meta-approved templates to segmented contact lists with delivery tracking. Automations run no-code flows triggered by new contacts, keywords, tag changes, and more.',
+    q: 'Puis-je envoyer des messages en masse et des reponses automatiques ?',
+    a: 'Oui. Les diffusions envoient des modeles approuves par Meta a des listes de contacts segmentees avec suivi de livraison. Les automatisations executent des flux sans code declenches par les nouveaux contacts, mots-cles, changements d etiquettes et plus encore.',
   },
   {
-    q: 'What about message templates?',
-    a: 'Templates you create in Meta are synced automatically. Use them from the inbox, broadcasts, or inside an automation step.',
+    q: 'Comment fonctionnent les modeles de message ?',
+    a: 'Les modeles que vous creez dans Meta sont synchronises automatiquement. Utilisez-les depuis la boite de reception, les diffusions ou a l interieur d une etape d automatisation.',
   },
 ]

@@ -12,8 +12,8 @@ export function FAQ() {
     <Section id="faq">
       <SectionHeader
         eyebrow="FAQ"
-        title="Questions, answered"
-        description="If you cannot find what you are looking for, reach out and we will get back to you."
+        title="Questions frequentes"
+        description="Vous ne trouvez pas votre reponse ? Contactez-nous, nous vous repondrons sous 24h."
       />
 
       <div className="mx-auto max-w-3xl divide-y divide-slate-800 rounded-xl border border-slate-800 bg-slate-900/40">

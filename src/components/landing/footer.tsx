@@ -5,7 +5,7 @@ export function Footer() {
   const year = new Date().getFullYear()
   return (
     <footer className="border-t border-slate-800 bg-slate-950">
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-8 px-6 py-12 sm:grid-cols-5">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-8 px-6 py-12 sm:grid-cols-4">
         <div className="col-span-2 sm:col-span-2">
           <Link
             href="/"
@@ -35,24 +35,11 @@ export function Footer() {
         />
 
         <FooterColumn
-          title="Ressources"
+          title="Contact"
           links={[
-            { href: '#self-host', label: 'Deploiement' },
-            { href: '/docs', label: 'Docs' },
-            {
-              href: 'https://www.hostinger.com/web-apps-hosting',
-              label: 'Deployer sur Hostinger',
-              external: true,
-            },
-          ]}
-        />
-
-        <FooterColumn
-          title="Compte"
-          links={[
+            { href: '/contact', label: 'Nous contacter' },
             { href: '/signup', label: 'Demarrer' },
             { href: '/login', label: 'Connexion' },
-            { href: '/forgot-password', label: 'Mot de passe oublie' },
           ]}
         />
       </div>
@@ -61,11 +48,6 @@ export function Footer() {
         <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-3 px-6 py-5 text-xs text-slate-500 sm:flex-row sm:items-center">
           <span>&copy; {year} Kamtech CRM. Tous droits reserves.</span>
           <span>Connecte a l API officielle WhatsApp Business.</span>
-        </div>
-        <div className="mx-auto w-full max-w-7xl px-6 pb-5 text-xs leading-relaxed text-slate-600">
-          WhatsApp&reg; is a registered trademark of Meta Platforms, Inc.
-          Hostinger is not affiliated with, endorsed by, or sponsored by
-          Meta Platforms, Inc.
         </div>
       </div>
     </footer>
