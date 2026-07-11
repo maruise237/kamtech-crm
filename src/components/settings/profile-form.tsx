@@ -14,13 +14,9 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/components/ui/avatar';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import { useTranslations } from 'next-intl';
+import { SettingsPanelHead } from './settings-panel-head';
 
 const MAX_AVATAR_BYTES = 2 * 1024 * 1024;
 const ALLOWED_MIME = new Set([
@@ -30,12 +26,13 @@ const ALLOWED_MIME = new Set([
   'image/gif',
 ]);
 
-// Rough email shape check - the real validator is Supabase Auth, which
+// Rough email shape check — the real validator is Supabase Auth, which
 // rejects anything malformed when we call updateUser({ email }). We
 // just want to stop obvious typos before making a network call.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ProfileForm() {
+  const t = useTranslations('Settings.profile');
   const { user, profile, refreshProfile } = useAuth();
   const supabase = createClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -75,14 +72,14 @@ export function ProfileForm() {
     if (!file) return;
 
     if (!ALLOWED_MIME.has(file.type)) {
-      toast.error('Unsupported image type', {
-        description: 'Use PNG, JPG, WebP, or GIF.',
+      toast.error(t('unsupportedImage'), {
+        description: t('unsupportedImageDesc'),
       });
       return;
     }
     if (file.size > MAX_AVATAR_BYTES) {
-      toast.error('Image is too large', {
-        description: 'Maximum 2 MB.',
+      toast.error(t('imageTooLarge'), {
+        description: t('imageTooLargeDesc'),
       });
       return;
     }
@@ -106,12 +103,12 @@ export function ProfileForm() {
 
     const trimmedName = fullName.trim();
     if (!trimmedName) {
-      toast.error('Display name is required');
+      toast.error(t('nameRequired'));
       return;
     }
     const trimmedEmail = email.trim();
     if (!EMAIL_RE.test(trimmedEmail)) {
-      toast.error('Enter a valid email address');
+      toast.error(t('invalidEmail'));
       return;
     }
 
@@ -132,7 +129,7 @@ export function ProfileForm() {
             contentType: pendingAvatar.type,
           });
         if (uploadError) {
-          throw new Error(`Upload failed: ${uploadError.message}`);
+          throw new Error(t('uploadFailed', { message: uploadError.message }));
         }
         const {
           data: { publicUrl },
@@ -151,12 +148,12 @@ export function ProfileForm() {
         })
         .eq('user_id', user.id);
       if (updateError) {
-        throw new Error(`Echec de l enregistrement : ${updateError.message}`);
+        throw new Error(t('saveFailed', { message: updateError.message }));
       }
 
       // Email change goes through Supabase Auth, which emails a
       // confirmation to both the old and new addresses. We don't
-      // touch profiles.email - Supabase will push the change there
+      // touch profiles.email — Supabase will push the change there
       // after the user clicks the link (handled by the handle_new_user
       // trigger pattern in production deployments).
       let emailSent = false;
@@ -166,8 +163,8 @@ export function ProfileForm() {
         });
         if (emailError) {
           // Partial success: name/avatar saved but email didn't.
-          toast.success('Profil enregistre');
-          toast.error(`Email change failed: ${emailError.message}`);
+          toast.success(t('profileSaved'));
+          toast.error(t('emailChangeFailed', { message: emailError.message }));
           setSaving(false);
           await refreshProfile();
           return;
@@ -183,11 +180,11 @@ export function ProfileForm() {
 
       toast.success(
         emailSent
-          ? 'Profil enregistre - verifiez votre e-mail pour confirmer le changement d adresse'
-          : 'Profil enregistre',
+          ? t('profileSavedEmailCheck')
+          : t('profileSaved'),
       );
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+      const msg = err instanceof Error ? err.message : 'Unknown error';
       toast.error(msg);
     } finally {
       setSaving(false);
@@ -207,27 +204,24 @@ export function ProfileForm() {
         month: 'long',
         day: 'numeric',
       })
-    : '-';
+    : '—';
 
   return (
-    <Card className="bg-slate-900/40 border-slate-800">
-      <CardHeader>
-        <CardTitle className="text-white">Profil</CardTitle>
-        <CardDescription className="text-slate-400">
-          How you show up across the app. Your avatar and name appear in the
-          header, sidebar, and anywhere your teammates see you.
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent>
-        <form onSubmit={onSubmit} className="space-y-6">
+    <section className="max-w-2xl animate-in fade-in-50 duration-200">
+      <SettingsPanelHead
+        title={t('title')}
+        description={t('description')}
+      />
+      <form onSubmit={onSubmit} className="space-y-4">
+        <Card>
+          <CardContent className="space-y-6">
           {/* Avatar row */}
           <div className="flex flex-wrap items-center gap-5">
             <Avatar size="lg" className="size-16">
               {currentAvatar ? (
                 <AvatarImage src={currentAvatar} alt={fullName || 'Avatar'} />
               ) : null}
-              <AvatarFallback className="bg-violet-500/10 text-base text-violet-400">
+              <AvatarFallback className="bg-primary/10 text-base text-primary">
                 {initial}
               </AvatarFallback>
             </Avatar>
@@ -247,7 +241,7 @@ export function ProfileForm() {
                 disabled={saving}
               >
                 <Upload className="size-4" />
-                {currentAvatar ? 'Change photo' : 'Upload photo'}
+                {currentAvatar ? t('changePhoto') : t('uploadPhoto')}
               </Button>
               {currentAvatar && (
                 <Button
@@ -255,22 +249,22 @@ export function ProfileForm() {
                   variant="ghost"
                   onClick={onRemoveAvatar}
                   disabled={saving}
-                  className="text-slate-400 hover:text-white"
+                  className="text-muted-foreground hover:text-foreground"
                 >
                   <Trash2 className="size-4" />
-                  Retirer
+                  {t('remove')}
                 </Button>
               )}
-              <p className="w-full text-xs text-slate-500">
-                PNG, JPG, WebP ou GIF. Jusqu a 2 Mo.
+              <p className="w-full text-xs text-muted-foreground">
+                {t('photoHint')}
               </p>
             </div>
           </div>
 
           {/* Name */}
           <div className="space-y-2">
-            <Label htmlFor="profile-full-name" className="text-slate-200">
-              Nom affiche
+            <Label htmlFor="profile-full-name" className="text-foreground">
+              {t('displayName')}
             </Label>
             <Input
               id="profile-full-name"
@@ -285,8 +279,8 @@ export function ProfileForm() {
 
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="profile-email" className="text-slate-200">
-              E-mail
+            <Label htmlFor="profile-email" className="text-foreground">
+              {t('email')}
             </Label>
             <Input
               id="profile-email"
@@ -297,63 +291,67 @@ export function ProfileForm() {
               required
             />
             {emailChangePending && (
-              <p className="flex items-start gap-2 rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs text-amber-300">
+              <p className="flex items-start gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-300">
                 <Mail className="mt-0.5 size-3.5 shrink-0" />
                 <span>
-                  Verifiez les boites de reception de <strong>{profile?.email}</strong> et{' '}
-                  <strong>{email}</strong> : les deux adresses doivent confirmer avant
-                  que le changement prenne effet.
+                  {t.rich('emailChangeHint', { 
+                    oldEmail: profile?.email || '', 
+                    newEmail: email,
+                    bold: (chunks: React.ReactNode) => <strong>{chunks}</strong>
+                  })}
                 </span>
               </p>
             )}
           </div>
 
           {/* Read-only block */}
-          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
-              Details du compte
+          <div className="rounded-lg border border-border bg-muted p-4">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {t('accountDetails')}
             </p>
             <dl className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
               <div>
-                <dt className="text-slate-500">Role</dt>
-                <dd className="mt-0.5 font-mono text-slate-200">
+                <dt className="text-muted-foreground">{t('role')}</dt>
+                <dd className="mt-0.5 font-mono text-foreground">
                   {profile?.role ?? 'user'}
                 </dd>
               </div>
               <div>
-                <dt className="text-slate-500">Inscrit le</dt>
-                <dd className="mt-0.5 text-slate-200">{joined}</dd>
+                <dt className="text-muted-foreground">{t('joined')}</dt>
+                <dd className="mt-0.5 text-foreground">{joined}</dd>
               </div>
               <div className="sm:col-span-2">
-                <dt className="text-slate-500">ID utilisateur</dt>
-                <dd className="mt-0.5 break-all font-mono text-xs text-slate-400">
-                  {user?.id ?? '-'}
+                <dt className="text-muted-foreground">{t('userId')}</dt>
+                <dd className="mt-0.5 break-all font-mono text-xs text-muted-foreground">
+                  {user?.id ?? '—'}
                 </dd>
               </div>
             </dl>
           </div>
 
           {!profile && (
-            <p className="flex items-center gap-2 text-sm text-slate-400">
+            <p className="flex items-center gap-2 text-sm text-muted-foreground">
               <CircleAlert className="size-4" />
-              Chargement de votre profil...
+              {t('loading')}
             </p>
           )}
 
-          <div className="flex justify-end">
-            <Button type="submit" disabled={saving || !dirty || !profile}>
-              {saving ? (
-                <>
-                  <Loader2 className="size-4 animate-spin" />
-                  Enregistrement...
-                </>
-              ) : (
-                'Enregistrer les modifications'
-              )}
-            </Button>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+        </CardContent>
+        </Card>
+
+        <div className="flex justify-end">
+          <Button type="submit" disabled={saving || !dirty || !profile}>
+            {saving ? (
+              <>
+                <Loader2 className="size-4 animate-spin" />
+                {t('saving')}
+              </>
+            ) : (
+              t('saveChanges')
+            )}
+          </Button>
+        </div>
+      </form>
+    </section>
   );
 }

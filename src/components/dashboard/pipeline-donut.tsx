@@ -2,22 +2,27 @@
 
 import { GitBranch } from 'lucide-react'
 import type { PipelineDonutData } from '@/lib/dashboard/types'
-import { formatCurrencyCompact } from '@/lib/currency'
+import { formatCurrencyShort } from '@/lib/currency'
 import { EmptyState } from './empty-state'
 import { Skeleton } from './skeleton'
 
 interface PipelineDonutProps {
   data: PipelineDonutData | null
   loading: boolean
+  /** Account default currency for the totals. */
+  currency: string
 }
 
-export function PipelineDonut({ data, loading }: PipelineDonutProps) {
+import { useTranslations } from 'next-intl'
+
+export function PipelineDonut({ data, loading, currency }: PipelineDonutProps) {
+  const t = useTranslations('Dashboard.pipelineDonut')
   return (
-    <section className="crm-panel flex h-full flex-col">
-      <header className="border-b border-border/80 px-5 py-4">
-        <h2 className="text-sm font-semibold text-foreground">Valeur du pipeline</h2>
+    <section className="flex h-full flex-col rounded-xl border border-border bg-card">
+      <header className="border-b border-border px-5 py-4">
+        <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
         <p className="mt-0.5 text-xs text-muted-foreground">
-          Opportunites ouvertes par etape
+          {t('description')}
         </p>
       </header>
 
@@ -27,12 +32,12 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
         ) : data.stages.length === 0 ? (
           <EmptyState
             icon={GitBranch}
-            title="Aucune opportunite ouverte"
-            hint="Creez des opportunites dans Pipelines pour voir la repartition par etape."
+            title={t('noOpenDeals')}
+            hint={t('noOpenDealsHint')}
           />
         ) : (
           <>
-            <Donut data={data} />
+            <Donut data={data} currency={currency} />
             <ul className="mt-5 space-y-2">
               {data.stages.map((s) => (
                 <li key={s.id} className="flex items-center gap-3 text-xs">
@@ -41,12 +46,12 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
                     style={{ background: s.color }}
                     aria-hidden
                   />
-                  <span className="flex-1 truncate text-foreground/85">{s.name}</span>
+                  <span className="flex-1 truncate text-muted-foreground">{s.name}</span>
                   <span className="text-muted-foreground tabular-nums">
-                    {s.dealCount} opportunite{s.dealCount === 1 ? '' : 's'}
+                    {t('dealCount', { count: s.dealCount })}
                   </span>
-                  <span className="w-20 text-right text-foreground/85 tabular-nums">
-                    {formatCurrencyCompact(s.totalValue)}
+                  <span className="w-20 text-right text-muted-foreground tabular-nums">
+                    {formatCurrencyShort(s.totalValue, currency)}
                   </span>
                 </li>
               ))}
@@ -59,12 +64,13 @@ export function PipelineDonut({ data, loading }: PipelineDonutProps) {
 }
 
 // ------------------------------------------------------------
-// SVG ring. 200Ã—200 viewBox, 12px ring width. We draw one <path>
-// per stage using an SVG arc from startAngle -> endAngle. Gaps
+// SVG ring. 200×200 viewBox, 12px ring width. We draw one <path>
+// per stage using an SVG arc from startAngle → endAngle. Gaps
 // between segments are implied by a thin slate-900 stroke between
 // them for a cleaner look.
 // ------------------------------------------------------------
-function Donut({ data }: { data: PipelineDonutData }) {
+function Donut({ data, currency }: { data: PipelineDonutData; currency: string }) {
+  const t = useTranslations('Dashboard.pipelineDonut')
   const size = 200
   const r = 80
   const ringWidth = 18
@@ -81,7 +87,7 @@ function Donut({ data }: { data: PipelineDonutData }) {
   const floorSum = floored.reduce((a, b) => a + b, 0)
   const shares = floored.map((x) => x / floorSum)
 
-  // Build a cumulative-offset array, then map stages -> arc paths. Using
+  // Build a cumulative-offset array, then map stages → arc paths. Using
   // a pre-computed offsets array avoids the Next 16 React Compiler's
   // "Cannot reassign variable after render completes" rule.
   const offsets: number[] = [0]
@@ -94,9 +100,9 @@ function Donut({ data }: { data: PipelineDonutData }) {
 
   return (
     <div className="flex items-center justify-center">
-      <svg viewBox={`0 0 ${size} ${size}`} className="h-48 w-48" role="img" aria-label="Valeur du pipeline par etape">
+      <svg viewBox={`0 0 ${size} ${size}`} className="h-48 w-48" role="img" aria-label={t('ariaLabel')}>
         {/* background ring */}
-        <circle cx={cx} cy={cy} r={r} fill="none" stroke="oklch(0.255 0.018 238)" strokeWidth={ringWidth} />
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--muted)" strokeWidth={ringWidth} />
         {segments.map((seg) => (
           <path
             key={seg.id}
@@ -114,7 +120,7 @@ function Donut({ data }: { data: PipelineDonutData }) {
           textAnchor="middle"
           className="fill-muted-foreground text-[11px]"
         >
-          Total
+          {t('total')}
         </text>
         <text
           x={cx}
@@ -122,7 +128,7 @@ function Donut({ data }: { data: PipelineDonutData }) {
           textAnchor="middle"
           className="fill-foreground text-[18px] font-semibold tabular-nums"
         >
-          {formatCurrencyCompact(data.totalValue)}
+          {formatCurrencyShort(data.totalValue, currency)}
         </text>
       </svg>
     </div>

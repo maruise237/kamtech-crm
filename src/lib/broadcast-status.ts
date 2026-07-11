@@ -5,7 +5,10 @@
  * /broadcasts/page.tsx and /broadcasts/[id]/page.tsx with slight
  * drift risk. One source of truth now.
  *
- * Dark-theme only - bg-*-500/10 + text-*-400 + border-*-500/20.
+ * Badge shape: bg-*-500/10 + text-*-400 + border-*-500/20. The
+ * translucent fills sit fine on both light and dark surfaces; neutral
+ * statuses use text-muted-foreground so the label stays legible in
+ * light mode (a solid slate-400 would be too faint on white).
  */
 
 import type { BroadcastStatus, RecipientStatus } from "@/types";
@@ -15,64 +18,64 @@ export interface StatusDisplay {
   classes: string;
   /**
    * Set true for statuses that should pulse in the UI to convey
-   * "live / in-flight" - currently only `sending`.
+   * "live / in-flight" — currently only `sending`.
    */
   pulse?: boolean;
 }
 
 export const broadcastStatusConfig: Record<BroadcastStatus, StatusDisplay> = {
   draft: {
-    label: "Brouillon",
-    classes: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+    label: "draft",
+    classes: "bg-slate-500/10 text-muted-foreground border-slate-500/20",
   },
   scheduled: {
-    label: "Planifie",
+    label: "scheduled",
     classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   },
   sending: {
-    label: "En cours",
+    label: "sending",
     classes: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
     pulse: true,
   },
   sent: {
-    label: "Envoye",
-    classes: "bg-violet-500/10 text-violet-400 border-violet-500/20",
+    label: "sent",
+    classes: "bg-primary/10 text-primary border-primary/20",
   },
   failed: {
-    label: "Echec",
+    label: "failed",
     classes: "bg-red-500/10 text-red-400 border-red-500/20",
   },
 };
 
 export const recipientStatusConfig: Record<RecipientStatus, StatusDisplay> = {
   pending: {
-    label: "En attente",
-    classes: "bg-slate-500/10 text-slate-400 border-slate-500/20",
+    label: "pending",
+    classes: "bg-slate-500/10 text-muted-foreground border-slate-500/20",
   },
   sent: {
-    label: "Envoye",
+    label: "sent",
     classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   },
   delivered: {
-    label: "Livre",
-    classes: "bg-violet-500/10 text-violet-400 border-violet-500/20",
+    label: "delivered",
+    classes: "bg-primary/10 text-primary border-primary/20",
   },
   read: {
-    label: "Lu",
-    classes: "bg-violet-500/10 text-violet-300 border-violet-500/20",
+    label: "read",
+    classes: "bg-primary/10 text-primary border-primary/20",
   },
   replied: {
-    label: "Repondu",
+    label: "replied",
     classes: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   },
   failed: {
-    label: "Echec",
+    label: "failed",
     classes: "bg-red-500/10 text-red-400 border-red-500/20",
   },
 };
 
 /**
- * Tolerant lookup - callers often have a generic string status
+ * Tolerant lookup — callers often have a generic string status
  * coming from Supabase. Falls back to the "draft" / "pending"
  * entry so the UI never crashes on an unknown value.
  */

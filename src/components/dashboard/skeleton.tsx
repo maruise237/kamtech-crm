@@ -6,14 +6,14 @@ import { cn } from '@/lib/utils'
  * its data fetches.
  */
 export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn('animate-pulse rounded-md bg-secondary', className)} />
+  return <div className={cn('animate-pulse rounded-md bg-muted', className)} />
 }
 
 export function SkeletonCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'crm-panel p-5',
+        'rounded-xl border border-border bg-card p-5',
         className,
       )}
     >

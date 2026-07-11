@@ -21,8 +21,10 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { useTranslations } from 'next-intl';
 
 export function SessionsCard() {
+  const t = useTranslations('Settings.profile');
   const supabase = createClient();
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
@@ -35,12 +37,12 @@ export function SessionsCard() {
       // triggers the usual redirect.
       const { error } = await supabase.auth.signOut({ scope: 'global' });
       if (error) {
-        toast.error(`Sign-out failed: ${error.message}`);
+        toast.error(t('signOutFailed', { message: error.message }));
         return;
       }
       window.location.href = '/login';
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+      const msg = err instanceof Error ? err.message : 'Unknown error';
       toast.error(msg);
     } finally {
       setSigningOut(false);
@@ -49,15 +51,14 @@ export function SessionsCard() {
 
   return (
     <>
-      <Card className="bg-slate-900/40 border-slate-800">
+      <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-white">
-            <LogOut className="size-4 text-violet-400" />
-            Sessions actives
+          <CardTitle className="flex items-center gap-2 text-foreground">
+            <LogOut className="size-4 text-primary" />
+            {t('sessionsTitle')}
           </CardTitle>
-          <CardDescription className="text-slate-400">
-            Deconnectez tous les appareils sur lesquels vous etes connecte,
-            y compris celui-ci. Utile si vous avez perdu un ordinateur ou partage votre mot de passe.
+          <CardDescription className="text-muted-foreground">
+            {t('sessionsDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -67,7 +68,7 @@ export function SessionsCard() {
             onClick={() => setOpen(true)}
           >
             <LogOut className="size-4" />
-            Se deconnecter de tous les appareils
+            {t('signOutAll')}
           </Button>
         </CardContent>
       </Card>
@@ -75,10 +76,9 @@ export function SessionsCard() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Se deconnecter partout ?</DialogTitle>
+            <DialogTitle>{t('signOutConfirmTitle')}</DialogTitle>
             <DialogDescription>
-              Tous les appareils connectes a ce compte seront deconnectes et
-              devront se reconnecter. Vous serez redirige vers la page de connexion.
+              {t('signOutConfirmDesc')}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -88,16 +88,16 @@ export function SessionsCard() {
               onClick={() => setOpen(false)}
               disabled={signingOut}
             >
-              Annuler
+              {t('cancel')}
             </Button>
             <Button type="button" onClick={onConfirm} disabled={signingOut}>
               {signingOut ? (
                 <>
                   <Loader2 className="size-4 animate-spin" />
-                  Deconnexion...
+                  {t('signingOut')}
                 </>
               ) : (
-                'Se deconnecter partout'
+                t('signOutEverywhere')
               )}
             </Button>
           </DialogFooter>

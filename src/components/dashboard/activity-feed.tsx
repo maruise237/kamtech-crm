@@ -33,13 +33,16 @@ interface KindTheme {
 const KIND_THEME: Record<ActivityKind, KindTheme> = {
   message: { icon: MessageSquare, badge: 'bg-blue-500/10 text-blue-400' },
   contact: { icon: UserPlus, badge: 'bg-primary/10 text-primary' },
-  deal: { icon: Briefcase, badge: 'bg-cyan-500/10 text-cyan-300' },
+  deal: { icon: Briefcase, badge: 'bg-primary/10 text-primary' },
   broadcast: { icon: Radio, badge: 'bg-amber-500/10 text-amber-400' },
   automation: { icon: Zap, badge: 'bg-rose-500/10 text-rose-400' },
 }
 
+import { useTranslations } from 'next-intl'
+
 export function ActivityFeed({ items, loading }: ActivityFeedProps) {
-  // Start at 5 - a quick scan of the most recent events without
+  const t = useTranslations('Dashboard.activityFeed')
+  // Start at 5 — a quick scan of the most recent events without
   // dominating vertical real estate. User expands explicitly via the
   // footer control when they want deeper history.
   const [pageSize, setPageSize] = useState<PageSize>(5)
@@ -48,20 +51,20 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
   const visible = items?.slice(0, pageSize) ?? []
   // A size option is "useful" if picking it would reveal rows the
   // smaller option doesn't already show. With PAGE_SIZES=[5,10,20,50]:
-  // "10" is useful only once we've loaded â‰¥6 items, "20" once â‰¥11, etc.
+  // "10" is useful only once we've loaded ≥6 items, "20" once ≥11, etc.
   // The smallest option is always enabled.
   const isSizeUseful = (size: PageSize, i: number) =>
     i === 0 || totalLoaded > PAGE_SIZES[i - 1]
 
   return (
-    <section className="crm-panel">
-      <header className="flex items-center justify-between border-b border-border/80 px-5 py-4">
-        <h2 className="text-sm font-semibold text-foreground">Activite recente</h2>
+    <section className="rounded-xl border border-border bg-card">
+      <header className="flex items-center justify-between border-b border-border px-5 py-4">
+        <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
         <Link
           href="/inbox"
-          className="text-xs font-semibold text-primary transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="text-xs font-medium text-primary hover:text-primary/80"
         >
-          Tout voir &rarr;
+          {t('viewAll')}
         </Link>
       </header>
 
@@ -75,19 +78,20 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
         <div className="p-5">
           <EmptyState
             icon={Inbox}
-            title="Aucune activite pour le moment"
-            hint="Les messages, opportunites, diffusions et automatisations apparaitront ici."
+            title={t('noActivity')}
+            hint={t('noActivityHint')}
           />
         </div>
       ) : (
         <>
-          <ul className="divide-y divide-border/70">
+          <ul className="divide-y divide-border">
             {visible.map((it, i) => {
               const theme = KIND_THEME[it.kind]
               const Icon = theme.icon
-              // Alternating row background for scanability - dark-theme
-              // translation of the spec's white / #f9fafb stripes.
-              const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-secondary/20'
+              // Alternating row background for scanability. bg-muted/40
+              // keeps the stripe visible in both light and dark modes
+              // (bg-card/40 vanishes against a white card surface in light).
+              const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-muted/40'
               const row = (
                 <div className="flex items-center gap-3 px-5 py-2.5">
                   <span
@@ -98,16 +102,16 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                   >
                     <Icon className="h-3.5 w-3.5" />
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-foreground/90">
+                  <span className="min-w-0 flex-1 truncate text-sm text-foreground">
                     {it.text}
                   </span>
                   <span className="flex-shrink-0 text-xs text-muted-foreground tabular-nums">
-                    {relativeTime(it.at)}
+                    {relativeTime(it.at, t)}
                   </span>
                 </div>
               )
               return (
-                <li key={it.id} className={cn(stripe, 'transition-colors hover:bg-accent/50')}>
+                <li key={it.id} className={cn(stripe, 'transition-colors hover:bg-muted/40')}>
                   {it.href ? (
                     <Link href={it.href} className="block">
                       {row}
@@ -119,13 +123,12 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
               )
             })}
           </ul>
-          <footer className="flex items-center justify-between border-t border-border/80 px-5 py-3 text-xs">
+          <footer className="flex items-center justify-between border-t border-border px-5 py-3 text-xs">
             <span className="text-muted-foreground tabular-nums">
-              Affichage de {visible.length} sur {totalLoaded}
-              {totalLoaded === 50 ? '+' : ''}
+              {t('showingOf', { visible: visible.length, totalLoaded, plus: totalLoaded === 50 ? '+' : '' })}
             </span>
             <div className="flex items-center gap-1">
-              <span className="mr-1 text-muted-foreground">Afficher</span>
+              <span className="mr-1 text-muted-foreground">{t('show')}</span>
               {PAGE_SIZES.map((size, i) => {
                 const disabled = !isSizeUseful(size, i)
                 return (
@@ -137,8 +140,8 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                     className={cn(
                       'rounded-md px-2 py-1 font-medium tabular-nums transition-colors',
                       pageSize === size
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+                        ? 'bg-secondary text-secondary-foreground'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                       disabled && 'cursor-not-allowed opacity-40 hover:bg-transparent hover:text-muted-foreground',
                     )}
                   >
@@ -154,13 +157,13 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
   )
 }
 
-function relativeTime(iso: string): string {
+function relativeTime(iso: string, t: ReturnType<typeof useTranslations>): string {
   const then = new Date(iso).getTime()
   if (Number.isNaN(then)) return ''
   const diffSec = Math.round((Date.now() - then) / 1000)
-  if (diffSec < 60) return `il y a ${Math.max(1, diffSec)} s`
-  if (diffSec < 3600) return `il y a ${Math.floor(diffSec / 60)} min`
-  if (diffSec < 86400) return `il y a ${Math.floor(diffSec / 3600)} h`
-  if (diffSec < 2_592_000) return `il y a ${Math.floor(diffSec / 86400)} j`
+  if (diffSec < 60) return t('timeS', { sec: Math.max(1, diffSec) })
+  if (diffSec < 3600) return t('timeM', { min: Math.floor(diffSec / 60) })
+  if (diffSec < 86400) return t('timeH', { hr: Math.floor(diffSec / 3600) })
+  if (diffSec < 2_592_000) return t('timeD', { day: Math.floor(diffSec / 86400) })
   return new Date(iso).toLocaleDateString()
 }

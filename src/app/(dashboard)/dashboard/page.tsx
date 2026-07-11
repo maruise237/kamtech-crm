@@ -2,10 +2,12 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useAuth } from '@/hooks/use-auth'
+import { formatCurrency } from '@/lib/currency'
 import {
   MessageSquare,
   UserPlus,
-  Banknote,
+  DollarSign,
   Send,
 } from 'lucide-react'
 
@@ -31,11 +33,14 @@ import { ConversationsChart } from '@/components/dashboard/conversations-chart'
 import { PipelineDonut } from '@/components/dashboard/pipeline-donut'
 import { ResponseTimeChart } from '@/components/dashboard/response-time-chart'
 import { ActivityFeed } from '@/components/dashboard/activity-feed'
-import { formatCurrency } from '@/lib/currency'
+
+import { useTranslations } from 'next-intl'
 
 type RangeDays = 7 | 30 | 90
 
 export default function DashboardPage() {
+  const t = useTranslations('Dashboard.page')
+  const { defaultCurrency } = useAuth()
   const [metrics, setMetrics] = useState<MetricsBundle | null>(null)
   const [metricsLoading, setMetricsLoading] = useState(true)
 
@@ -64,7 +69,7 @@ export default function DashboardPage() {
 
     // Kick everything off in parallel. Each block has its own
     // setState + finally so a slow query doesn't hold up faster
-    // sections - each widget shows its own skeleton independently.
+    // sections — each widget shows its own skeleton independently.
     void loadMetrics(db)
       .then((m) => setMetrics(m))
       .catch((err) => console.error('[dashboard] metrics failed:', err))
@@ -86,7 +91,7 @@ export default function DashboardPage() {
       .finally(() => setResponseTimeLoading(false))
 
     // Fetch up to 50 so the biggest page-size option in the feed
-    // (50 rows) is already in memory - switching sizes then becomes
+    // (50 rows) is already in memory — switching sizes then becomes
     // a pure client-side slice with no extra round trip.
     void loadActivity(db, 50)
       .then((a) => setActivity(a))
@@ -98,7 +103,7 @@ export default function DashboardPage() {
     loadAll()
   }, [loadAll])
 
-  // Range switch handler - kept in an event callback (not an effect)
+  // Range switch handler — kept in an event callback (not an effect)
   // so the setState calls stay out of the react-hooks/set-state-in-effect
   // rule's way. The cached bucket check means switching back to a
   // previously-viewed range is instant and doesn't re-fetch.
@@ -117,19 +122,13 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="mx-auto max-w-[1440px] space-y-6">
+    <div className="space-y-5">
       {/* Header */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-normal text-foreground sm:text-3xl">Tableau de bord</h1>
-          <p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">
-            Analytics en direct sur les conversations, contacts, opportunites, diffusions et automatisations.
-          </p>
-        </div>
-        <div className="inline-flex w-fit items-center gap-2 rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 text-xs font-medium text-primary">
-          <span className="h-2 w-2 rounded-full bg-primary" />
-          Donnees en direct
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {t('description')}
+        </p>
       </div>
 
       {/* Metric cards */}
@@ -139,16 +138,20 @@ export default function DashboardPage() {
         ) : (
           <>
             <MetricCard
-              title="Conversations actives"
+              title={t('activeConversations')}
               value={metrics.activeConversations.current.toLocaleString()}
               icon={MessageSquare}
               delta={{
                 sign: metrics.activeConversations.previous,
-                label: deltaLabel(metrics.activeConversations.previous, 'nouvelles aujourd hui vs hier'),
+                label: deltaLabel(
+                  metrics.activeConversations.previous, 
+                  t('newTodayVsYesterday'), 
+                  t('noChange', { suffix: t('newTodayVsYesterday') })
+                ),
               }}
             />
             <MetricCard
-              title="Nouveaux contacts aujourd hui"
+              title={t('newContactsToday')}
               value={metrics.newContactsToday.current.toLocaleString()}
               icon={UserPlus}
               delta={{
@@ -156,18 +159,19 @@ export default function DashboardPage() {
                   metrics.newContactsToday.current - metrics.newContactsToday.previous,
                 label: deltaLabel(
                   metrics.newContactsToday.current - metrics.newContactsToday.previous,
-                  'vs hier',
+                  t('vsYesterday'),
+                  t('noChange', { suffix: t('vsYesterday') })
                 ),
               }}
             />
             <MetricCard
-              title="Valeur des opportunites ouvertes"
-              value={formatCurrency(metrics.openDealsValue)}
-              icon={Banknote}
-              subtitle={`${metrics.openDealsCount} opportunite${metrics.openDealsCount === 1 ? '' : 's'} ouverte${metrics.openDealsCount === 1 ? '' : 's'}`}
+              title={t('openDealsValue')}
+              value={formatCurrency(metrics.openDealsValue, defaultCurrency)}
+              icon={DollarSign}
+              subtitle={t('openDeals', { count: metrics.openDealsCount })}
             />
             <MetricCard
-              title="Messages envoyes aujourd hui"
+              title={t('messagesSentToday')}
               value={metrics.messagesSentToday.current.toLocaleString()}
               icon={Send}
               delta={{
@@ -175,7 +179,8 @@ export default function DashboardPage() {
                   metrics.messagesSentToday.current - metrics.messagesSentToday.previous,
                 label: deltaLabel(
                   metrics.messagesSentToday.current - metrics.messagesSentToday.previous,
-                  'vs hier',
+                  t('vsYesterday'),
+                  t('noChange', { suffix: t('vsYesterday') })
                 ),
               }}
             />
@@ -203,7 +208,11 @@ export default function DashboardPage() {
           />
         </div>
         <div className="h-full lg:col-span-2">
-          <PipelineDonut data={pipeline} loading={pipelineLoading} />
+          <PipelineDonut
+            data={pipeline}
+            loading={pipelineLoading}
+            currency={defaultCurrency}
+          />
         </div>
       </div>
 
@@ -218,8 +227,8 @@ export default function DashboardPage() {
 
 // ------------------------------------------------------------
 
-function deltaLabel(delta: number, suffix: string): string {
-  if (delta === 0) return `Aucun changement ${suffix}`
+function deltaLabel(delta: number, suffix: string, noChangeLabel: string): string {
+  if (delta === 0) return noChangeLabel
   const sign = delta > 0 ? '+' : ''
   return `${sign}${delta.toLocaleString()} ${suffix}`
 }

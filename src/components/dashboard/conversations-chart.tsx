@@ -27,7 +27,10 @@ const VB_W = 760
 const VB_H = 240
 const PADDING = { top: 16, right: 16, bottom: 28, left: 40 }
 
+import { useTranslations } from 'next-intl'
+
 export function ConversationsChart({ series, loading, range, onRangeChange }: ConversationsChartProps) {
+  const t = useTranslations('Dashboard.conversationsChart')
   const data = series[range]
 
   // Memoise the max so per-day hover math doesn't recompute it.
@@ -46,13 +49,13 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
   }, [data])
 
   return (
-    <section className="crm-panel flex h-full flex-col">
-      <header className="flex items-center justify-between border-b border-border/80 px-5 py-4">
+    <section className="flex h-full flex-col rounded-xl border border-border bg-card">
+      <header className="flex items-center justify-between border-b border-border px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-foreground">Conversations au fil du temps</h2>
-          <p className="mt-0.5 text-xs text-muted-foreground">Volume quotidien de messages par direction</p>
+          <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">{t('description')}</p>
         </div>
-        <div className="flex items-center gap-1 rounded-lg bg-secondary/70 p-1">
+        <div className="flex items-center gap-1 rounded-lg bg-muted/60 p-1">
           {[7, 30, 90].map((r) => (
             <button
               key={r}
@@ -61,11 +64,11 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
               className={cn(
                 'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
                 range === r
-                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  ? 'bg-secondary text-secondary-foreground'
                   : 'text-muted-foreground hover:text-foreground',
               )}
             >
-              {r} days
+              {t('days', { count: r })}
             </button>
           ))}
         </div>
@@ -77,17 +80,17 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
         ) : data.every((p) => p.incoming === 0 && p.outgoing === 0) ? (
           <EmptyState
             icon={MessageSquare}
-            title="Aucune activite de message sur cette periode"
-            hint="Envoyez ou recevez des messages pour alimenter ce graphique."
+            title={t('noActivity')}
+            hint={t('noActivityHint')}
           />
         ) : (
-          <LineSvg data={data} maxY={maxY} ticks={niceTicks} />
+          <LineSvg data={data} maxY={maxY} ticks={niceTicks} t={t} />
         )}
       </div>
 
-      <footer className="flex items-center gap-4 border-t border-border/80 px-5 py-3 text-xs text-muted-foreground">
-        <LegendDot color="#60a5fa" label="Incoming" />
-        <LegendDot color="#54d3a2" label="Outgoing" />
+      <footer className="flex items-center gap-4 border-t border-border px-5 py-3 text-xs text-muted-foreground">
+        <LegendDot color="#3b82f6" label={t('incoming')} />
+        <LegendDot color="#7c3aed" label={t('outgoing')} />
       </footer>
     </section>
   )
@@ -101,10 +104,12 @@ function LineSvg({
   data,
   maxY,
   ticks,
+  t
 }: {
   data: ConversationsSeriesPoint[]
   maxY: number
   ticks: number[]
+  t: ReturnType<typeof useTranslations>
 }) {
   // Hover state: both the snapped index AND the tooltip's pixel
   // offset inside the wrapper div. They're stored together so the
@@ -134,7 +139,7 @@ function LineSvg({
   // assumed the viewBox filled the SVG DOM box linearly, but
   // `preserveAspectRatio="xMidYMid meet"` (the SVG default)
   // letterboxes the content horizontally when the container is
-  // wider than the viewBox aspect - so hover snapped hundreds of
+  // wider than the viewBox aspect — so hover snapped hundreds of
   // pixels off on wide layouts. CTM-inverse correctly accounts for
   // letterboxing, scaling, and any future transform changes.
   useEffect(() => {
@@ -159,7 +164,7 @@ function LineSvg({
         Math.min(data.length - 1, Math.round(stepX === 0 ? 0 : relative / stepX)),
       )
       // Map the snapped data-point's viewBox x back to screen, then
-      // subtract the wrapper's left edge - that pixel offset is what
+      // subtract the wrapper's left edge — that pixel offset is what
       // the absolutely-positioned tooltip div consumes. `xFor` is
       // inlined here so the effect deps stay stable (it's a closure
       // that'd otherwise be a new reference every render).
@@ -195,7 +200,7 @@ function LineSvg({
         viewBox={`0 0 ${VB_W} ${VB_H}`}
         className="h-[240px] w-full"
         role="img"
-        aria-label="Conversations per day"
+        aria-label={t('ariaLabel')}
       >
         {/* Y-axis gridlines + labels */}
         {ticks.map((t) => {
@@ -207,7 +212,7 @@ function LineSvg({
                 x2={VB_W - PADDING.right}
                 y1={y}
                 y2={y}
-                stroke="rgb(30 41 59)"
+                stroke="var(--border)"
                 strokeDasharray="3 3"
               />
               <text
@@ -215,7 +220,7 @@ function LineSvg({
                 y={y}
                 textAnchor="end"
                 dominantBaseline="middle"
-                className="fill-slate-500 text-[10px]"
+                className="fill-muted-foreground text-[10px]"
               >
                 {t}
               </text>
@@ -231,18 +236,18 @@ function LineSvg({
               x={xFor(i)}
               y={VB_H - 8}
               textAnchor="middle"
-              className="fill-slate-500 text-[10px]"
+              className="fill-muted-foreground text-[10px]"
             >
               {shortDayLabel(p.day)}
             </text>
           ) : null,
         )}
 
-        {/* Outgoing polyline */}
+        {/* Outgoing polyline (violet) */}
         <path
           d={outgoingPath}
           fill="none"
-          stroke="#54d3a2"
+          stroke="#7c3aed"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -251,7 +256,7 @@ function LineSvg({
         <path
           d={incomingPath}
           fill="none"
-          stroke="#60a5fa"
+          stroke="#3b82f6"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -265,33 +270,33 @@ function LineSvg({
               x2={hoverX}
               y1={PADDING.top}
               y2={PADDING.top + chartH}
-              stroke="rgb(71 85 105)"
+              stroke="var(--muted-foreground)"
               strokeDasharray="3 3"
             />
-            <circle cx={hoverX} cy={yFor(data[hover.idx].incoming)} r={3.5} fill="#60a5fa" />
-            <circle cx={hoverX} cy={yFor(data[hover.idx].outgoing)} r={3.5} fill="#54d3a2" />
+            <circle cx={hoverX} cy={yFor(data[hover.idx].incoming)} r={3.5} fill="#3b82f6" />
+            <circle cx={hoverX} cy={yFor(data[hover.idx].outgoing)} r={3.5} fill="#7c3aed" />
           </g>
         )}
       </svg>
 
-      {/* Tooltip - absolute-positioned div so we get crisp text, not
+      {/* Tooltip — absolute-positioned div so we get crisp text, not
           SVG-rendered text. The left offset comes from the CTM-based
           mapping so it lines up with the actual crosshair pixel, not a
           letterboxed viewBox percentage. */}
       {hovered && hover !== null && (
         <div
-          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 rounded-md border border-border bg-background px-2.5 py-1.5 text-[11px] shadow-lg"
+          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 rounded-md border border-border bg-popover px-2.5 py-1.5 text-[11px] shadow-lg"
           style={{ left: `${hover.tooltipLeftPx}px` }}
         >
-          <div className="font-medium text-foreground">{longDayLabel(hovered.day)}</div>
+          <div className="font-medium text-popover-foreground">{longDayLabel(hovered.day)}</div>
           <div className="mt-1 flex flex-col gap-0.5">
             <span className="flex items-center gap-1.5 text-blue-300">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500" />
-              {hovered.incoming} incoming
+              {t('tooltipIncoming', { count: hovered.incoming })}
             </span>
             <span className="flex items-center gap-1.5 text-primary">
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-              {hovered.outgoing} outgoing
+              {t('tooltipOutgoing', { count: hovered.outgoing })}
             </span>
           </div>
         </div>
@@ -325,7 +330,7 @@ function longDayLabel(key: string): string {
 
 /**
  * Round `max` up to a "nice" number so Y-axis ticks feel natural
- * (1, 2, 5, 10, 20, 50, ...). Keeps the chart readable even when the
+ * (1, 2, 5, 10, 20, 50, …). Keeps the chart readable even when the
  * series is small (max=3 becomes ceil=4, not 3).
  */
 function niceCeil(max: number): number {
