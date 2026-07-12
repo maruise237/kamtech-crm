@@ -28,12 +28,12 @@ export function Hero() {
             CRM WhatsApp par Kamtech
           </div>
 
-          <h1 className="mt-5 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
             Gérez votre activité WhatsApp depuis{' '}
             <span className="text-violet-400">un seul espace.</span>
           </h1>
 
-          <p className="mt-5 max-w-xl text-base text-slate-400 sm:text-lg">
+          <p className="mt-5 max-w-lg text-base text-slate-400 sm:text-lg">
             Boîte de réception partagée, contacts, pipelines de vente, campagnes et
             automatisations sans code — le tout dans un seul
             endroit.

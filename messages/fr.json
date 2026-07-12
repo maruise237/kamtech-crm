@@ -280,7 +280,7 @@
       "subtitle": "Manage your contact list. {count} total contacts.",
       "subtitleZero": "Manage your contact list.",
       "customFieldsBtn": "Custom fields",
-      "importBtn": "Import",
+      "importBtn": "Importer",
       "addContactBtn": "Add Contact",
       "searchPlaceholder": "Search by name, phone, or email...",
       "filterByTags": "Filter by tags",
@@ -338,7 +338,7 @@
       "createTagAction": "Create tag \"{value}\"",
       "cancel": "Annuler",
       "save": "Save Contact",
-      "update": "Update",
+      "update": "Mettre à jour",
       "create": "Creer",
       "toastSuccessAdd": "Contact created successfully",
       "toastSuccessEdit": "Contact updated successfully",
@@ -353,7 +353,7 @@
     },
     "detailView": {
       "tabs": {
-        "details": "Details",
+        "details": "Détails",
         "activity": "Activity",
         "notes": "Notes",
         "custom": "Custom Fields",
@@ -457,7 +457,7 @@
     "customFields": {
       "title": "Custom fields",
       "desc": "Define extra contact fields (e.g. ZIP code, lead source). They appear on every contact and in the “Update Contact Field” automation action.",
-      "addField": "Add",
+      "addField": "Ajouter",
       "fieldName": "New field name…",
       "loading": "Loading…",
       "empty": "No custom fields yet.",
@@ -556,7 +556,7 @@
       "pipelineName": "Pipeline Name",
       "stages": "Stages",
       "newStageNamePlaceholder": "New stage name",
-      "add": "Add",
+      "add": "Ajouter",
       "createNewPipeline": "Create a new pipeline",
       "saving": "Saving...",
       "saveChanges": "Save Changes",
@@ -643,7 +643,7 @@
         "sent": "Sent",
         "delivered": "Delivered",
         "read": "Read",
-        "error": "Error"
+        "error": "Erreur"
       },
       "stats": {
         "totalRecipients": "Total Recipients",
@@ -749,7 +749,7 @@
         "subtitle": "Give your broadcast a name and confirm sending.",
         "broadcastName": "Broadcast Name",
         "broadcastNamePlaceholder": "e.g., Summer Promo",
-        "summary": "Summary",
+        "summary": "Résumé",
         "template": "Template:",
         "audience": "Audience:",
         "audienceAll": "All contacts",
@@ -799,7 +799,7 @@
       }
     },
     "edit": {
-      "loading": "Loading...",
+      "loading": "Chargement...",
       "loadError": "Failed to load ({status})",
       "back": "Back to Automations"
     },
@@ -921,7 +921,7 @@
       "templates": {
         "templateLabel": "Modele",
         "templateNameLabel": "Template name",
-        "languageLabel": "Language",
+        "languageLabel": "Langue",
         "select": "Select a template…",
         "unknown": "{name} ({lang}) — not in approved list",
         "unknownLang": "unknown"
@@ -1191,8 +1191,8 @@
       "opContains": "contains",
       "opExists": "exists",
       "opMissing": "missing",
-      "modeAdd": "Add",
-      "modeRemove": "Remove",
+      "modeAdd": "Ajouter",
+      "modeRemove": "Supprimer",
       "tagPicked": "{mode} tag {tag}…",
       "tagNone": "{mode} tag (none picked)"
     }
@@ -1228,7 +1228,7 @@
       "you": "You",
       "unnamed": "Unnamed",
       "joined": "Joined {date}",
-      "remove": "Remove",
+      "remove": "Supprimer",
       "removedToast": "Removed {name}",
       "updatedToast": "Updated {name} to {role}",
       "pendingInvitations": "Pending invitations",
@@ -1342,7 +1342,7 @@
       "nameFixed": "Name is fixed once a template exists on Meta — create a new template to change it.",
       "nameHint": "Lowercase letters, digits, and underscores only.",
       "category": "Category",
-      "language": "Language",
+      "language": "Langue",
       "langFixed": "Language is fixed once a template exists on Meta.",
       "langHint": "Must match the exact code on Meta — <code>en_US</code> and <code>en</code> are distinct.",
       
@@ -1497,7 +1497,7 @@
       "overview": "Overview",
       "profile": "Your profile",
       "security": "Login & security",
-      "appearance": "Appearance",
+      "appearance": "Apparence",
       "whatsapp": "WhatsApp",
       "templates": "Templates",
       "fields": "Fields & tags",
@@ -1514,7 +1514,7 @@
       "description": "How you show up across the app. Your avatar and name appear in the header, sidebar, and anywhere your teammates see you.",
       "changePhoto": "Change photo",
       "uploadPhoto": "Upload photo",
-      "remove": "Remove",
+      "remove": "Supprimer",
       "photoHint": "PNG, JPG, WebP, or GIF. Up to 2 MB.",
       "displayName": "Display name",
       "email": "Email",
@@ -1563,7 +1563,7 @@
       "signOutFailed": "Sign-out failed: {message}"
     },
     "appearance": {
-      "title": "Appearance",
+      "title": "Apparence",
       "description": "Set the mode and accent colour used across the app. Saved to this device — try it, it changes live.",
       "mode": "Mode",
       "useMode": "Use {mode} mode",
@@ -1656,7 +1656,7 @@
       "handoffTo": "Hand off to",
       "handoffToDesc": "When the bot can’t help — or hits the reply cap — it pauses and routes the chat here, with a short note on what happened.",
       "handoffQueue": "Unassigned queue (any agent can pick it up)",
-      "remove": "Remove",
+      "remove": "Supprimer",
       "save": "Enregistrer",
       "missingModel": "Enter a model name.",
       "missingApiKey": "Enter your API key.",

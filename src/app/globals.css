@@ -228,3 +228,17 @@ html[data-theme="rose"] {
     @apply font-sans;
   }
 }
+/* Responsive text helpers */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .truncate-mobile {
+    @media (max-width: 640px) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 90vw;
+    }
+  }
+}

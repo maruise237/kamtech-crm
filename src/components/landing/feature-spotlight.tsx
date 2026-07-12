@@ -40,7 +40,7 @@ export function FeatureSpotlight({
           <p className="text-xs font-semibold uppercase tracking-wider text-violet-400">
             {eyebrow}
           </p>
-          <h3 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+          <h3 className="mt-3 text-xl font-bold tracking-tight text-white sm:text-2xl">
             {title}
           </h3>
           <p className="mt-4 text-base leading-relaxed text-slate-400">
